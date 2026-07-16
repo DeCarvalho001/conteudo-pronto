@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Método Jarvis: seu assistente de IA que trabalha enquanto você descansa</title>
+<meta name="description" content="5 Protocolos pra construir seu próprio assistente de IA + um funil de vendas que roda sozinho. Pra quem trabalha o dia todo e não tem tempo a perder.">
+<style>
+  :root{--bg:#0b0d10;--bg2:#111419;--card:#141922;--line:#232a34;--txt:#eef1f5;--mut:#9aa4b2;--acc:#39d98a;--acc2:#2bb673;--gold:#e8c268}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px}
+  h1,h2,h3{line-height:1.15;letter-spacing:-.02em}
+  .acc{color:var(--acc)}.gold{color:var(--gold)}
+  .cta{display:inline-block;background:var(--acc);color:#05130c;font-weight:800;font-size:18px;padding:17px 36px;border-radius:14px;text-decoration:none;box-shadow:0 10px 30px #39d98a33;transition:transform .12s}
+  .cta:hover{transform:translateY(-2px)}
+  .small{font-size:13px;color:var(--mut)}
+
+  header{text-align:center;padding:56px 0 44px;background:radial-gradient(120% 80% at 50% -10%,#16241d,var(--bg))}
+  .eyebrow{color:var(--acc);font-weight:800;letter-spacing:.16em;text-transform:uppercase;font-size:12.5px}
+  header h1{font-size:clamp(31px,6.4vw,50px);font-weight:800;margin:16px 0 14px;text-wrap:balance}
+  header .sub{font-size:clamp(17px,2.6vw,20px);color:#c7cfda;max-width:40ch;margin:0 auto 12px}
+  header .sub2{color:var(--mut);max-width:42ch;margin:0 auto 28px}
+  .htrust{margin-top:16px;color:var(--mut);font-size:13.5px}
+
+  section{padding:46px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(24px,4.6vw,32px);font-weight:800;text-align:center;margin-bottom:8px;text-wrap:balance}
+  .lead{text-align:center;color:var(--mut);max-width:52ch;margin:0 auto 30px;font-size:17px}
+
+  .pain{background:var(--bg2)}
+  .pain ul{list-style:none;max-width:520px;margin:0 auto;display:grid;gap:12px}
+  .pain li{padding:14px 16px 14px 44px;background:var(--card);border:1px solid var(--line);border-radius:12px;position:relative}
+  .pain li::before{content:"✕";position:absolute;left:16px;color:#ff6b6b;font-weight:800}
+  .turn{text-align:center;font-size:19px;color:#c7cfda;max-width:46ch;margin:22px auto 0}
+  .turn b{color:var(--acc)}
+
+  .proto{display:grid;gap:14px}
+  .p{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .p .n{color:var(--acc);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .p h3{font-size:19px;margin:5px 0 4px}
+  .p p{color:var(--mut);font-size:15px}
+  .p .res{color:var(--gold);font-size:13.5px;font-weight:600;margin-top:8px}
+
+  .get{display:grid;gap:12px;max-width:560px;margin:0 auto}
+  .g{display:flex;gap:13px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 17px}
+  .g .ic{font-size:20px;flex:none}
+  .g b{display:block}.g span{color:var(--mut);font-size:14px}
+
+  .who{max-width:520px;margin:0 auto;display:grid;gap:10px}
+  .who div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 16px;font-size:15px}
+  .who div::before{content:"✓ ";color:var(--acc);font-weight:800}
+
+  .price-wrap{text-align:center}
+  .price{background:var(--card);border:2px solid var(--acc);border-radius:22px;padding:34px 26px;max-width:440px;margin:0 auto;box-shadow:0 20px 60px #39d98a1a}
+  .price .from{color:var(--mut);text-decoration:line-through;font-size:17px}
+  .price .big{font-size:52px;font-weight:800;margin:2px 0 2px}
+  .price .big small{font-size:19px;color:var(--mut);font-weight:600}
+  .price .cents{color:var(--acc);font-weight:700;margin-bottom:16px}
+  .price ul{list-style:none;text-align:left;display:grid;gap:9px;margin:18px 0}
+  .price li{padding-left:26px;position:relative;font-size:15px}
+  .price li::before{content:"✓";position:absolute;left:0;color:var(--acc);font-weight:800}
+  .guar{display:flex;gap:12px;align-items:center;justify-content:center;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 20px;max-width:440px;margin:22px auto 0}
+  .guar .s{font-size:30px}.guar p{text-align:left;font-size:14px;color:var(--mut)}
+
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:10px;max-width:560px;margin-left:auto;margin-right:auto}
+  summary{font-weight:700;cursor:pointer}summary::marker{color:var(--acc)}
+  details p{color:var(--mut);margin-top:8px;font-size:15px}
+
+  footer{text-align:center;padding:34px 0 60px;color:#5b6472;font-size:12.5px}
+  .float{position:fixed;left:0;right:0;bottom:0;background:#0d1015ee;border-top:1px solid var(--line);padding:12px 20px;text-align:center;backdrop-filter:blur(8px);z-index:9}
+  @media(min-width:600px){.float{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Método Jarvis</p>
+    <h1>Enquanto você trabalha o dia todo, seu <span class="acc">assistente de IA</span> constrói sua renda.</h1>
+    <p class="sub">5 Protocolos pra montar seu próprio "Jarvis" e um funil de vendas que roda no automático.</p>
+    <p class="sub2">Pra quem chega cansado, não tem tempo, já tentou de tudo e cansou de depender só da força de vontade.</p>
+    <a href="#comprar" class="cta">Quero meu Jarvis →</a>
+    <p class="htrust">Acesso imediato · 7 dias de garantia · R$ 49,90 à vista</p>
+  </div>
+</header>
+
+<section class="pain">
+  <div class="wrap">
+    <h2>O problema não é você.</h2>
+    <p class="lead">É o sistema que te venderam. Reconhece?</p>
+    <ul>
+      <li>Você <b>sabe</b> que precisa fazer algo além do emprego — mas chega em casa sem energia.</li>
+      <li>No tempo livre, a procrastinação vence. E aí vem a culpa.</li>
+      <li>Já comprou curso, já viu vídeo, já se motivou — e nada saiu do lugar.</li>
+      <li>Todo mundo fala "disciplina", mas disciplina sozinha sempre te abandona.</li>
+    </ul>
+    <p class="turn">A virada: você não precisa de <b>mais disciplina</b>. Você precisa de um <b>sistema que executa por você</b>. É exatamente isso que a IA faz agora.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Os 5 Protocolos</h2>
+    <p class="lead">Não são aulas pra assistir. São Protocolos pra executar. Ao final de cada um, você tem um resultado real na mão.</p>
+    <div class="proto">
+      <div class="p"><div class="n">Protocolo 1</div><h3>O Problema Não É Você, É o Sistema</h3><p>Por que a disciplina falha e por que sistemas vencem. Sua cabeça no lugar certo.</p><div class="res">→ Clareza pra parar de se sabotar</div></div>
+      <div class="p"><div class="n">Protocolo 2</div><h3>Ative Seu Agente</h3><p>Configure seu primeiro assistente de IA trabalhando 24 horas por você, sem saber programar.</p><div class="res">→ Seu Jarvis funcionando</div></div>
+      <div class="p"><div class="n">Protocolo 3</div><h3>O Funil Autônomo</h3><p>Monte a landing page, o WhatsApp automático e o checkout que vende enquanto você dorme.</p><div class="res">→ Um funil vendendo sozinho</div></div>
+      <div class="p"><div class="n">Protocolo 4</div><h3>Conteúdo Infinito</h3><p>Gere posts, vídeos e e-mails com IA em segundos. Nunca mais trave na frente da tela em branco.</p><div class="res">→ Conteúdo consistente sem esforço</div></div>
+      <div class="p"><div class="n">Protocolo 5</div><h3>Primeiro Faturamento</h3><p>Lance, faça a primeira venda e aprenda a escalar. Do zero ao dinheiro na conta.</p><div class="res">→ Sua primeira venda</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="wrap">
+    <h2>O que você recebe</h2>
+    <p class="lead">Tudo digital, acesso imediato, direto ao ponto.</p>
+    <div class="get">
+      <div class="g"><span class="ic">🎯</span><div><b>5 Protocolos + 5 Missões práticas</b><span>Executa, não só assiste. Guia escrito em cada um.</span></div></div>
+      <div class="g"><span class="ic">🤖</span><div><b>Template do Agente pré-configurado</b><span>Seu "Jarvis" pronto pra ligar.</span></div></div>
+      <div class="g"><span class="ic">📝</span><div><b>Biblioteca de 20 Prompts testados</b><span>Comandos que economizam horas de tentativa e erro.</span></div></div>
+      <div class="g"><span class="ic">🎨</span><div><b>Template de Landing Page</b><span>HTML pronto, é só preencher e publicar.</span></div></div>
+      <div class="g"><span class="ic">💬</span><div><b>Scripts de WhatsApp automático</b><span>Respostas e qualificação prontas.</span></div></div>
+      <div class="g"><span class="ic">👥</span><div><b>Grupo de Operadores</b><span>Comunidade de quem está executando junto.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>É pra você se…</h2>
+    <div class="who">
+      <div>Trabalha o dia todo e quer que algo trabalhe por você nas outras horas</div>
+      <div>Procrastina quando tem tempo livre e precisa de um sistema, não de motivação</div>
+      <div>Já tentou renda extra e não conseguiu sozinho</div>
+      <div>Quer usar IA de verdade pra ganhar dinheiro, não só pra brincar</div>
+    </div>
+  </div>
+</section>
+
+<section id="comprar" class="price-wrap">
+  <div class="wrap">
+    <h2>Comece hoje</h2>
+    <p class="lead">Menos que uma pizza. Pra montar um sistema que pode mudar seus próximos anos.</p>
+    <div class="price">
+      <div class="from">de R$ 197</div>
+      <div class="big">R$ 49<small>,90</small></div>
+      <div class="cents">à vista · acesso imediato e vitalício</div>
+      <ul>
+        <li>Os 5 Protocolos + Missões</li>
+        <li>Template do Agente + 20 Prompts</li>
+        <li>Template de Landing + Scripts WhatsApp</li>
+        <li>Grupo de Operadores</li>
+        <li>Atualizações pra sempre</li>
+      </ul>
+      <a href="#" id="btnComprar" class="cta" style="width:100%">Quero meu Jarvis agora</a>
+      <p class="small" style="margin-top:12px">Pagamento seguro · liberação na hora</p>
+    </div>
+    <div class="guar">
+      <span class="s">🛡️</span>
+      <p><b>7 dias de garantia incondicional.</b> Entrou, não curtiu, pede o reembolso e pronto. O risco é todo nosso.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 style="margin-bottom:20px">Perguntas rápidas</h2>
+    <details><summary>Preciso saber programar ou entender de IA?</summary><p>Não. Os Protocolos são passo a passo, do zero. Se você usa WhatsApp, você consegue.</p></details>
+    <details><summary>Quanto tempo por dia preciso?</summary><p>O sistema foi feito pra quem tem pouco tempo. A ideia é justamente montar algo que trabalhe por você.</p></details>
+    <details><summary>É curso com aulas?</summary><p>Não. São <b>Protocolos pra executar</b>, com Missões práticas. Você sai com um sistema funcionando, não com um certificado.</p></details>
+    <details><summary>E se não funcionar pra mim?</summary><p>7 dias de garantia incondicional. Não gostou, devolvemos 100%.</p></details>
+    <details><summary>Como recebo?</summary><p>Acesso imediato e digital assim que o pagamento é confirmado. Vitalício.</p></details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Método Jarvis · sistema de renda com IA · © 2026</p>
+    <p class="small" style="margin-top:8px">Resultados variam conforme a execução de cada Operador. Não prometemos ganhos garantidos — entregamos um método e as ferramentas.</p>
+  </div>
+</footer>
+
+<div class="float"><a href="#comprar" class="cta" style="padding:13px 26px">Quero meu Jarvis — R$ 49,90</a></div>
+
+<script>
+// captura de intenção de compra até o checkout estar ligado
+const LEAD = "https://luminastudio.app.n8n.cloud/webhook/jarvis-lead";
+document.getElementById("btnComprar").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const email = prompt("Boa escolha! 🚀 Deixa seu melhor e-mail que eu te envio o link de pagamento e o acesso:");
+  if (!email) return;
+  try { await fetch(LEAD, {method:"POST", headers:{"Content-Type":"application/json"},
+    body: JSON.stringify({email, origem:"landing-jarvis", produto:"metodo-jarvis"})}); } catch(_){}
+  e.target.textContent = "✅ Recebido! Verifique seu e-mail em instantes.";
+});
+</script>
+</body>
+</html>
