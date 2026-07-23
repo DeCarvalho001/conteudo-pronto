@@ -1,73 +1,93 @@
 <!doctype html><html lang="pt-BR"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Plano de vendas — Barbearia Modelo · Vitrine Digital</title>
+<title>Diagnóstico — Barbearia Modelo · Vitrine Digital</title>
+<meta name="description" content="A conta da falta na Barbearia Modelo: quanto a cadeira vazia custa e como o sinal no Pix resolve. Diagnóstico da Vitrine Digital.">
+<meta property="og:title" content="Diagnóstico — Barbearia Modelo">
+<meta property="og:description" content="A conta da falta na Barbearia Modelo: quanto a cadeira vazia custa e como o sinal no Pix resolve. Diagnóstico da Vitrine Digital.">
+<meta property="og:type" content="website">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#0f0e0c;color:#f0ebe2;line-height:1.65}
 .wrap{max-width:660px;margin:0 auto;padding:0 20px}
-.g{color:#d4af37}
-header{text-align:center;padding:54px 0 32px}
+header{text-align:center;padding:54px 0 30px}
 .eyebrow{color:#d4af37;letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:800}
-h1{font-size:clamp(27px,6vw,40px);font-weight:800;margin:12px 0 10px;letter-spacing:-.01em}
-.lead{color:#c3bcaf;font-size:18px;max-width:46ch;margin:0 auto}
-section{padding:34px 0;border-top:1px solid #1e1b16}
+h1{font-size:clamp(28px,6.4vw,42px);font-weight:800;margin:12px 0 10px;letter-spacing:-.01em}
+.lead{color:#c3bcaf;font-size:18px;max-width:48ch;margin:0 auto}
+section{padding:34px 0;border-top:1px solid #1e1b16}.alt{background:#141109}
 h2{font-size:23px;font-weight:800;margin-bottom:6px;text-align:center}
 .sub{text-align:center;color:#8a8377;margin-bottom:22px;font-size:15px}
+.conta{background:#16130f;border:1px solid #b4512f;border-radius:16px;padding:26px 22px;text-align:center;max-width:520px;margin:0 auto}
+.conta .lbl{color:#e8a07c;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.conta .num{font-size:clamp(40px,10vw,60px);font-weight:800;color:#e8a07c;line-height:1.1;margin:8px 0 6px}
+.conta .num span{font-size:20px;color:#b8b0a2}
+.conta p{color:#c3bcaf;font-size:15.5px;max-width:44ch;margin:0 auto}
+.conta b{color:#f0ebe2}
+.passos{display:grid;gap:12px;max-width:540px;margin:0 auto}
+.ps{display:flex;gap:16px;background:#0f0e0c;border:1px solid #221e18;border-radius:14px;padding:16px 18px}
+.ps .n{width:34px;height:34px;flex-shrink:0;border-radius:9px;background:#1c3a24;color:#5bd487;font-weight:800;display:flex;align-items:center;justify-content:center}
+.ps b{color:#f0ebe2}.ps p{color:#b8b0a2;font-size:14.5px;margin-top:3px}
+.pilares{display:grid;gap:12px;max-width:540px;margin:0 auto}
+.pl{background:#16130f;border:1px solid #221e18;border-radius:14px;padding:16px 18px}
+.pl b{color:#d4af37}.pl p{color:#b8b0a2;font-size:14.5px;margin-top:3px}
 .diag{display:grid;gap:12px;max-width:520px;margin:0 auto}
-.dg{background:#16130f;border:1px solid #221e18;border-left:3px solid #b4512f;border-radius:12px;padding:15px 18px}
-.dg b{color:#e8a07c}
-.dg p{color:#b8b0a2;font-size:14.5px;margin-top:3px}
-.pilares{display:grid;gap:14px;max-width:540px;margin:0 auto}
-.pl{display:flex;gap:16px;background:#16130f;border:1px solid #221e18;border-radius:14px;padding:18px}
-.pl .n{width:34px;height:34px;flex-shrink:0;border-radius:9px;background:#2a2417;color:#d4af37;font-weight:800;display:flex;align-items:center;justify-content:center}
-.pl b{color:#f0ebe2}
-.pl p{color:#b8b0a2;font-size:14.5px;margin:3px 0 6px}
-.res{color:#d4af37;font-size:13.5px;font-weight:600}
+.dg{background:#0f0e0c;border:1px solid #221e18;border-left:3px solid #b4512f;border-radius:12px;padding:15px 18px}
+.dg b{color:#e8a07c}.dg p{color:#b8b0a2;font-size:14.5px;margin-top:3px}
 .linha{display:grid;gap:10px;max-width:520px;margin:0 auto}
 .li{display:flex;gap:12px;align-items:baseline}
-.li .m{color:#d4af37;font-weight:800;min-width:64px}
-.li span{color:#c3bcaf;font-size:15px}
+.li .m{color:#d4af37;font-weight:800;min-width:74px}.li span{color:#c3bcaf;font-size:15px}
 .invest{background:#16130f;border:1px solid #d4af37;border-radius:16px;padding:26px 22px;text-align:center;max-width:520px;margin:0 auto}
 .invest .big{font-size:19px;font-weight:800;color:#d4af37;margin-bottom:8px}
-.invest p{color:#c3bcaf}
+.invest p{color:#c3bcaf}.invest b{color:#f0ebe2}
 .cta{display:block;width:fit-content;margin:22px auto 0;background:#25D366;color:#08130c;font-weight:800;font-size:17px;padding:15px 32px;border-radius:12px;text-decoration:none}
-footer{text-align:center;padding:30px 0 50px;color:#6f6a60;font-size:12px}
-footer b{color:#d4af37}
+.mini{text-align:center;color:#6f6a60;font-size:12.5px;margin-top:14px}
+footer{text-align:center;padding:30px 0 50px;color:#6f6a60;font-size:12px}footer b{color:#d4af37}
 </style></head><body>
 <header><div class="wrap">
-  <p class="eyebrow">Diagnóstico &amp; Estratégia · Vitrine Digital</p>
-  <h1>Como a gente enche a agenda da Barbearia Modelo</h1>
-  <p class="lead">Gerir a agenda no Centro de Joinville exige precisão para que o tempo na cadeira se transforme em lucro real, não em prejuízo por ausências.</p>
+  <p class="eyebrow">Diagnóstico · Vitrine Digital</p>
+  <h1>A cadeira vazia da Barbearia Modelo tem conserto.</h1>
+  <p class="lead">Cada cadeira vazia na Barbearia Modelo por falta de comparecimento é um lucro que deixa de entrar no seu caixa ao final do dia.</p>
 </div></header>
 
 <section><div class="wrap">
-  <h2>O que a gente notou</h2>
-  <p class="sub">Sem julgamento — é o que quase todo negócio bom deixa passar.</p>
-  <div class="diag"><div class="dg"><b>Ficha do Google negligenciada</b><p>Como 96% dos clientes pesquisam avaliações, uma ficha incompleta ou com nota baixa faz você perder o cliente antes mesmo do contato.</p></div><div class="dg"><b>Atendimento via WhatsApp lento</b><p>O fato de 67% dos clientes desistirem por demora no atendimento indica que o barbeiro, ao atender o telefone na cadeira, perde produtividade e vendas.</p></div><div class="dg"><b>Gestão de agenda sem travas</b><p>Sem a cobrança de sinal via Pix ou lembretes automáticos, a barbearia fica vulnerável às faltas (no-shows) que consomem até 25% da sua receita mensal.</p></div></div>
+  <div class="conta">
+    <span class="lbl">Média do setor · barbearia de 1 cadeira</span>
+    <div class="num">~R$ 2.000<span>/mês</span></div>
+    <p>É quanto se perde, em média, com quem <b>marca e não aparece</b>. Não é opinião — é o padrão do mercado. E é justamente o que dá pra tampar primeiro.</p>
+  </div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+  <h2>Como a gente mata a falta</h2>
+  <p class="sub">A agenda passa a cobrar um sinal no Pix. Você não opera nada.</p>
+  <div class="passos"><div class="ps"><div class="n">1</div><div><b>O cliente agenda pelo link</b><p>Sem depender de você responder no meio do corte.</p></div></div><div class="ps"><div class="n">2</div><div><b>Confirma com um sinal no Pix</b><p>Um valor pequeno (você define) que entra na hora.</p></div></div><div class="ps"><div class="n">3</div><div><b>Quem paga sinal, aparece</b><p>O compromisso vira financeiro — o comparecimento sobe pra mais de 90%.</p></div></div><div class="ps"><div class="n">4</div><div><b>Faltou? Você não sai no prejuízo</b><p>O sinal cobre a cadeira parada. A falta deixa de ser um buraco.</p></div></div></div>
 </div></section>
 
 <section><div class="wrap">
-  <h2>O plano, em 3 frentes</h2>
-  <p class="sub">Simples, feito por nós, você quase não toca.</p>
-  <div class="pilares"><div class="pl"><div class="n">1</div><div><b>Seu Google no topo</b><p>Quem procura barbearia na sua região decide no Google. A gente completa e mantém seu perfil vivo — posta toda semana, responde avaliação, sobe foto. Perfil ativo aparece bem mais no topo do mapa.</p><span class="res">→ Mais gente te achando na hora que está pronta pra comprar.</span></div></div><div class="pl"><div class="n">2</div><div><b>Instagram que enche a agenda</b><p>Todo mês, posts prontos com o que traz cliente: antes/depois, os bastidores do seu trabalho e dicas. Você só manda as fotos e aprova.</p><span class="res">→ Um perfil que trabalha por você todo dia, não quando sobra tempo.</span></div></div><div class="pl"><div class="n">3</div><div><b>Um site que agenda por você</b><p>Uma página profissional com botão de WhatsApp que já marca o horário. Quem te acha cai num lugar que vende, não num perfil parado.</p><span class="res">→ O cliente sai do 'achei' pro 'agendei' em um toque.</span></div></div></div>
+  <h2>E ainda cuida do resto</h2>
+  <p class="sub">Além de matar a falta — tudo feito por nós.</p>
+  <div class="pilares"><div class="pl"><div><b>Seu Google no topo</b><p>Quem procura barbeiro na região decide no Google. A gente completa e mantém seu perfil vivo pra você aparecer no topo do mapa.</p></div></div><div class="pl"><div><b>Um site que já agenda</b><p>Uma página profissional onde quem te acha marca o horário na hora — não cai num perfil parado.</p></div></div><div class="pl"><div><b>Avaliações subindo</b><p>A gente pede avaliação na hora certa, do jeito certo. Nota alta = mais gente escolhendo você.</p></div></div></div>
 </div></section>
 
+<section class="alt"><div class="wrap">
+  <h2>O que a gente notou</h2>
+  <p class="sub">Sem julgamento — é o que quase toda barbearia boa deixa passar.</p>
+  <div class="diag"><div class="dg"><b>Ausência de confirmação ativa</b><p>A falta de um lembrete automático faz com que o cliente esqueça o compromisso marcado com facilidade.</p></div><div class="dg"><b>Processo de reserva sem compromisso</b><p>Agendamentos feitos sem nenhum tipo de garantia tornam o cancelamento de última hora um hábito sem custo para o cliente.</p></div><div class="dg"><b>Falta de política de reserva clara</b><p>A ausência de uma regra estabelecida sobre o pagamento antecipado deixa o negócio vulnerável a buracos na agenda.</p></div></div>
+</div></section>
 <section><div class="wrap">
   <h2>Como acontece</h2>
   <div class="linha">
-    <div class="li"><span class="m">Semana 1</span><span>Site no ar + seu Google arrumado. Você já aparece melhor.</span></div>
-    <div class="li"><span class="m">Mês 1</span><span>Instagram rodando com constância + primeiras avaliações novas.</span></div>
-    <div class="li"><span class="m">Mês 2–3</span><span>Presença firme, agenda mais cheia, indicação começando a girar.</span></div>
+    <div class="li"><span class="m">Semana 1</span><span>Site no ar + Google arrumado + a agenda com sinal já ativa. A falta começa a cair na semana 1.</span></div>
+    <div class="li"><span class="m">Mês 1</span><span>Instagram rodando + primeiras avaliações novas.</span></div>
+    <div class="li"><span class="m">Mês 2–3</span><span>Presença firme, clube de assinatura e indicação girando.</span></div>
   </div>
 </div></section>
-
-<section><div class="wrap">
+<section class="alt"><div class="wrap">
   <div class="invest">
     <div class="big">É investimento, não gasto.</div>
-    <p>Ao profissionalizar o agendamento e a presença digital, você estabiliza o fluxo de caixa e reduz drasticamente o tempo ocioso na cadeira. Um cliente a mais no mês já paga o serviço — o resto é lucro que hoje escapa pra quem aparece melhor que você.</p>
+    <p>Ao implementar a reserva via Pix, você qualifica o seu público e garante que apenas clientes realmente interessados ocupem o seu tempo na cadeira. Só o que você <b>para de perder</b> com as faltas já paga o serviço — o resto é lucro que hoje escapa.</p>
   </div>
-  <a class="cta" href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Quero começar 👊</a>
+  <p class="mini">Os números são a média do mercado, com fonte — não uma promessa de resultado. No seu caso, a gente mede.</p>
+  <a class="cta" href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Quero matar a falta 👊</a>
 </div></section>
-
-<footer>Plano feito sob medida para Barbearia Modelo · Centro - Joinville, SC<br><b>Vitrine Digital</b> — O que traz cliente, não o que pesa no bolso.</footer>
+<footer>Diagnóstico sob medida para Barbearia Modelo · Centro, Joinville - SC<br><b>Vitrine Digital</b> — O que traz cliente, não o que pesa no bolso.</footer>
 </body></html>
