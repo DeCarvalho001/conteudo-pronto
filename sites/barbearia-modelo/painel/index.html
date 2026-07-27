@@ -66,6 +66,21 @@ display:flex;flex-direction:column;align-items:center;gap:3px;min-height:52px;fo
 .pill{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;margin-top:8px}
 .pill.on{background:#122a18;color:var(--verde);border:1px solid #1c3a24}
 .pill.off{background:#2a1a12;color:#e8a07c;border:1px solid #3a2a1a}
+.prog{background:var(--sup);border:1px solid var(--bor);border-radius:16px;padding:15px;margin-bottom:12px}
+.prog .top{display:flex;align-items:baseline;gap:8px;margin-bottom:9px}
+.prog .top b{font-size:15.5px;flex:1}
+.prog .top span{color:var(--mut);font-size:12px;flex-shrink:0}
+.barra{height:9px;background:#0f0d09;border-radius:99px;overflow:hidden}
+.barra i{display:block;height:100%;background:linear-gradient(90deg,var(--ouro),var(--verde));border-radius:99px;transition:width .8s ease}
+.passo{margin-top:12px;padding-top:12px;border-top:1px dashed #2a2419}
+.passo .lb{color:var(--verde);font-size:10.5px;font-weight:800;letter-spacing:.08em}
+.passo b{display:block;font-size:14.2px;margin:4px 0 3px}
+.passo p{color:var(--mut);font-size:12.4px}
+.passo a{display:block;margin-top:10px;background:var(--ouro);color:#0e0d0b;font-weight:800;text-align:center;padding:12px;border-radius:11px;font-size:14px}
+a.f{display:block}
+a.f:active{transform:scale(.985)}
+.f.conv{border-style:dashed;border-color:#3a2f1c}
+.f.conv .ic{opacity:.55}
 .nums{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:6px}
 .nm{background:var(--sup);border:1px solid var(--bor);border-radius:13px;padding:13px;text-align:center}
 .nm b{display:block;color:var(--ouro);font-size:25px;font-weight:800;line-height:1.15}
@@ -147,9 +162,10 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
   <section class="tela on" id="t-inicio">
     <h2>Tudo funcionando</h2>
     <p class="sub">O que a Vitrine Digital está fazendo pela Barbearia Estúdio 47 agora.</p>
+    <div class="prog"><div class="top"><b>Sua presença está 88% completa</b><span>7 de 8 no ar</span></div><div class="barra"><i style="width:88%"></i></div><div class="passo"><div class="lb">PRÓXIMO PASSO</div><b>Ligar a agenda com sinal no Pix</b><p>É o que mais devolve dinheiro: sem sinal, 15% a 25% dos horários furam; com sinal, 3% a 5%.</p><a href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80?text=Ol%C3%A1%21%20Sou%20da%20Barbearia%20Est%C3%BAdio%2047.%20Quero%3A%20Ligar%20a%20agenda%20com%20sinal%20no%20Pix" target="_blank" rel="noopener">Quero ligar isso →</a></div></div>
     <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="Seu site, ao vivo"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
     <h3>Suas ferramentas</h3>
-    <div class="grid"><a class="f" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><div class="ic">🌐</div><b>Seu site</b><p>No ar, no Google, com botão de agendar</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><div class="ic">📋</div><b>Serviços &amp; preços</b><p>Sua tabela sempre certa</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><div class="ic">📸</div><b>Galeria</b><p>Seu trabalho aparecendo</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><div class="ic">⭐</div><b>Avaliações</b><p>Sua reputação à mostra</p><span class="pill on">no ar</span></a><div class="f"><div class="ic">📅</div><b>Agenda com sinal</b><p>O cliente confirma com Pix</p><span class="pill off">disponível</span></div><div class="f"><div class="ic">💈</div><b>Clube de assinatura</b><p>Receita fixa todo mês</p><span class="pill on">no ar</span></div><div class="f"><div class="ic">📱</div><b>Conteúdo do mês</b><p>Posts prontos, você só aprova</p><span class="pill on">no ar</span></div><a class="f" href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener"><div class="ic">📬</div><b>Canais unificados</b><p>WhatsApp, Insta e Face numa caixa</p><span class="pill on">no ar</span></a></div>
+    <div class="grid"><a class="f" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><div class="ic">🌐</div><b>Seu site</b><p>No ar, no Google, com botão de agendar</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><div class="ic">📋</div><b>Serviços &amp; preços</b><p>Sua tabela sempre certa</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><div class="ic">📸</div><b>Galeria</b><p>Seu trabalho aparecendo</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><div class="ic">⭐</div><b>Avaliações</b><p>Sua reputação à mostra</p><span class="pill on">no ar</span></a><a class="f conv" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80?text=Ol%C3%A1%21%20Sou%20da%20Barbearia%20Est%C3%BAdio%2047.%20Quero%20ligar%20isto%20no%20meu%20painel%3A%20Agenda%20com%20sinal" target="_blank" rel="noopener"><div class="ic">📅</div><b>Agenda com sinal</b><p>O cliente confirma com Pix</p><span class="pill off">disponível</span></a><div class="f"><div class="ic">💈</div><b>Clube de assinatura</b><p>Receita fixa todo mês</p><span class="pill on">no ar</span></div><div class="f"><div class="ic">📱</div><b>Conteúdo do mês</b><p>Posts prontos, você só aprova</p><span class="pill on">no ar</span></div><a class="f" href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener"><div class="ic">📬</div><b>Canais unificados</b><p>WhatsApp, Insta e Face numa caixa</p><span class="pill on">no ar</span></a></div>
     <h3>Seus números</h3>
     <div class="nums"><div class="nm"><b>312</b><span>visitas (30 dias) · exemplo</span></div><div class="nm"><b>198</b><span>pessoas (30 dias) · exemplo</span></div><div class="nm"><b>4,9</b><span>nota no Google · 137 avaliações</span></div></div>
   </section>
