@@ -29,6 +29,8 @@ padding:15px;color:var(--txt);font-size:17px;text-align:center;letter-spacing:.2
 #entrada button{width:100%;max-width:280px;margin-top:11px;background:var(--ouro);color:#0e0d0b;
 border:0;border-radius:12px;padding:15px;font-size:16px;font-weight:800;cursor:pointer}
 #erro{color:#e8a07c;font-size:13px;margin-top:10px;min-height:18px}
+#entrada .sec{background:none;border:1px solid #322a1c;color:#d4af37;margin-top:9px}
+#entrada .aviso{color:#5bd487;font-size:12.6px;margin-top:10px;max-width:30ch}
 #entrada .rod{position:absolute;bottom:calc(20px + env(safe-area-inset-bottom));color:#57534a;font-size:11.5px}
 
 /* ── APP ── */
@@ -146,7 +148,9 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
   <input id="cod" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off"
          aria-label="Código de acesso, 4 últimos dígitos do telefone da barbearia">
   <button id="btentrar">Entrar</button>
+  <button id="btcodigo" class="sec">Receber meu código</button>
   <div id="erro"></div>
+  <div class="aviso" id="aviso"></div>
   <div class="rod">Vitrine Digital · 1 barbearia por bairro</div>
 </div>
 
@@ -235,10 +239,50 @@ function abrirApp() {
 }
 if (localStorage.getItem(KEY) === '1') abrirApp();
 
+var API = "https://api.omnisdata.app", SLUG = "barbearia-modelo";
+var erro = document.getElementById('erro'), aviso = document.getElementById('aviso');
+var btcod = document.getElementById('btcodigo');
+if (DEMO) btcod.style.display = 'none';   // demo entra direto
+
+/* pede o código ao servidor (o Comandante repassa ao dono) */
+btcod.onclick = function() {
+  erro.textContent = ''; aviso.textContent = 'pedindo…';
+  fetch(API + '/api/auth/codigo', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: SLUG})
+  }).then(function(r) { return r.json().then(function(j) { return {s: r.status, j: j}; }); })
+    .then(function(o) {
+      if (o.s === 200) { aviso.textContent = '✓ Código gerado. Peça ao seu contato da Vitrine e digite acima.'; }
+      else { aviso.textContent = ''; erro.textContent = o.j.detail || 'não consegui gerar agora'; }
+    })
+    .catch(function() { aviso.textContent = ''; erro.textContent = 'sem conexão com o servidor'; });
+};
+
 document.getElementById('btentrar').onclick = function() {
   var v = (document.getElementById('cod').value || '').trim();
-  if (DEMO || v === CHAVE) { localStorage.setItem(KEY, '1'); abrirApp(); }
-  else { document.getElementById('erro').textContent = 'Código não confere. São os 4 últimos do telefone da barbearia.'; }
+  erro.textContent = ''; aviso.textContent = '';
+  if (DEMO) { localStorage.setItem(KEY, '1'); abrirApp(); return; }
+  /* 1º tenta o servidor (login de verdade) */
+  fetch(API + '/api/auth/verificar', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({slug: SLUG, codigo: v})
+  }).then(function(r) { return r.json().then(function(j) { return {s: r.status, j: j}; }); })
+    .then(function(o) {
+      if (o.s === 200 && o.j.token) {
+        localStorage.setItem(KEY, '1');
+        localStorage.setItem(KEY + '_t', o.j.token);
+        abrirApp();
+      } else if (v === CHAVE) {
+        localStorage.setItem(KEY, '1'); abrirApp();     /* portão local */
+      } else {
+        erro.textContent = 'Código não confere. Toque em "Receber meu código".';
+      }
+    })
+    .catch(function() {
+      /* API fora do ar: cai no portão local pra ninguém ficar trancado fora */
+      if (v === CHAVE) { localStorage.setItem(KEY, '1'); abrirApp(); }
+      else { erro.textContent = 'Sem conexão. Tente os 4 últimos dígitos do telefone da barbearia.'; }
+    });
 };
 document.getElementById('cod').addEventListener('keydown', function(ev) {
   if (ev.key === 'Enter') document.getElementById('btentrar').click();
