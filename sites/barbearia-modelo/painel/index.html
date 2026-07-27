@@ -4,7 +4,11 @@
 <meta name="robots" content="noindex"><meta name="theme-color" content="#0e0d0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png"><link rel="apple-touch-icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png">
+<link rel="icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./app-192.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Barbearia Estúdio 47">
 <meta property="og:title" content="Painel · Barbearia Estúdio 47"><meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/img/og-vitrine.jpg">
 <style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#0e0d0b;color:#f0ebe2;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -50,6 +54,9 @@ h2 .ic{color:#d4af37;margin-right:5px}
 .prova p{color:#c3bcaf;font-size:13.3px}
 .zap{display:block;background:#25D366;color:#08130c;font-weight:800;text-decoration:none;text-align:center;padding:15px;border-radius:13px;font-size:15.3px;margin-top:9px}
 .nota{color:#6f6a60;font-size:12px;margin-top:9px;text-align:center}
+.instalar{display:none;width:100%;background:#d4af37;color:#0e0d0b;font-weight:800;border:0;border-radius:13px;padding:15px;font-size:15.3px;cursor:pointer;margin-top:10px}
+.dica{color:#8a8377;font-size:12.6px;text-align:center;margin-top:10px;padding:0 8px}
+.dica b{color:#d4af37}
 footer{text-align:center;padding:22px 0 60px;color:#6f6a60;font-size:11.8px;border-top:1px solid #1a1712}
 footer b{color:#d4af37}
 @media(max-width:420px){.nums{grid-template-columns:1fr}}
@@ -92,6 +99,35 @@ footer b{color:#d4af37}
 <p class="nota">Fala direto com quem cuida da sua conta · (47) 99691-2634 · suporte.omnisdata@gmail.com</p>
 </div></section>
 
-<footer>Cuidado por <b>Vitrine Digital</b> · 1 barbearia por bairro<br>
-Toque em <b>compartilhar → adicionar à tela de início</b> e ele vira um ícone no seu celular.</footer>
+<div class="wrap"><button id="instalar" class="instalar">📲 Instalar o app no meu celular</button>
+<p class="dica" id="dica-ios">No iPhone: toque em <b>Compartilhar</b> ↑ e depois em <b>Adicionar à Tela de Início</b>.</p></div>
+
+<footer>Cuidado por <b>Vitrine Digital</b> · 1 barbearia por bairro</footer>
+<script>
+// registra o service worker (offline)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(function(){});
+}
+// botão de instalar (Android/desktop). iOS não dispara o evento -> mostramos a dica.
+var adiado = null;
+var bt = document.getElementById('instalar');
+var dica = document.getElementById('dica-ios');
+var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+if (instalado) { bt.style.display='none'; dica.style.display='none'; }
+else if (iOS) { bt.style.display='none'; }
+else { dica.style.display='none'; bt.style.display='none'; }
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault(); adiado = e;
+  if (!instalado) { bt.style.display='block'; dica.style.display='none'; }
+});
+bt.addEventListener('click', function() {
+  if (!adiado) return;
+  adiado.prompt();
+  adiado.userChoice.then(function(r) {
+    if (r.outcome === 'accepted') { bt.textContent = '✓ Instalado'; bt.disabled = true; }
+    adiado = null;
+  });
+});
+</script>
 </body></html>
