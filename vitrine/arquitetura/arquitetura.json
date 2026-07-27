@@ -1,0 +1,1626 @@
+{
+ "projeto": "Vitrine Digital — presença digital feita-pra-você para barbearias (Joinville/SC)",
+ "objetivo": "R$4.000 de MRR (~11 barbearias) para substituir o emprego do Comandante",
+ "oferta": "Mata a Falta — agenda que cobra sinal no Pix + presença digital completa; 1 barbearia por bairro",
+ "gerado_em": "2026-07-27T00:56:37",
+ "gerado_por": "scan_arq.py + build_arq.py (AST do código real + HTTP conferido)",
+ "leia_primeiro": "Este arquivo é o mapa da arquitetura para o PRÓXIMO AGENTE. Antes de mexer em qualquer módulo, veja 'importado_por' (quem quebra) e 'regras'.",
+ "totais": {
+  "ferramentas": 62,
+  "linhas_py": 7121,
+  "superficies_no_ar": 18
+ },
+ "regras": [
+  "ZERO invenção: número/preço/nota só com fonte real; seção sem dado não aparece.",
+  "Site do cliente só com foto REAL dele. Stock (Pexels) é só no site-MODELO fictício.",
+  "Site-modelo fictício = banner de demonstração + noindex + SEM schema de avaliação.",
+  "NUNCA testar em slug de produção (sobrescreve site publicado).",
+  "Script no VPS sempre via arquivo (scp → docker cp → exec). Heredoc aninhado falha SILENCIOSO.",
+  "Depois de docker cp num módulo: apagar __pycache__/<mod>* antes de re-rodar quem o importa.",
+  "GitHub Pages: URL com barra final (sem = 301). Deploy novo demora 1-2 min (CDN).",
+  "Verificar na FONTE (API do GitHub), não no raw.githubusercontent (cacheia ~5 min).",
+  "Segredo (.env) nunca sai em log/página — só o NOME da variável.",
+  "1 barbearia por bairro (exclusividade) — territorio.py é a trava."
+ ],
+ "fluxos": [
+  {
+   "nome": "① Achar e preparar o alvo",
+   "passos": [
+    "Comandante manda link/print da barbearia (Maps/Instagram)",
+    "visao_negocio lê o print · coletar_fotos + negocio_google puxam fotos/dados reais",
+    "ficha salva em /opt/data/kits/<slug>.json (fonte única)",
+    "territorio.checar avisa se o bairro já está reservado"
+   ]
+  },
+  {
+   "nome": "② Montar o kit (o presente)",
+   "passos": [
+    "site_barbearia.build(ficha) → site premium (tema pela vibe do alvo)",
+    "paginas_barbearia.build_subsite → /servicos/ /galeria/ /avaliacoes/",
+    "plano_cliente → diagnóstico 'Mata a Falta' em <slug>.omnisdata.app/plano/",
+    "prospectar → mensagem de abordagem (só fatos da ficha)",
+    "dominio_cliente → liga <slug>.omnisdata.app no Cloudflare"
+   ]
+  },
+  {
+   "nome": "③ Vender",
+   "passos": [
+    "Comandante manda o 'oi' no WhatsApp com o site de presente",
+    "followup/guardiao_acao cobram a cadência; copiloto ajuda ao vivo",
+    "barbeiro clica o plano → link Asaas (assinatura R$147/247/397)"
+   ]
+  },
+  {
+   "nome": "④ Entregar e reter",
+   "passos": [
+    "territorio.reservar trava o bairro (1 barbearia por bairro)",
+    "avaliacoes · cardapio · cartao_digital · clube_montador · posts/calendario",
+    "atendente_telegram (bot que agenda e cobra sinal no Pix)",
+    "financeiro registra o MRR"
+   ]
+  }
+ ],
+ "infra": {
+  "VPS": {
+   "host": "srv1823617.hstgr.cloud (Hostinger)",
+   "container": "hermes-agent-4ztd-hermes-agent-1",
+   "runtime": "Hermes Agent (Nous Research) = motor do Alfred",
+   "ferramentas": "/opt/data/tools/ (as 62 .py deste mapa)"
+  },
+  "Publicação": {
+   "onde": "GitHub Pages — repo DeCarvalho001/conteudo-pronto",
+   "como": "site_negocio.gh() (API do GitHub, PUT em contents/)",
+   "regra": "URL sempre com barra final"
+  },
+  "Domínio": {
+   "dominio": "omnisdata.app (do Comandante, no Cloudflare)",
+   "worker": "vitrine-proxy — roteia <slug>.omnisdata.app/ → /sites/<slug>/, /plano/ → /plano/<slug>/",
+   "reservados": "vitrine · capacidades · estilos"
+  },
+  "Automação": {
+   "crons_hermes": 21,
+   "cron_sistema": "/etc/cron.d/alfred (backup, watchdog, vault-commit 15min, sentinela)",
+   "regra": "cron novo SEMPRE com modelo pinado (drift global pula sem pin)"
+  },
+  "Pagamento": {
+   "gateway": "Asaas (conta Pessoa Física — CPF, sem MEI por ora)",
+   "planos": "Corte R$147 · Corte & Barba R$247 (herói) · Navalha de Ouro R$397",
+   "links": "guardados em marca.py (ASAAS_*)"
+  },
+  "Contato": {
+   "whatsapp": "(47) 99691-2634",
+   "email": "suporte.omnisdata@gmail.com",
+   "praça": "Joinville–SC"
+  }
+ },
+ "clientes": {
+  "fichas_em": "/opt/data/kits/<slug>.json",
+  "alvos": [
+   "barbearia-gf9 (Gilmar, Iririú) — site pronto, NÃO abordado ainda",
+   "favareto-itinga (Marcio, Itinga/Araquari) — site pronto",
+   "barbearia-senem — ficha",
+   "das-antiga-barber-shop — site premium (preços reais do Booksy)"
+  ],
+  "territorios_reservados": [
+   "Iririú|Joinville → Barbearia GF9",
+   "Itinga|Araquari → Barbearia Favareto"
+  ],
+  "clientes_pagantes": 0,
+  "mrr": 0,
+  "meta_mrr": 4000
+ },
+ "superficies": [
+  {
+   "url": "https://vitrine.omnisdata.app/",
+   "http": 200,
+   "gerador": "site_vitrine + paginas_vitrine.nav",
+   "papel": "Nosso site — home (oferta + planos c/ Asaas)"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/como-funciona/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "Sub-página"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/o-que-fazemos/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "Sub-página"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/exemplos/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "Sub-página"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/planos/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "Planos → 3 links Asaas"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/perguntas/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "FAQ"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/quem-somos/",
+   "http": 200,
+   "gerador": "paginas_vitrine",
+   "papel": "Quem somos"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/kit/",
+   "http": 200,
+   "gerador": "kit_lancamento",
+   "papel": "Kit: textos copy-paste (interno)"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/bio/",
+   "http": 200,
+   "gerador": "kit_lancamento",
+   "papel": "Link-na-bio do Instagram"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/manual/",
+   "http": 200,
+   "gerador": "manual_2h",
+   "papel": "Manual de lançamento (interno)"
+  },
+  {
+   "url": "https://vitrine.omnisdata.app/imagens/",
+   "http": 200,
+   "gerador": "banco_imagens",
+   "papel": "Banco de prompts de imagem (interno)"
+  },
+  {
+   "url": "https://barbearia-modelo.omnisdata.app/",
+   "http": 200,
+   "gerador": "site_barbearia + paginas_barbearia",
+   "papel": "SITE-MODELO (Estúdio 47, fictício, noindex)"
+  },
+  {
+   "url": "https://barbearia-modelo.omnisdata.app/servicos/",
+   "http": 200,
+   "gerador": "paginas_barbearia",
+   "papel": "Modelo — serviços"
+  },
+  {
+   "url": "https://barbearia-modelo.omnisdata.app/galeria/",
+   "http": 200,
+   "gerador": "paginas_barbearia",
+   "papel": "Modelo — galeria (5 fotos reais)"
+  },
+  {
+   "url": "https://barbearia-modelo.omnisdata.app/avaliacoes/",
+   "http": 200,
+   "gerador": "paginas_barbearia",
+   "papel": "Modelo — avaliações"
+  },
+  {
+   "url": "https://barbearia-gf9.omnisdata.app/",
+   "http": 200,
+   "gerador": "site_barbearia",
+   "papel": "ALVO real (Gilmar) — presente, ainda não abordado"
+  },
+  {
+   "url": "https://barbearia-gf9.omnisdata.app/plano/",
+   "http": 200,
+   "gerador": "plano_cliente",
+   "papel": "Diagnóstico Mata a Falta do alvo"
+  },
+  {
+   "url": "https://favareto-itinga.omnisdata.app/",
+   "http": 200,
+   "gerador": "site_barbearia",
+   "papel": "ALVO real (Marcio, Itinga/Araquari)"
+  }
+ ],
+ "dados": [
+  {
+   "nome": "territorios.json",
+   "tipo": "exclusividade 1 barbearia/bairro",
+   "caminho": "/opt/data/territorios.json",
+   "itens": 2,
+   "papel": "reserva/trava bairro+cidade (estados: reservado/ativo)"
+  },
+  {
+   "nome": ".env",
+   "tipo": "segredos (nomes apenas)",
+   "caminho": "/opt/data/.env",
+   "itens": 23,
+   "chaves": [
+    "ALFRED_FINANCE_SHEET",
+    "ALFRED_LEADS_SHEET",
+    "ALFRED_N8N_WEBHOOK_KEY",
+    "ALFRED_PG_URL",
+    "ALFRED_PIPELINE_SHEET",
+    "CLOUDFLARE_ACCOUNT_ID",
+    "CLOUDFLARE_API_TOKEN",
+    "CLOUDFLARE_ZONE_OMNISDATA",
+    "DEEPSEEK_API_KEY",
+    "GITHUB_TOKEN",
+    "GOOGLE_API_KEY",
+    "HERMES_TELEGRAM_HTTP_CONNECT_TIMEOUT",
+    "HERMES_TELEGRAM_HTTP_POOL_TIMEOUT",
+    "HERMES_TELEGRAM_HTTP_READ_TIMEOUT",
+    "N8N_API_KEY",
+    "N8N_BASE_URL",
+    "QDRANT_URL",
+    "TAVILY_API_KEY",
+    "TELEGRAM_ALLOWED_USERS",
+    "TELEGRAM_BOT_TOKEN",
+    "WEBHOOK_ENABLED",
+    "WEBHOOK_PORT",
+    "WEBHOOK_SECRET"
+   ],
+   "papel": "tokens de API; valores NUNCA saem daqui"
+  },
+  {
+   "nome": "skills/",
+   "tipo": "diretório",
+   "caminho": "/opt/data/skills",
+   "itens": 61,
+   "papel": ""
+  },
+  {
+   "nome": "logs/",
+   "tipo": "diretório",
+   "caminho": "/opt/data/logs",
+   "itens": 7,
+   "papel": ""
+  },
+  {
+   "nome": "kits/",
+   "tipo": "ficha completa do cliente/alvo (JSON)",
+   "caminho": "/opt/data/kits/",
+   "itens": 4,
+   "papel": "FONTE ÚNICA do que sabemos do alvo; carregar_briefing(slug) lê daqui"
+  }
+ ],
+ "modulos": [
+  {
+   "nome": "alexa",
+   "arquivo": "tools/alexa.py",
+   "linhas": 61,
+   "resumo": "alexa.py — o Alfred FALA pela Alexa (Voice Monkey v3). Presença de voz na casa. PORTÃO: no fim de semana a Alexa fica MUDA por padrão (a mãe do Josué está em casa), salvo liberação",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load",
+    "falar",
+    "ligar"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "alfred_proativo",
+   "arquivo": "tools/alfred_proativo.py",
+   "linhas": 36,
+   "resumo": "alfred_proativo.py — controle do volume das mensagens que o Alfred INICIA. Todo cron proativo checa 'ativo' antes de falar: se QUIET, fica em silêncio.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "ativo"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "aprender",
+   "arquivo": "tools/aprender.py",
+   "linhas": 43,
+   "resumo": "aprender.py — o COACH DE APRENDIZADO (a base de conhecimento do JARVIS). Uma micro-lição de 5 min por dia, curada pro objetivo do Comandante (venda, mentalidade, barbearia, negócio).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "arquetipo",
+   "arquivo": "tools/arquetipo.py",
+   "linhas": 89,
+   "resumo": "arquetipo.py — FONTE ÚNICA dos 19 Arquétipos do Comandante (Cânone C-19). Todo ponto de contato (Alfred, crons, console, coach) consulta AQUI pra usar o",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "do_dia",
+    "para"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "atendente_telegram",
+   "arquivo": "tools/atendente_telegram.py",
+   "linhas": 194,
+   "resumo": "atendente_telegram.py — ATENDENTE DIGITAL (bot Telegram) do cliente. Grátis, sem ban (RT-42). v2: agora com AGENDAMENTO + PIX de sinal REAL (copia-e-cola BR Code, Python puro).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "slug",
+    "gerar",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "avaliacoes",
+   "arquivo": "tools/avaliacoes.py",
+   "linhas": 108,
+   "resumo": "avaliacoes.py — SERVIÇO Vitrine 2.0: Máquina de Avaliações. Página que leva o cliente feliz a avaliar no Google (o maior fator de SEO local) + QR pro balcão.",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "dig",
+    "build",
+    "gh",
+    "put",
+    "qr_png",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "banco_imagens",
+   "arquivo": "tools/banco_imagens.py",
+   "linhas": 180,
+   "resumo": "banco_imagens.py — o BANCO DE PROMPTS de imagem da Vitrine: prompts prontos (copy-paste, botão copiar) pra gerar no ChatGPT/DALL·E todas as imagens que a",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "cbox",
+    "bloco_prompts",
+    "render",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Nosso site (Vitrine)"
+  },
+  {
+   "nome": "calendario",
+   "arquivo": "tools/calendario.py",
+   "linhas": 65,
+   "resumo": "calendario.py — gera o CALENDÁRIO EDITORIAL mensal de uma barbearia cliente (estruturado pelos 8 pilares, com roteiro de Reel) e entrega em PDF no Telegram.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "gerar",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "cardapio",
+   "arquivo": "tools/cardapio.py",
+   "linhas": 115,
+   "resumo": "cardapio.py — SERVIÇO Vitrine 2.0: Cardápio/Tabela Digital. Menu ou tabela de serviços com preços, 1 link, sempre atualizável. Barbearia/salão/restaurante.",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "dig",
+    "parse",
+    "build",
+    "gh",
+    "deploy",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "cartao_digital",
+   "arquivo": "tools/cartao_digital.py",
+   "linhas": 101,
+   "resumo": "cartao_digital.py — SERVIÇO Vitrine 2.0: Cartão Digital / Link na Bio. Uma página com TODOS os links do negócio (agendar, WhatsApp, mapa, Instagram, avaliar).",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "dig",
+    "mono",
+    "wa",
+    "build",
+    "gh",
+    "deploy",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "casa",
+   "arquivo": "tools/casa.py",
+   "linhas": 54,
+   "resumo": "casa.py — PORTÃO da Alexa. A mãe do Josué fica em casa nos fins de semana e a Alexa fala ALTO. Padrão: FIM DE SEMANA = Alexa BLOQUEADA (o Alfred não fala NADA pela Alexa, só Telegram), a menos que",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load",
+    "save",
+    "hoje",
+    "is_weekend",
+    "liberado_hoje",
+    "alexa_liberada",
+    "status"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "clube_montador",
+   "arquivo": "tools/clube_montador.py",
+   "linhas": 119,
+   "resumo": "clube_montador.py — monta o CLUBE DE ASSINATURA de uma barbearia: calcula os planos (regra de mercado: 15-25% abaixo do avulso), gera a página no ar e a régua de operação.",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "clube/"
+   ],
+   "funcoes": [
+    "preco_bonito",
+    "fmt",
+    "montar_planos",
+    "pagina",
+    "deploy",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "coletar_fotos",
+   "arquivo": "tools/coletar_fotos.py",
+   "linhas": 117,
+   "resumo": "coletar_fotos.py — HARVESTER de fotos de TODAS as fontes disponíveis (o \"fotos são tudo\"). Fontes (por ordem de confiabilidade):",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "baixar",
+    "gemini_classifica",
+    "ordenar_hospedar",
+    "main",
+    "q",
+    "tp"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Fotos & inteligência do alvo"
+  },
+  {
+   "nome": "copiloto",
+   "arquivo": "tools/copiloto.py",
+   "linhas": 37,
+   "resumo": "copiloto.py — o CO-PILOTO DE VENDA AO VIVO (o HUD de combate do JARVIS). Cole o que o barbeiro disse; ele devolve a réplica pronta à objeção (banco de objeções da Vitrine).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "norm",
+    "responder"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "diario",
+   "arquivo": "tools/diario.py",
+   "linhas": 47,
+   "resumo": "diario.py — o diário do Comandante (fim de dia). A crônica da jornada, dia a dia.   diario.py add \"<texto>\"      # a reflexão do Comandante (a voz dele)",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "arq",
+    "garante",
+    "add",
+    "cronica",
+    "mes"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "dominio_cliente",
+   "arquivo": "tools/dominio_cliente.py",
+   "linhas": 106,
+   "resumo": "dominio_cliente.py — dá a um cliente a URL bonita <slug>.omnisdata.app.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "cf",
+    "slug_ok",
+    "listar",
+    "ligar",
+    "desligar",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Infra do cliente"
+  },
+  {
+   "nome": "entregar",
+   "arquivo": "tools/entregar.py",
+   "linhas": 228,
+   "resumo": "entregar.py — o Alfred gera um arquivo e ENVIA direto no Telegram do Comandante. Uso (pelo Alfred, via terminal/code_execution):",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "tg_send_document",
+    "tg_send_photo",
+    "tg_send_voice",
+    "out_path",
+    "gen_voz",
+    "gen_grafico",
+    "gen_pdf",
+    "gen_excel",
+    "gen_word",
+    "gen_qr",
+    "main",
+    "field",
+    "field"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "fechou_cliente",
+   "arquivo": "tools/fechou_cliente.py",
+   "linhas": 94,
+   "resumo": "fechou_cliente.py — o botão \"FECHOU!\" 🎉: registra tudo e cospe o plano de ação da semana 1. Faz: financeiro (MRR) + pipeline (followup fechou) + mensagem de boas-vindas + checklist do plano",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "run",
+    "tg",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "financeiro",
+   "arquivo": "tools/financeiro.py",
+   "linhas": 120,
+   "resumo": "financeiro.py — o painel de DINHEIRO da Vitrine. Rastreia MRR (receita recorrente) rumo à meta de substituir o emprego (~R$4.000/mês) e ao alvo de R$10k.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "acha",
+    "mrr",
+    "cliente",
+    "upsell",
+    "churn",
+    "barra",
+    "painel",
+    "nota"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "followup",
+   "arquivo": "tools/followup.py",
+   "linhas": 122,
+   "resumo": "followup.py — pipeline local de prospecção com cadência 2-4-7-14 automática. O coração operacional da Máquina de Dinheiro: nada esfria, ninguém é esquecido.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "hoje",
+    "mais",
+    "load",
+    "save",
+    "acha",
+    "add",
+    "done",
+    "fechou",
+    "morto",
+    "vencendo",
+    "cmd_hoje",
+    "lista"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "gerar_demo",
+   "arquivo": "tools/gerar_demo.py",
+   "linhas": 162,
+   "resumo": "gerar_demo.py — cria uma PÁGINA-DEMO personalizada (\"prévia do seu Instagram\") pra um negócio e publica no GitHub Pages. Retorna a URL pronta pra mandar.",
+   "importa": [
+    "marca"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "slugify",
+    "gerar_conteudo",
+    "build_html",
+    "gh",
+    "deploy",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Geradores do site do cliente"
+  },
+  {
+   "nome": "gerar_pack",
+   "arquivo": "tools/gerar_pack.py",
+   "linhas": 73,
+   "resumo": "gerar_pack.py — o produto: gera um pacote de conteúdo pronto p/ redes sociais de um pequeno negócio, via IA (Gemini). Entrega como PDF no Telegram (prova/uso).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "gerar",
+    "para_pdf_spec",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "guardiao_acao",
+   "arquivo": "tools/guardiao_acao.py",
+   "linhas": 155,
+   "resumo": "guardiao_acao.py — o COACH DE PROSPECÇÃO do Comandante (Guardião da Ação). Evolução pedida pelo Red Team (20/07) + voz dos 19 Arquétipos do Comandante (25/07).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "iso",
+    "load",
+    "save",
+    "acoes_hoje",
+    "msg_fechou",
+    "msg_produtivo",
+    "msg_vazio",
+    "main",
+    "cmd_status",
+    "cmd_snooze",
+    "cmd_acordar",
+    "cmd_demo"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "kit_cliente",
+   "arquivo": "tools/kit_cliente.py",
+   "linhas": 167,
+   "resumo": "kit_cliente.py — gera o KIT COMPLETO de presença digital de um cliente EM UM COMANDO. Entrega: site de divulgação + prévia do Instagram + 5 posts de amostra + mensagem de abordagem.",
+   "importa": [
+    "marca"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "slugify",
+    "run",
+    "url_in",
+    "tg",
+    "from_json",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "kit_lancamento",
+   "arquivo": "tools/kit_lancamento.py",
+   "linhas": 170,
+   "resumo": "kit_lancamento.py — o KIT DE LANÇAMENTO do Comandante: tudo pra montar o ecossistema de venda, copy-paste no celular. Gera 2 páginas (noindex):",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "vitrine/"
+   ],
+   "funcoes": [
+    "copybox",
+    "page",
+    "kit",
+    "bio",
+    "deploy"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Nosso site (Vitrine)"
+  },
+  {
+   "nome": "kit_links",
+   "arquivo": "tools/kit_links.py",
+   "linhas": 229,
+   "resumo": "kit_links.py — O COMANDANTE SÓ MANDA OS LINKS. O Alfred faz o resto. Modo 1 (links):  kit_links.py [--dry] <url1> [url2 ...] [\"contexto livre\"]",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "slugify",
+    "fetch",
+    "gemini",
+    "texto_visivel",
+    "fotos_do_html",
+    "classificar_e_hospedar",
+    "rodar_kit_e_mensagem",
+    "modo_fotos",
+    "modo_links",
+    "main",
+    "q",
+    "tp"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "🚪 Porta de entrada"
+  },
+  {
+   "nome": "legado",
+   "arquivo": "tools/legado.py",
+   "linhas": 44,
+   "resumo": "legado.py — O Cofre do Legado: o que o Comandante deixa pro filho. O Alfred (guardião do legado dos Wayne através das gerações) arquiva aqui cada lição,",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "garante",
+    "add",
+    "lista"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "lembrete_agenda",
+   "arquivo": "tools/lembrete_agenda.py",
+   "linhas": 64,
+   "resumo": "Avisa no Telegram quando um compromisso comeca em <= 45 min. Roda a cada 15 min. Dedup: nao repete o mesmo evento (guarda ids em /opt/data/reminded.txt).",
+   "importa": [],
+   "cli": false,
+   "publica": [],
+   "funcoes": [
+    "hook",
+    "notify",
+    "load_dedup",
+    "save_dedup"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "ler_doc",
+   "arquivo": "tools/ler_doc.py",
+   "linhas": 70,
+   "resumo": "ler_doc.py — extrai texto/dados de um arquivo que o Comandante enviou. Uso: python /opt/data/tools/ler_doc.py <caminho_do_arquivo> [max_chars]",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "read_pdf",
+    "read_docx",
+    "read_xlsx",
+    "read_text",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "ligar_interruptor",
+   "arquivo": "tools/ligar_interruptor.py",
+   "linhas": 63,
+   "resumo": "ligar_interruptor.py — ativa os interruptores da Vitrine num comando só. Quando o Comandante mandar o WhatsApp e/ou o link de pagamento (Asaas/Hotmart),",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "le",
+    "grava",
+    "status",
+    "republica",
+    "whatsapp",
+    "checkout"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Infra do cliente"
+  },
+  {
+   "nome": "manual_2h",
+   "arquivo": "tools/manual_2h.py",
+   "linhas": 299,
+   "resumo": "manual_2h.py — PLANO DE LANÇAMENTO do Comandante (v3 DETALHADA, 25/07). Cada passo explodido em micro-etapas, com os textos pra colar embutidos.",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "copybox",
+    "render",
+    "main",
+    "item"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Nosso site (Vitrine)"
+  },
+  {
+   "nome": "marca",
+   "arquivo": "tools/marca.py",
+   "linhas": 24,
+   "resumo": "marca.py — identidade central do SERVIÇO (o que o cliente local vê). Mude aqui e muda em TODAS as peças (site, prévia, posts, mensagem).",
+   "importa": [],
+   "cli": false,
+   "publica": [],
+   "funcoes": [],
+   "importado_por": [
+    "avaliacoes",
+    "banco_imagens",
+    "cardapio",
+    "cartao_digital",
+    "clube_montador",
+    "gerar_demo",
+    "kit_cliente",
+    "kit_lancamento",
+    "manual_2h",
+    "paginas_barbearia",
+    "paginas_vitrine",
+    "plano_cliente",
+    "proposta",
+    "site_barbearia",
+    "site_negocio",
+    "site_vitrine"
+   ],
+   "imperio": "Vitrine Digital",
+   "grupo": "Marca & imagem"
+  },
+  {
+   "nome": "mensagens_barbearia",
+   "arquivo": "tools/mensagens_barbearia.py",
+   "linhas": 66,
+   "resumo": "mensagens_barbearia.py — o ARSENAL DE MENSAGENS operacionais de uma barbearia cliente. Baseado no Mapa de Soluções (20/07/2026): avaliação (40% convertem no pedido 24h),",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "pacote",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "navegador",
+   "arquivo": "tools/navegador.py",
+   "linhas": 28,
+   "resumo": "navegador.py — o navegador DE VERDADE do Alfred (Obscura, via ponte no host). Ao contrário do fetch simples, este renderiza JavaScript: lê SPAs, páginas que",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "buscar"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "negocio_google",
+   "arquivo": "tools/negocio_google.py",
+   "linhas": 112,
+   "resumo": "negocio_google.py — puxa TUDO de um negócio direto do Google (Places API New): nome exato, endereço, coordenada, nota, nº de avaliações, horário, telefone,",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "slugify",
+    "buscar",
+    "baixar_foto",
+    "resumir",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Fotos & inteligência do alvo"
+  },
+  {
+   "nome": "nutricao",
+   "arquivo": "tools/nutricao.py",
+   "linhas": 38,
+   "resumo": "nutricao.py — o CHEF (Alfred cozinhava pra dieta do Bruce). Sugestão prática de comida pró-energia, barata, pro ritmo dele (almoxarife, acorda 3h, trabalho físico). Rotativo.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "paginas_barbearia",
+   "arquivo": "tools/paginas_barbearia.py",
+   "linhas": 151,
+   "resumo": "paginas_barbearia.py — o SITE DO ALVO vira sub-site: home rápido (pra agendar) + páginas de profundidade (Serviços, Galeria, Avaliações), TODAS na cara/tema do",
+   "importa": [
+    "marca",
+    "site_barbearia",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "sites/"
+   ],
+   "funcoes": [
+    "agendar_link",
+    "nav",
+    "page",
+    "pg_servicos",
+    "pg_galeria",
+    "pg_avaliacoes",
+    "deploy",
+    "build_subsite"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Geradores do site do cliente"
+  },
+  {
+   "nome": "paginas_vitrine",
+   "arquivo": "tools/paginas_vitrine.py",
+   "linhas": 250,
+   "resumo": "paginas_vitrine.py — o mini-site da Vitrine: sub-páginas da principal, com menu compartilhado, todas no mesmo padrão e cruzadas. Servem em /vitrine/<slug>/ e,",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "vitrine/"
+   ],
+   "funcoes": [
+    "nav",
+    "layout",
+    "hero",
+    "cta",
+    "p_como",
+    "p_fazemos",
+    "p_exemplos",
+    "p_planos",
+    "p_perguntas",
+    "p_quem",
+    "deploy",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Nosso site (Vitrine)"
+  },
+  {
+   "nome": "pc",
+   "arquivo": "tools/pc.py",
+   "linhas": 82,
+   "resumo": "pc.py — o Alfred age no PC Windows do Comandante (voz + tela) via SSH (skill controlar-pc).   pc.py status              -> o PC esta alcancavel? (tunel 2222)",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "alcancavel",
+    "falar",
+    "console",
+    "abrir",
+    "notificar"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "pessoas",
+   "arquivo": "tools/pessoas.py",
+   "linhas": 59,
+   "resumo": "pessoas.py — o GUARDIÃO DA FAMÍLIA (CRM pessoal). Lembra aniversários e datas, cutuca o Comandante a ligar pra mãe/família, não deixa relacionamento esfriar.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "add",
+    "hoje_cmd",
+    "proximos",
+    "falei",
+    "lista"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "plano_cliente",
+   "arquivo": "tools/plano_cliente.py",
+   "linhas": 294,
+   "resumo": "plano_cliente.py — SITE 2: o diagnóstico que o Comandante manda pro DONO. Eixo (23/07): \"MATA A FALTA\". Abre com a conta do no-show (número DE MERCADO,",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "plano/"
+   ],
+   "funcoes": [
+    "load_env",
+    "esc",
+    "is_barber",
+    "gerar",
+    "build",
+    "gh",
+    "deploy",
+    "main",
+    "carregar_briefing",
+    "contexto_cliente",
+    "forcas_cliente"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "posts_barbearia",
+   "arquivo": "tools/posts_barbearia.py",
+   "linhas": 64,
+   "resumo": "posts_barbearia.py — 8 posts/mês nos 5 FORMATOS COMPROVADOS do nicho (Mapa de Soluções 20/07): antes/depois (o rei), reels de transição, carrossel passo a passo, detalhe técnico, prova social.",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "gerar",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Serviços entregues ao cliente"
+  },
+  {
+   "nome": "proposta",
+   "arquivo": "tools/proposta.py",
+   "linhas": 133,
+   "resumo": "proposta.py — gera uma PÁGINA DE PROPOSTA da Vitrine Digital pronta pro Comandante mandar ao dono do negócio. Fecha no eixo \"investimento, não gasto\". Publica no GitHub Pages.",
+   "importa": [
+    "marca"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "gh",
+    "deploy",
+    "preco_bloco",
+    "build",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "prospectar",
+   "arquivo": "tools/prospectar.py",
+   "linhas": 195,
+   "resumo": "prospectar.py — monta a PRIMEIRA mensagem de abordagem (WhatsApp) de um alvo.",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "fatos",
+    "elogio",
+    "montar",
+    "registrar_pipeline",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "protocolo",
+   "arquivo": "tools/protocolo.py",
+   "linhas": 38,
+   "resumo": "protocolo.py — os PROTOCOLOS NOMEADOS (as macros do JARVIS: Clean Slate, House Party). Sequências que o Alfred dispara por nome quando o Comandante manda.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "prioridade"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "pulso",
+   "arquivo": "tools/pulso.py",
+   "linhas": 102,
+   "resumo": "pulso.py — o Alfred PUXANDO o Comandante o tempo todo que ele está acordado e livre. Toques curtos de MENTALIDADE (arquétipos), VIDA e PROJETO, em cadência. No-agent (custo zero",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "brt",
+    "quiet_on",
+    "projeto",
+    "pulso"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "red_team",
+   "arquivo": "tools/red_team.py",
+   "linhas": 99,
+   "resumo": "red_team.py — o MOTOR do Red Team. Fecha o loop RT-23: toda rodada vira registro, toda evolução entra num LEDGER com status (⏳ proposta / ✅ feita). Assim o Red Team",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "add",
+    "feito",
+    "pendentes",
+    "lista",
+    "painel"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "ronda",
+   "arquivo": "tools/ronda.py",
+   "linhas": 63,
+   "resumo": "ronda.py — o Alfred te INCOMODA sobre dormir cedo e acordar (pedido do Comandante), e PARA assim que voce responde. Seg-sex ele trabalha (acorda 3h); fim de semana relaxa.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "quiet_on",
+    "acked",
+    "set_ack",
+    "amanha_trabalho",
+    "hoje_trabalho",
+    "segunda_cobranca",
+    "sono",
+    "despertar"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — voz & presença"
+  },
+  {
+   "nome": "saude",
+   "arquivo": "tools/saude.py",
+   "linhas": 54,
+   "resumo": "saude.py — o MÉDICO DE BORDO (Alfred era médico). Rastreia sono/energia/humor/peso/água e alerta tendências. O corpo é ativo crítico (trabalho físico + acorda 3h).",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "reg",
+    "resumo",
+    "mostra"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "semantic_index",
+   "arquivo": "tools/semantic_index.py",
+   "linhas": 28,
+   "resumo": "",
+   "importa": [],
+   "cli": false,
+   "publica": [],
+   "funcoes": [],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "semantic_query",
+   "arquivo": "tools/semantic_query.py",
+   "linhas": 11,
+   "resumo": "",
+   "importa": [],
+   "cli": false,
+   "publica": [],
+   "funcoes": [],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "site_barbearia",
+   "arquivo": "tools/site_barbearia.py",
+   "linhas": 437,
+   "resumo": "site_barbearia.py — SITE PREMIUM específico de BARBEARIA, publicado no GitHub Pages. Nasceu do Mapa de Dores (20/07/2026): o cliente final quer agendar fácil, ver preço,",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "sites/"
+   ],
+   "funcoes": [
+    "vibe_por_texto",
+    "escolher",
+    "gemini_copy",
+    "attr",
+    "parse_precos",
+    "preco_fmt",
+    "css",
+    "build",
+    "deploy_b",
+    "main"
+   ],
+   "importado_por": [
+    "paginas_barbearia"
+   ],
+   "imperio": "Vitrine Digital",
+   "grupo": "Geradores do site do cliente"
+  },
+  {
+   "nome": "site_negocio",
+   "arquivo": "tools/site_negocio.py",
+   "linhas": 459,
+   "resumo": "site_negocio.py — cria um SITE REAL de divulgação pra um negócio local e publica no GitHub Pages. Personalizado no negócio: cores/alma próprias, fotos reais, mapa no ponto EXATO, WhatsApp que agenda.",
+   "importa": [
+    "marca"
+   ],
+   "cli": true,
+   "publica": [
+    "sites/"
+   ],
+   "funcoes": [
+    "load_env",
+    "slugify",
+    "only_digits",
+    "hexok",
+    "wa_num",
+    "wa_link",
+    "geocode",
+    "gerar",
+    "limpar",
+    "build",
+    "gh",
+    "deploy",
+    "main",
+    "parece_rua"
+   ],
+   "importado_por": [
+    "avaliacoes",
+    "banco_imagens",
+    "cardapio",
+    "cartao_digital",
+    "clube_montador",
+    "coletar_fotos",
+    "fechou_cliente",
+    "kit_lancamento",
+    "kit_links",
+    "manual_2h",
+    "paginas_barbearia",
+    "paginas_vitrine",
+    "plano_cliente",
+    "posts_barbearia",
+    "prospectar",
+    "site_barbearia",
+    "site_vitrine",
+    "territorio"
+   ],
+   "imperio": "Vitrine Digital",
+   "grupo": "Geradores do site do cliente"
+  },
+  {
+   "nome": "site_vitrine",
+   "arquivo": "tools/site_vitrine.py",
+   "linhas": 226,
+   "resumo": "site_vitrine.py — SITE 3: o NOSSO site (Vitrine Digital). O dono conhece a gente e vai pro checkout. Fixo (não é por cliente). Rode de novo pra atualizar. Publica em conteudo-pronto/vitrine/.",
+   "importa": [
+    "marca",
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [
+    "vitrine/index.html"
+   ],
+   "funcoes": [
+    "load_env",
+    "checkout_link",
+    "wa_plano",
+    "build",
+    "gh",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Nosso site (Vitrine)"
+  },
+  {
+   "nome": "subir_foto",
+   "arquivo": "tools/subir_foto.py",
+   "linhas": 62,
+   "resumo": "subir_foto.py — hospeda fotos reais do negócio (que o Comandante mandou) no GitHub Pages e imprime as URLs prontas pra usar no site (site_negocio.py \"<fotos>\").",
+   "importa": [],
+   "cli": true,
+   "publica": [
+    "fotos/"
+   ],
+   "funcoes": [
+    "load_env",
+    "gh",
+    "subir",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Fotos & inteligência do alvo"
+  },
+  {
+   "nome": "territorio",
+   "arquivo": "tools/territorio.py",
+   "linhas": 130,
+   "resumo": "territorio.py — a REGRA da exclusividade: 1 barbearia por bairro. Controla os bairros ocupados pra (a) nunca prospectar dois concorrentes no mesmo",
+   "importa": [
+    "site_negocio"
+   ],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "norm",
+    "parse",
+    "key",
+    "load",
+    "save",
+    "checar",
+    "reservar",
+    "liberar",
+    "status",
+    "main",
+    "local_partes"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Vendas & funil"
+  },
+  {
+   "nome": "transcrever",
+   "arquivo": "tools/transcrever.py",
+   "linhas": 24,
+   "resumo": "Transcreve um áudio (qualquer formato via ffmpeg) com faster-whisper, pt-BR. Uso: transcrever.py <arquivo> [modelo]   (padrão: small)",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "transcrever"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "trocar_modelo",
+   "arquivo": "tools/trocar_modelo.py",
+   "linhas": 75,
+   "resumo": "trocar_modelo.py — troca o CÉREBRO do Alfred (modelo principal) e RE-FIXA todos os crons no mesmo passo, pra que a proatividade nunca mais quebre por drift de config.",
+   "importa": [],
+   "cli": false,
+   "publica": [],
+   "funcoes": [
+    "env",
+    "modelo_atual",
+    "status",
+    "deepseek_models",
+    "trocar",
+    "repl"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "utilidades",
+   "arquivo": "tools/utilidades.py",
+   "linhas": 80,
+   "resumo": "utilidades.py — APIs públicas SEM chave, prontas pro Alfred usar. Uso: python /opt/data/tools/utilidades.py <comando> [args...]",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "get",
+    "clima",
+    "cambio",
+    "cripto",
+    "cep",
+    "cnpj",
+    "feriados",
+    "wiki",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  },
+  {
+   "nome": "vida_admin",
+   "arquivo": "tools/vida_admin.py",
+   "linhas": 50,
+   "resumo": "vida_admin.py — o GESTOR DA VIDA (Alfred cuidava do patrimônio Wayne). Não deixa nada vencer: contas, prazos, documentos (CNH...), consultas. Alerta o que está chegando.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "hoje",
+    "load",
+    "save",
+    "add",
+    "vencendo",
+    "feito",
+    "lista"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — vida do Comandante"
+  },
+  {
+   "nome": "visao_negocio",
+   "arquivo": "tools/visao_negocio.py",
+   "linhas": 91,
+   "resumo": "visao_negocio.py — OS OLHOS do Alfred. Lê um PRINT que o Comandante mandou (Google Maps, Instagram ou fachada) e extrai os dados do negócio via Gemini visão.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "load_env",
+    "mime_de",
+    "ler",
+    "merge",
+    "main"
+   ],
+   "importado_por": [],
+   "imperio": "Vitrine Digital",
+   "grupo": "Fotos & inteligência do alvo"
+  },
+  {
+   "nome": "whisper_svc",
+   "arquivo": "tools/whisper_svc.py",
+   "linhas": 64,
+   "resumo": "whisper_svc — serviço QUENTE de transcrição (modelo carregado 1x na RAM). POST /t (corpo = bytes de áudio, qualquer formato via ffmpeg) -> texto pt-BR.",
+   "importa": [],
+   "cli": true,
+   "publica": [],
+   "funcoes": [
+    "transcrever",
+    "log_message",
+    "do_GET",
+    "do_POST"
+   ],
+   "importado_por": [],
+   "imperio": "Alfred (SO pessoal)",
+   "grupo": "Alfred — motor"
+  }
+ ]
+}
