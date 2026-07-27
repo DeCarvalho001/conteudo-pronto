@@ -1,7 +1,7 @@
 {
- "name": "barbearia-modelo — Painel",
- "short_name": "barbearia-mo",
- "description": "O painel da barbearia-modelo — sua barbearia num lugar só.",
+ "name": "Barbearia Estúdio 47 — Painel",
+ "short_name": "Barbearia Es",
+ "description": "O painel da Barbearia Estúdio 47 — sua barbearia num lugar só.",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
