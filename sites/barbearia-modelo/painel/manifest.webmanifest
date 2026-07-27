@@ -9,6 +9,46 @@
  "background_color": "#0e0d0b",
  "theme_color": "#0e0d0b",
  "lang": "pt-BR",
+ "dir": "ltr",
+ "categories": [
+  "business",
+  "productivity"
+ ],
+ "shortcuts": [
+  {
+   "name": "Meu site",
+   "short_name": "Site",
+   "url": "./?aba=site",
+   "icons": [
+    {
+     "src": "./app-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "Minha agenda",
+   "short_name": "Agenda",
+   "url": "./?aba=agenda",
+   "icons": [
+    {
+     "src": "./app-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "Pedir um ajuste",
+   "short_name": "Ajuda",
+   "url": "./?aba=conta",
+   "icons": [
+    {
+     "src": "./app-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  }
+ ],
  "icons": [
   {
    "src": "./app-192.png",
