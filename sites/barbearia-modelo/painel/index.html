@@ -1,72 +1,91 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Painel · Barbearia Estúdio 47</title>
-<meta name="robots" content="noindex">
-<meta name="theme-color" content="#0e0d0b">
+<meta name="robots" content="noindex"><meta name="theme-color" content="#0e0d0b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png">
-<link rel="apple-touch-icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png">
-<meta property="og:title" content="Painel · Barbearia Estúdio 47">
-<meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/img/og-vitrine.jpg">
+<link rel="icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png"><link rel="apple-touch-icon" href="https://decarvalho001.github.io/conteudo-pronto/img/favicon.png">
+<meta property="og:title" content="Painel · Barbearia Estúdio 47"><meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/img/og-vitrine.jpg">
 <style>*{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:#0e0d0b;color:#f0ebe2;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:#d4af37}
-.wrap{max-width:620px;margin:0 auto;padding:0 16px}
+.wrap{max-width:640px;margin:0 auto;padding:0 16px}
 .demo{background:#7a1c2a;color:#fff;text-align:center;font-size:12.6px;padding:7px 12px;font-weight:700}
-header{padding:26px 16px 20px;background:radial-gradient(120% 90% at 50% 0%,#241f16,#0e0d0b);text-align:center}
-.tag{color:#8a8377;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:800}
-h1{font-size:clamp(21px,5.4vw,29px);font-weight:800;margin:7px 0 3px;letter-spacing:-.01em}
-.mes{color:#d4af37;font-weight:700;font-size:14px}
-.hi{color:#b8b0a2;font-size:14.2px;margin-top:11px;max-width:44ch;margin-left:auto;margin-right:auto}
+header{padding:24px 16px 18px;background:radial-gradient(120% 90% at 50% 0%,#241f16,#0e0d0b);text-align:center}
+.tag{color:#8a8377;font-size:11px;letter-spacing:.17em;text-transform:uppercase;font-weight:800}
+h1{font-size:clamp(20px,5.2vw,28px);font-weight:800;margin:6px 0 3px;letter-spacing:-.01em}
+.mes{color:#d4af37;font-weight:700;font-size:13.5px}
+.hi{color:#b8b0a2;font-size:13.8px;margin-top:9px;max-width:44ch;margin-left:auto;margin-right:auto}
+nav.abas{position:sticky;top:0;z-index:50;background:rgba(14,13,11,.96);backdrop-filter:blur(8px);border-bottom:1px solid #201b14;padding:8px 0}
+nav.abas .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.abas::-webkit-scrollbar{display:none}
+nav.abas a{flex-shrink:0;text-decoration:none;color:#e8e2d4;font-size:12.8px;font-weight:700;padding:6px 12px;border:1px solid #322a1c;border-radius:99px;background:#16130f}
+nav.abas a:hover{border-color:#d4af37;color:#d4af37}
 section{padding:22px 0;border-top:1px solid #1a1712}
 h2{font-size:16.5px;font-weight:800;margin-bottom:3px}
 h2 .ic{color:#d4af37;margin-right:5px}
-.sub{color:#8a8377;font-size:13px;margin-bottom:14px}
-.nums{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.nm{background:#16130f;border:1px solid #221e18;border-radius:13px;padding:15px 16px;text-align:center}
-.nm b{display:block;color:#d4af37;font-size:29px;font-weight:800;line-height:1.15}
-.nm span{color:#8a8377;font-size:12.3px;display:block;margin-top:2px}
-.nm.vazio b{color:#57534a;font-size:20px}
-.card{background:#16130f;border:1px solid #221e18;border-radius:12px;padding:13px 15px;margin-bottom:9px;display:flex;gap:11px;align-items:flex-start}
-.card .ic2{font-size:19px;flex-shrink:0;line-height:1.3}
-.card b{display:block;font-size:14.6px;color:#f0ebe2}
-.card p{color:#a9a294;font-size:13.2px;margin-top:2px}
-.card .st{margin-left:auto;flex-shrink:0;font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:99px}
+.sub{color:#8a8377;font-size:12.8px;margin-bottom:13px}
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.nm{background:#16130f;border:1px solid #221e18;border-radius:13px;padding:14px;text-align:center}
+.nm b{display:block;color:#d4af37;font-size:27px;font-weight:800;line-height:1.15}
+.nm span{color:#8a8377;font-size:12px;display:block;margin-top:2px}
+.nm.vazio b{color:#57534a;font-size:18px}
+.card{background:#16130f;border:1px solid #221e18;border-radius:12px;padding:13px 15px;margin-bottom:8px;display:flex;gap:11px;align-items:flex-start}
+.card .ic2{font-size:18px;flex-shrink:0;line-height:1.35}
+.card b{display:block;font-size:14.4px;color:#f0ebe2}
+.card p{color:#a9a294;font-size:13px;margin-top:2px}
+.st{margin-left:auto;flex-shrink:0;font-size:11px;font-weight:800;padding:3px 9px;border-radius:99px;white-space:nowrap}
 .st.on{background:#122a18;color:#5bd487;border:1px solid #1c3a24}
 .st.off{background:#2a1a12;color:#e8a07c;border:1px solid #3a2a1a}
 .lk{background:#16130f;border:1px solid #221e18;border-radius:12px;padding:12px 15px;margin-bottom:8px;display:flex;align-items:center;gap:10px;text-decoration:none}
-.lk b{font-size:14.3px;color:#f0ebe2;display:block}
-.lk span{color:#8a8377;font-size:12.2px;word-break:break-all}
+.lk b{font-size:14.2px;color:#f0ebe2;display:block}
+.lk span{color:#8a8377;font-size:12px}
 .lk .go{margin-left:auto;color:#d4af37;font-weight:800;font-size:17px;flex-shrink:0}
-.prova{background:#1a1410;border:1px solid #6a5320;border-radius:14px;padding:17px 18px;text-align:center;margin-top:8px}
-.prova b{color:#d4af37;font-size:15.5px;display:block;margin-bottom:5px}
-.prova p{color:#c3bcaf;font-size:13.6px}
-.zap{display:block;background:#25D366;color:#08130c;font-weight:800;text-decoration:none;text-align:center;padding:15px;border-radius:13px;font-size:15.5px;margin-top:9px}
-.nota{color:#6f6a60;font-size:12.2px;margin-top:9px;text-align:center}
-footer{text-align:center;padding:24px 0 60px;color:#6f6a60;font-size:12px;border-top:1px solid #1a1712}
+.canal{background:#16130f;border:1px solid #221e18;border-left:3px solid #0866FF;border-radius:12px;padding:14px 16px;margin-bottom:9px}
+.canal b{font-size:14.6px;display:block;margin-bottom:3px}
+.canal p{color:#a9a294;font-size:13px}
+.canal a.btn{display:inline-block;margin-top:9px;background:#0866FF;color:#fff;font-weight:800;text-decoration:none;padding:9px 15px;border-radius:9px;font-size:13px}
+.prova{background:#1a1410;border:1px solid #6a5320;border-radius:14px;padding:16px 18px;text-align:center;margin-top:6px}
+.prova b{color:#d4af37;font-size:15px;display:block;margin-bottom:4px}
+.prova p{color:#c3bcaf;font-size:13.3px}
+.zap{display:block;background:#25D366;color:#08130c;font-weight:800;text-decoration:none;text-align:center;padding:15px;border-radius:13px;font-size:15.3px;margin-top:9px}
+.nota{color:#6f6a60;font-size:12px;margin-top:9px;text-align:center}
+footer{text-align:center;padding:22px 0 60px;color:#6f6a60;font-size:11.8px;border-top:1px solid #1a1712}
 footer b{color:#d4af37}
 @media(max-width:420px){.nums{grid-template-columns:1fr}}
 </style></head><body>
-<div class="demo">PAINEL DE DEMONSTRAÇÃO — é assim que o dono acompanha tudo, todo mês</div>
+<div class="demo">PAINEL DE DEMONSTRAÇÃO — é assim que o dono acompanha e controla tudo</div>
 <header><div class="wrap"><div class="tag">Painel do dono</div>
 <h1>Barbearia Estúdio 47</h1><div class="mes">julho/2026</div>
-<p class="hi">Tudo que a Vitrine Digital está fazendo pela sua barbearia, num lugar só. Você não opera nada — só acompanha.</p>
+<p class="hi">Sua barbearia inteira num lugar só. Você não opera nada — mas vê e controla tudo.</p>
 </div></header>
 
-<section><div class="wrap"><h2><span class="ic">▸</span>Seus números</h2>
+<nav class="abas"><div class="wrap">
+<a href="#numeros">Números</a><a href="#canais">Canais</a><a href="#operacao">Operação</a>
+<a href="#presenca">Presença</a><a href="#feito">O que fizemos</a><a href="#ajuda">Ajuda</a>
+</div></nav>
+
+<section id="numeros"><div class="wrap"><h2><span class="ic">▸</span>Seus números</h2>
 <p class="sub">Medido de verdade. O que ainda não dá pra medir aparece como "ligando" — a gente não inventa número.</p>
-<div class="nums"><div class="nm"><b>312</b><span>visitas no seu site (30 dias) · exemplo</span></div><div class="nm"><b>198</b><span>pessoas diferentes (30 dias) · exemplo</span></div><div class="nm"><b>4,9</b><span>sua nota no Google · 137 avaliações</span></div><div class="nm"><b>2</b><span>planos do clube no ar</span></div></div></div></section>
+<div class="nums"><div class="nm"><b>312</b><span>visitas no seu site (30 dias) · exemplo</span></div><div class="nm"><b>198</b><span>pessoas diferentes (30 dias) · exemplo</span></div><div class="nm"><b>4,9</b><span>sua nota no Google · 137 avaliações</span></div></div></div></section>
 
-<section><div class="wrap"><h2><span class="ic">▸</span>O que já está trabalhando por você</h2>
-<p class="sub">Montado e operado pela gente. Você só recebe o cliente.</p>
-<div class="card"><span class="ic2">🌐</span><div><b>Site profissional no ar</b><p>Com seus serviços, fotos e botão de agendar direto no WhatsApp.</p></div><span class="st on">no ar</span></div><div class="card"><span class="ic2">📍</span><div><b>Google no ponto</b><p>Endereço, horário e mapa certinhos pra quem procura barbearia na região.</p></div><span class="st on">no ar</span></div><div class="card"><span class="ic2">⭐</span><div><b>Suas avaliações à mostra</b><p>As melhores viram vitrine pra quem ainda não te conhece.</p></div><span class="st on">no ar</span></div><div class="card"><span class="ic2">📸</span><div><b>8 posts prontos este mês</b><p>Feitos, publicados e no seu jeito. Você só aprova.</p></div><span class="st on">no ar</span></div><div class="card"><span class="ic2">🔗</span><div><b>Cartão digital e cardápio</b><p>Todos os seus links e a tabela sempre atualizada.</p></div><span class="st on">no ar</span></div><div class="card"><span class="ic2">📅</span><div><b>Agenda com sinal no Pix</b><p>Entra no plano Corte &amp; Barba: o cliente confirma com sinal no Pix e a falta acaba.</p></div><span class="st off">disponível</span></div></div></section>
+<section id="canais"><div class="wrap"><h2><span class="ic">▸</span>Seus canais</h2>
+<p class="sub">Configurados por nós. Tudo que chega de cliente, num lugar só.</p>
+<div class="canal"><b>📬 Meta Business Suite — seus 3 canais numa tela</b><p>WhatsApp, Instagram Direct e Facebook Messenger chegam <b>na mesma caixa de entrada</b>. Configurado por nós, gratuito, e funciona no seu celular. É onde você responde — se quiser.</p><a class="btn" href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener">Abrir minha caixa de entrada →</a></div></div></section>
 
-<section><div class="wrap"><h2><span class="ic">▸</span>Sua presença no ar</h2>
-<p class="sub">Toque pra abrir e conferir. Tudo publicado e funcionando.</p>
+<section id="operacao"><div class="wrap"><h2><span class="ic">▸</span>Sua operação</h2>
+<p class="sub">O que está rodando por você agora — e o que dá pra ligar quando quiser.</p>
+<div class="card"><span class="ic2">📅</span><div><b>Agenda com sinal no Pix</b><p>Entra no plano Corte & Barba: o cliente confirma com sinal e a falta acaba.</p></div><span class="st off">disponível</span></div><div class="card"><span class="ic2">⭐</span><div><b>Máquina de avaliações</b><p>QR no balcão + pedido na hora certa. Sua nota sobe e vira vitrine.</p></div><span class="st on">ativo</span></div><div class="card"><span class="ic2">📸</span><div><b>Conteúdo do mês</b><p>Posts prontos no seu jeito. Você só manda as fotos e aprova.</p></div><span class="st on">ativo</span></div><div class="card"><span class="ic2">💈</span><div><b>Clube de assinatura</b><p>Receita fixa todo mês, montada e cobrada por nós.</p></div><span class="st on">ativo</span></div></div></section>
+
+<section id="presenca"><div class="wrap"><h2><span class="ic">▸</span>Sua presença no ar</h2>
+<p class="sub">Toque pra abrir. Tudo publicado e funcionando.</p>
 <a class="lk" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><div><b>Seu site</b><span>a porta de entrada</span></div><span class="go">→</span></a><a class="lk" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><div><b>Serviços &amp; preços</b><span>sua tabela sempre certa</span></div><span class="go">→</span></a><a class="lk" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><div><b>Galeria</b><span>seu trabalho aparecendo</span></div><span class="go">→</span></a><a class="lk" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><div><b>Avaliações</b><span>sua reputação à mostra</span></div><span class="go">→</span></a><a class="lk" href="https://barbearia-modelo.omnisdata.app/plano/" target="_blank" rel="noopener"><div><b>Seu diagnóstico</b><span>onde está o dinheiro perdido</span></div><span class="go">→</span></a></div></section>
 
-<section><div class="wrap">
+<section id="feito"><div class="wrap"><h2><span class="ic">▸</span>O que a gente fez</h2>
+<p class="sub">Montado e operado pela gente. Você só recebe o cliente.</p>
+<div class="card"><span class="ic2">🌐</span><div><b>Site profissional no ar</b><p>Com seus serviços, fotos e botão de agendar direto no WhatsApp.</p></div><span class="st on">feito</span></div><div class="card"><span class="ic2">📍</span><div><b>Google no ponto</b><p>Endereço, horário e mapa certinhos pra quem procura barbearia na região.</p></div><span class="st on">feito</span></div><div class="card"><span class="ic2">⭐</span><div><b>Suas avaliações à mostra</b><p>As melhores viram vitrine pra quem ainda não te conhece.</p></div><span class="st on">feito</span></div><div class="card"><span class="ic2">📸</span><div><b>8 posts prontos este mês</b><p>Feitos, publicados e no seu jeito. Você só aprova.</p></div><span class="st on">feito</span></div><div class="card"><span class="ic2">🔗</span><div><b>Cartão digital e cardápio</b><p>Todos os seus links e a tabela sempre atualizada.</p></div><span class="st on">feito</span></div></div></section>
+
+<section id="ajuda"><div class="wrap">
 <div class="prova"><b>Sua mensalidade se paga com poucos cortes</b>
 <p>Um cliente que ia faltar e apareceu já cobre boa parte do mês. É esse o combinado.</p></div>
 <a class="zap" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80?text=Ol%C3%A1%21%20Sou%20da%20Barbearia%20Est%C3%BAdio%2047.%20Preciso%20de%20um%20ajuste%3A" target="_blank" rel="noopener">💬 Pedir um ajuste ou tirar dúvida</a>
@@ -74,5 +93,5 @@ footer b{color:#d4af37}
 </div></section>
 
 <footer>Cuidado por <b>Vitrine Digital</b> · 1 barbearia por bairro<br>
-Dica: toque em <b>compartilhar → adicionar à tela de início</b> e ele vira um ícone no seu celular.</footer>
+Toque em <b>compartilhar → adicionar à tela de início</b> e ele vira um ícone no seu celular.</footer>
 </body></html>
