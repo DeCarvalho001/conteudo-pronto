@@ -17,6 +17,11 @@ self.addEventListener('fetch', e => {
       const copia = r.clone();
       caches.open(CACHE).then(c => c.put(e.request, copia)).catch(() => {});
       return r;
-    }).catch(() => caches.match(e.request).then(r => r || caches.match('./')))
+    }).catch(() => caches.match(e.request).then(r => r || caches.match('./') || new Response(
+      '<!doctype html><meta charset=utf-8><title>Sem internet</title>' +
+      '<body style="background:#0e0d0b;color:#f0ebe2;font-family:system-ui;text-align:center;padding:60px 24px">' +
+      '<h1 style="color:#d4af37">📴 Sem internet</h1>' +
+      '<p style="color:#8a8377">Seu painel volta assim que a conexão voltar.</p>',
+      {headers: {'Content-Type': 'text/html; charset=utf-8'}})))
   );
 });
