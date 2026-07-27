@@ -111,6 +111,14 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
 .rodape{text-align:center;padding:18px 0 6px;color:#57534a;font-size:11.4px}
 .rodape b{color:var(--ouro)}
 .demo{background:#7a1c2a;color:#fff;text-align:center;font-size:11.8px;padding:6px 12px;font-weight:700}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#offline{display:none;background:#3a2a1a;color:#e8a07c;text-align:center;font-size:12px;font-weight:700;padding:7px 12px;position:sticky;top:0;z-index:90}
+#offline.on{display:block}
+.mini .tela-mini::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,#16130f 30%,#221e18 50%,#16130f 70%);background-size:220% 100%;animation:brilho 1.4s infinite;z-index:1}
+.mini .tela-mini.pronto::before{display:none}
+@keyframes brilho{0%{background-position:120% 0}100%{background-position:-40% 0}}
+.mini iframe{z-index:1}
+
 @media(max-width:360px){.grid{grid-template-columns:1fr}}
 </style></head><body>
 
@@ -119,13 +127,16 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
   <h1>Seu painel</h1>
   <div class="barb">Barbearia Estúdio 47</div>
   <p>Toque em <b>Entrar</b> para ver a demonstração.</p>
-  <input id="cod" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off">
+  <label for="cod" class="sr">Código de acesso — 4 últimos dígitos do telefone</label>
+  <input id="cod" inputmode="numeric" maxlength="4" placeholder="••••" autocomplete="off"
+         aria-label="Código de acesso, 4 últimos dígitos do telefone da barbearia">
   <button id="btentrar">Entrar</button>
   <div id="erro"></div>
   <div class="rod">Vitrine Digital · 1 barbearia por bairro</div>
 </div>
 
 <div id="app">
+<div id="offline" role="status">📴 Você está sem internet — mostrando a última versão salva</div>
 <div class="demo">DEMONSTRAÇÃO — é assim que o dono acompanha tudo</div>
 <div class="topo"><div class="wrap">
   <img src="./app-192.png" alt=""><b id="tit">Início</b><span class="mes">julho/2026</span>
@@ -136,7 +147,7 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
   <section class="tela on" id="t-inicio">
     <h2>Tudo funcionando</h2>
     <p class="sub">O que a Vitrine Digital está fazendo pela Barbearia Estúdio 47 agora.</p>
-    <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="seu site"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
+    <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="Seu site, ao vivo"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
     <h3>Suas ferramentas</h3>
     <div class="grid"><a class="f" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><div class="ic">🌐</div><b>Seu site</b><p>No ar, no Google, com botão de agendar</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><div class="ic">📋</div><b>Serviços &amp; preços</b><p>Sua tabela sempre certa</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><div class="ic">📸</div><b>Galeria</b><p>Seu trabalho aparecendo</p><span class="pill on">no ar</span></a><a class="f" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><div class="ic">⭐</div><b>Avaliações</b><p>Sua reputação à mostra</p><span class="pill on">no ar</span></a><div class="f"><div class="ic">📅</div><b>Agenda com sinal</b><p>O cliente confirma com Pix</p><span class="pill off">disponível</span></div><div class="f"><div class="ic">💈</div><b>Clube de assinatura</b><p>Receita fixa todo mês</p><span class="pill on">no ar</span></div><div class="f"><div class="ic">📱</div><b>Conteúdo do mês</b><p>Posts prontos, você só aprova</p><span class="pill on">no ar</span></div><a class="f" href="https://business.facebook.com/latest/inbox/all" target="_blank" rel="noopener"><div class="ic">📬</div><b>Canais unificados</b><p>WhatsApp, Insta e Face numa caixa</p><span class="pill on">no ar</span></a></div>
     <h3>Seus números</h3>
@@ -146,7 +157,7 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
   <section class="tela" id="t-site">
     <h2>Seu site</h2>
     <p class="sub">No ar, funcionando, e trabalhando por você todo dia.</p>
-    <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="seu site"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
+    <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="Seu site, ao vivo"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
     <h3>Suas páginas</h3>
     <a class="linha" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><span class="ic2">🌐</span><div><b>Seu site</b><p>a porta de entrada</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><span class="ic2">📋</span><div><b>Serviços &amp; preços</b><p>sua tabela</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><span class="ic2">📸</span><div><b>Galeria</b><p>seu trabalho</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><span class="ic2">⭐</span><div><b>Avaliações</b><p>sua reputação</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/plano/" target="_blank" rel="noopener"><span class="ic2">📊</span><div><b>Seu diagnóstico</b><p>onde está o dinheiro perdido</p></div><span class="go">→</span></a>
   </section>
@@ -190,12 +201,12 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
 </div>
 </div>
 
-<nav id="abas">
-  <button data-t="inicio" class="on"><span class="ic">🏠</span><span class="lb">Início</span></button>
-  <button data-t="site"><span class="ic">🌐</span><span class="lb">Meu site</span></button>
-  <button data-t="agenda"><span class="ic">📅</span><span class="lb">Agenda</span></button>
-  <button data-t="divulgacao"><span class="ic">📣</span><span class="lb">Divulgação</span></button>
-  <button data-t="conta"><span class="ic">👤</span><span class="lb">Conta</span></button>
+<nav id="abas" role="tablist" aria-label="Navegação principal">
+  <button data-t="inicio" class="on" role="tab" aria-current="page" aria-label="Início"><span class="ic" aria-hidden="true">🏠</span><span class="lb">Início</span></button>
+  <button data-t="site" role="tab" aria-label="Meu site"><span class="ic" aria-hidden="true">🌐</span><span class="lb">Meu site</span></button>
+  <button data-t="agenda" role="tab" aria-label="Agenda"><span class="ic" aria-hidden="true">📅</span><span class="lb">Agenda</span></button>
+  <button data-t="divulgacao" role="tab" aria-label="Divulgação"><span class="ic" aria-hidden="true">📣</span><span class="lb">Divulgação</span></button>
+  <button data-t="conta" role="tab" aria-label="Conta"><span class="ic" aria-hidden="true">👤</span><span class="lb">Conta</span></button>
 </nav>
 
 <script>
@@ -229,6 +240,28 @@ document.querySelectorAll('#abas button').forEach(function(b) {
     window.scrollTo({top: 0, behavior: 'instant'});
   };
 });
+
+/* miniatura: tira o skeleton quando o site carrega */
+document.querySelectorAll('.mini iframe').forEach(function(f) {
+  f.addEventListener('load', function() { f.parentNode.classList.add('pronto'); });
+  if (f.contentDocument && f.contentDocument.readyState === 'complete') f.parentNode.classList.add('pronto');
+});
+
+/* estado offline */
+function statusRede() {
+  document.getElementById('offline').classList.toggle('on', !navigator.onLine);
+}
+window.addEventListener('online', statusRede);
+window.addEventListener('offline', statusRede);
+statusRede();
+
+/* atalhos do ícone: ?aba=site abre direto na aba */
+(function() {
+  var alvo = new URLSearchParams(location.search).get('aba');
+  if (!alvo) return;
+  var b = document.querySelector('#abas button[data-t="' + alvo + '"]');
+  if (b) setTimeout(function() { b.click(); }, 60);
+})();
 
 /* PWA */
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(function() {});
