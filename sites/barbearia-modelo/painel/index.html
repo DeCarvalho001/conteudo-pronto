@@ -110,6 +110,22 @@ font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:99px;border:1px s
 animation:pulso 1.6s infinite}
 @keyframes pulso{0%,100%{opacity:1}50%{opacity:.25}}
 
+.ed{background:var(--sup);border:1px solid var(--bor);border-radius:14px;padding:15px;margin-top:10px}
+.ed h4{font-size:14.6px;margin-bottom:3px}
+.ed .aj{color:var(--mut);font-size:12.2px;margin-bottom:11px}
+.sv{display:grid;grid-template-columns:1fr 68px 74px 30px;gap:6px;margin-bottom:6px;align-items:center}
+.sv input{background:#0f0d09;border:1px solid #2a2419;border-radius:9px;padding:10px 9px;
+color:var(--txt);font-size:13.4px;font-family:inherit;width:100%;min-width:0}
+.sv input:focus{outline:none;border-color:var(--ouro)}
+.sv .x{background:none;border:0;color:#6f6a60;font-size:19px;cursor:pointer;padding:0}
+.cab{display:grid;grid-template-columns:1fr 68px 74px 30px;gap:6px;margin-bottom:5px;
+color:var(--mut);font-size:10.6px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.bt2{width:100%;border:0;border-radius:11px;padding:13px;font-weight:800;font-size:14.2px;
+cursor:pointer;font-family:inherit;margin-top:8px}
+.bt2.g{background:var(--ouro);color:#0e0d0b}
+.bt2.s{background:none;border:1px dashed #322a1c;color:var(--ouro)}
+.msg{font-size:12.8px;margin-top:9px;text-align:center;min-height:18px}
+.msg.ok{color:var(--verde)}.msg.err{color:#e8a07c}
 .canal{background:var(--sup);border:1px solid var(--bor);border-left:3px solid #0866FF;border-radius:12px;
 padding:13px 15px;margin-bottom:9px}
 .canal b{font-size:14.2px;display:block;margin-bottom:3px}
@@ -180,6 +196,16 @@ border-radius:13px;padding:14px;font-size:14.6px;cursor:pointer;margin-top:9px;f
     <div class="mini"><div class="tela-mini"><span class="viva"><i></i>NO AR AGORA</span><iframe src="https://barbearia-modelo.omnisdata.app/" loading="lazy" title="Seu site, ao vivo"></iframe><div class="capa"></div></div><div class="pe"><b>Seu site, funcionando agora</b><a href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener">Abrir →</a></div></div>
     <h3>Suas páginas</h3>
     <a class="linha" href="https://barbearia-modelo.omnisdata.app/" target="_blank" rel="noopener"><span class="ic2">🌐</span><div><b>Seu site</b><p>a porta de entrada</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/servicos/" target="_blank" rel="noopener"><span class="ic2">📋</span><div><b>Serviços &amp; preços</b><p>sua tabela</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/galeria/" target="_blank" rel="noopener"><span class="ic2">📸</span><div><b>Galeria</b><p>seu trabalho</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/avaliacoes/" target="_blank" rel="noopener"><span class="ic2">⭐</span><div><b>Avaliações</b><p>sua reputação</p></div><span class="go">→</span></a><a class="linha" href="https://barbearia-modelo.omnisdata.app/plano/" target="_blank" rel="noopener"><span class="ic2">📊</span><div><b>Seu diagnóstico</b><p>onde está o dinheiro perdido</p></div><span class="go">→</span></a>
+
+    <h3>Sua tabela de preços</h3>
+    <div class="ed">
+      <h4>Mudou de preço?</h4>
+      <p class="aj" id="edaj">Edite aqui — seu site atualiza sozinho em segundos.</p>
+      <div id="edlista"></div>
+      <button class="bt2 s" id="edmais">+ adicionar serviço</button>
+      <button class="bt2 g" id="edsalvar">Salvar e atualizar meu site</button>
+      <div class="msg" id="edmsg"></div>
+    </div>
   </section>
 
   <section class="tela" id="t-agenda">
@@ -301,6 +327,78 @@ document.querySelectorAll('#abas button').forEach(function(b) {
     window.scrollTo({top: 0, behavior: 'instant'});
   };
 });
+
+/* ═══ EDIÇÃO DA TABELA (Fase 2) — só com login de servidor ═══ */
+(function() {
+  var lista = document.getElementById('edlista'), msg = document.getElementById('edmsg');
+  var bsalvar = document.getElementById('edsalvar'), bmais = document.getElementById('edmais');
+  var aj = document.getElementById('edaj');
+  var tk = localStorage.getItem(KEY + '_t');
+
+  function linha(nome, preco, dur) {
+    var d = document.createElement('div'); d.className = 'sv';
+    d.innerHTML = '<input class="n" placeholder="Serviço" maxlength="60">' +
+                  '<input class="p" placeholder="45" inputmode="decimal" maxlength="12">' +
+                  '<input class="d" placeholder="30 min" maxlength="20">' +
+                  '<button class="x" title="remover">×</button>';
+    d.querySelector('.n').value = nome || ''; d.querySelector('.p').value = preco || '';
+    d.querySelector('.d').value = dur || '';
+    d.querySelector('.x').onclick = function() { d.remove(); };
+    lista.appendChild(d);
+  }
+  function cabecalho() {
+    var c = document.createElement('div'); c.className = 'cab';
+    c.innerHTML = '<span>Serviço</span><span>R$</span><span>Tempo</span><span></span>';
+    lista.appendChild(c);
+  }
+
+  if (!tk) {
+    /* sem login de servidor: não finge que edita */
+    aj.textContent = 'Para editar direto por aqui, entre com o código que a Vitrine te envia. Enquanto isso, é só me chamar que eu mudo pra você.';
+    bmais.style.display = 'none'; bsalvar.style.display = 'none';
+    return;
+  }
+
+  cabecalho();
+  fetch(API + '/api/cliente/' + SLUG + '/servicos', {headers: {'Authorization': 'Bearer ' + tk}})
+    .then(function(r) { return r.json(); })
+    .then(function(j) {
+      (j.servicos || []).forEach(function(s) { linha(s.nome, s.preco, s.duracao); });
+      if (!(j.servicos || []).length) linha('', '', '');
+    })
+    .catch(function() { linha('', '', ''); });
+
+  bmais.onclick = function() { linha('', '', ''); };
+
+  bsalvar.onclick = function() {
+    var itens = [];
+    lista.querySelectorAll('.sv').forEach(function(d) {
+      var n = d.querySelector('.n').value.trim(), p = d.querySelector('.p').value.trim();
+      if (n && p) itens.push({nome: n, preco: p, duracao: d.querySelector('.d').value.trim()});
+    });
+    if (!itens.length) { msg.className = 'msg err'; msg.textContent = 'Preencha ao menos um serviço com preço.'; return; }
+    bsalvar.disabled = true; msg.className = 'msg'; msg.textContent = 'salvando e atualizando seu site…';
+    fetch(API + '/api/cliente/' + SLUG + '/servicos', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + tk},
+      body: JSON.stringify({servicos: itens})
+    }).then(function(r) { return r.json().then(function(j) { return {s: r.status, j: j}; }); })
+      .then(function(o) {
+        bsalvar.disabled = false;
+        if (o.s === 200) {
+          msg.className = 'msg ok';
+          msg.textContent = '✓ Salvo! Seu site já está com os preços novos.';
+          document.querySelectorAll('.mini iframe').forEach(function(f) {
+            setTimeout(function() { f.src = f.src.split('#')[0] + '#' + Date.now(); }, 2500);
+          });
+        } else { msg.className = 'msg err'; msg.textContent = 'Não consegui salvar agora. Me chama no WhatsApp?'; }
+      })
+      .catch(function() {
+        bsalvar.disabled = false;
+        msg.className = 'msg err'; msg.textContent = 'Sem conexão. Tente de novo em instantes.';
+      });
+  };
+})();
 
 /* miniatura: tira o skeleton quando o site carrega */
 document.querySelectorAll('.mini iframe').forEach(function(f) {
