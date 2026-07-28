@@ -1,0 +1,165 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Agendar — Das Antiga Barber Shop</title>
+<meta name="description" content="Marque seu horário na Das Antiga Barber Shop em 3 toques. Sem baixar app, sem criar conta.">
+<style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#0b0b0c;color:#f2f2f2;font:400 17px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+ padding:0 0 40px;min-height:100vh}
+.top{padding:26px 20px 18px;text-align:center;border-bottom:1px solid #1c1c1f;position:sticky;top:0;background:#0b0b0cf2;backdrop-filter:blur(8px);z-index:9}
+.top h1{font:700 21px/1.25 Georgia,serif}
+.top p{font-size:13px;color:#8a8a8e;margin-top:3px}
+.w{max-width:520px;margin:0 auto;padding:22px 18px}
+.passo{margin-bottom:30px}
+.rot{font:600 12px/1 -apple-system,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#d4af37;margin-bottom:13px}
+.card{display:block;width:100%;text-align:left;background:#141416;border:1.5px solid #232326;border-radius:13px;
+ padding:16px 18px;margin-bottom:10px;color:#f2f2f2;font-size:17px;cursor:pointer;transition:.13s}
+.card:active{transform:scale(.985)}
+.card.on{border-color:#d4af37;background:#1a1710}
+.card b{display:block;font-weight:600}
+.card span{font-size:14px;color:#8a8a8e}
+.dias{display:flex;gap:9px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.dias::-webkit-scrollbar{display:none}
+.dia{flex:0 0 auto;min-width:76px;background:#141416;border:1.5px solid #232326;border-radius:12px;
+ padding:12px 8px;text-align:center;cursor:pointer;color:#f2f2f2}
+.dia.on{border-color:#d4af37;background:#1a1710}
+.dia.off{opacity:.32;cursor:not-allowed}
+.dia i{display:block;font-style:normal;font-size:11px;text-transform:uppercase;color:#8a8a8e;letter-spacing:.06em}
+.dia b{display:block;font-size:21px;font-weight:700;margin:3px 0 1px}
+.dia u{display:block;text-decoration:none;font-size:11px;color:#d4af37}
+.hs{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:9px}
+.h{background:#141416;border:1.5px solid #232326;border-radius:11px;padding:14px 4px;text-align:center;
+ font-size:16px;font-weight:600;cursor:pointer;color:#f2f2f2;min-height:50px}
+.h.on{border-color:#d4af37;background:#d4af37;color:#0b0b0c}
+input{width:100%;background:#141416;border:1.5px solid #232326;border-radius:11px;padding:15px 16px;
+ color:#f2f2f2;font-size:17px;margin-bottom:10px}
+input:focus{outline:none;border-color:#d4af37}
+.btn{width:100%;background:#d4af37;color:#0b0b0c;border:0;border-radius:12px;padding:18px;font-size:18px;
+ font-weight:700;cursor:pointer;margin-top:6px;min-height:56px}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.msg{background:#2a1616;border:1px solid #5c2626;color:#ffb4b4;border-radius:11px;padding:13px 15px;
+ font-size:15px;margin:12px 0}
+.ok{text-align:center;padding:14px 0}
+.ok .tick{font-size:52px}
+.ok h2{font:700 25px/1.2 Georgia,serif;margin:10px 0 6px}
+.res{background:#141416;border:1px solid #232326;border-radius:13px;padding:18px;margin:18px 0;text-align:left}
+.res div{display:flex;justify-content:space-between;padding:7px 0;font-size:15px;border-bottom:1px solid #1c1c1f}
+.res div:last-child{border:0}
+.res span{color:#8a8a8e}
+.pixbox{background:#1a1710;border:1.5px solid #d4af37;border-radius:13px;padding:17px;margin:16px 0}
+.pixbox p{font-size:14px;color:#e8d9a8;margin-bottom:11px}
+.cod{background:#0b0b0c;border-radius:9px;padding:12px;font:400 11px/1.45 ui-monospace,Menlo,monospace;
+ color:#b9b9bb;word-break:break-all;max-height:92px;overflow:auto}
+.aviso{font-size:13px;color:#8a8a8e;text-align:center;margin-top:14px}
+.carr{text-align:center;color:#8a8a8e;padding:22px;font-size:15px}
+.esc{display:none}</style></head><body>
+<div class="top"><h1>Das Antiga Barber Shop</h1><p>Marque em 3 toques — sem baixar nada</p></div>
+<div class="w">
+  <div id="erro" class="msg" style="display:none"></div>
+  <p id="carr" class="carr">carregando a agenda…</p>
+
+  <div id="etapas" style="display:none">
+    <div class="passo"><div class="rot">1 · O que você quer fazer</div><div id="servicos"></div></div>
+    <div class="passo" id="p2" style="display:none"><div class="rot">2 · Que dia</div><div class="dias" id="dias"></div></div>
+    <div class="passo" id="p3" style="display:none"><div class="rot">3 · Que horas</div><div class="hs" id="horas"></div></div>
+    <div class="passo" id="p4" style="display:none"><div class="rot">4 · Seus dados</div>
+      <input id="nome" placeholder="Seu nome" autocomplete="name">
+      <input id="fone" placeholder="Seu WhatsApp com DDD" inputmode="tel" autocomplete="tel">
+      <button class="btn" id="enviar" onclick="confirmar()">Confirmar horário</button>
+      <p class="aviso">Sem cadastro, sem senha. Só isso.</p>
+    </div>
+  </div>
+
+  <div id="final" style="display:none"><div class="ok">
+    <div class="tick">✅</div><h2>Horário marcado!</h2>
+    <div class="res" id="resumo"></div>
+    <div class="pixbox" id="pixbox" style="display:none">
+      <p><b>Falta só o sinal.</b> Pague o Pix abaixo pra confirmar — o valor abate no seu atendimento.</p>
+      <div class="cod" id="cod"></div>
+      <button class="btn" id="copiar" onclick="copiar()">Copiar código Pix</button>
+    </div>
+    <p class="aviso" id="prazo"></p>
+  </div></div>
+</div>
+<script>const PIX="";
+const API='https://api.omnisdata.app', SLUG='das-antiga-barber-shop';
+let S={srv:null,prof:null,dia:null,hora:null,dados:null};
+const $=s=>document.querySelector(s), el=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e;};
+
+async function api(p,o){const r=await fetch(API+p,o);if(!r.ok){let m='Algo deu errado.';
+  try{m=(await r.json()).detail||m}catch(e){} throw new Error(m)} return r.json()}
+
+function erro(m){const d=$('#erro');d.textContent=m;d.style.display='block';
+  setTimeout(()=>d.style.display='none',6000)}
+
+async function iniciar(){
+  try{S.dados=await api(`/api/agenda/${SLUG}/inicio`)}catch(e){
+    $('#app').innerHTML='<p class="carr">A agenda ainda não está ativa. Chame no WhatsApp 👋</p>';return}
+  $('#carr').style.display='none'; $('#etapas').style.display='block';
+  const c=$('#servicos');
+  S.dados.servicos.forEach(s=>{const b=el('button','card');
+    b.innerHTML=`<b>${s.nome}</b><span>${s.preco?'R$ '+s.preco+' · ':''}${s.duracao} min</span>`;
+    b.onclick=()=>{S.srv=s;[...c.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');
+      S.dia=null;S.hora=null;carregarDias()};c.appendChild(b)});
+}
+
+async function carregarDias(){
+  $('#p2').style.display='block'; $('#p3').style.display='none'; $('#p4').style.display='none';
+  const box=$('#dias'); box.innerHTML='<p class="carr">carregando…</p>';
+  let r; try{r=await api(`/api/agenda/${SLUG}/dias?servico=${S.srv.id}`)}catch(e){return erro(e.message)}
+  box.innerHTML='';
+  r.dias.forEach(d=>{const b=el('div','dia'+(d.vagas?'':' off'));
+    const dt=d.data.split('-');
+    b.innerHTML=`<i>${d.dia.slice(0,3)}</i><b>${dt[2]}</b><u>${d.vagas?d.vagas+' vagas':'—'}</u>`;
+    if(d.vagas){b.onclick=()=>{S.dia=d.data;S.hora=null;
+      [...box.children].forEach(x=>x.classList.remove('on'));b.classList.add('on');carregarHoras()}}
+    box.appendChild(b)});
+}
+
+async function carregarHoras(){
+  $('#p3').style.display='block'; $('#p4').style.display='none';
+  const box=$('#horas'); box.innerHTML='<p class="carr">carregando…</p>';
+  let r; try{r=await api(`/api/agenda/${SLUG}/horarios?data=${S.dia}&servico=${S.srv.id}`)}catch(e){return erro(e.message)}
+  box.innerHTML='';
+  r.opcoes.forEach(o=>{
+    if(r.opcoes.length>1){const t=el('div','rot');t.textContent='com '+o.profissional;
+      t.style.gridColumn='1/-1';t.style.marginTop='10px';box.appendChild(t)}
+    o.horarios.forEach(h=>{const b=el('div','h');b.textContent=h;
+      b.onclick=()=>{S.hora=h;S.prof=o.prof_id;
+        [...box.querySelectorAll('.h')].forEach(x=>x.classList.remove('on'));b.classList.add('on');
+        $('#p4').style.display='block';$('#p4').scrollIntoView({behavior:'smooth',block:'start'})};
+      box.appendChild(b)})});
+  if(!r.opcoes.length)box.innerHTML='<p class="carr">Sem vaga nesse dia.</p>';
+}
+
+async function confirmar(){
+  const nome=$('#nome').value.trim(), fone=$('#fone').value.trim();
+  if(nome.length<2)return erro('Escreve teu nome completo.');
+  if(fone.replace(/\D/g,'').length<10)return erro('Escreve teu WhatsApp com DDD.');
+  const b=$('#enviar'); b.disabled=true; b.textContent='Marcando…';
+  let r;
+  try{r=await api(`/api/agenda/${SLUG}/reservar`,{method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({servico_id:S.srv.id,prof_id:S.prof,data:S.dia,hora:S.hora,cliente:nome,fone:fone})})}
+  catch(e){b.disabled=false;b.textContent='Confirmar horário';
+    erro(e.message); if(/ocupado/.test(e.message))carregarHoras(); return}
+  mostrarOk(r,nome);
+}
+
+function mostrarOk(r,nome){
+  $('#etapas').style.display='none';
+  const d=r.inicio.split(' ')[0].split('-');
+  $('#final').style.display='block';
+  $('#resumo').innerHTML=
+    `<div><span>Serviço</span><b>${r.servico}</b></div>`+
+    `<div><span>Quando</span><b>${d[2]}/${d[1]} às ${r.inicio.split(' ')[1]}</b></div>`+
+    `<div><span>Nome</span><b>${nome}</b></div>`+
+    `<div><span>Código</span><b>${r.codigo}</b></div>`;
+  $('#prazo').textContent=`Seu horário fica guardado por ${r.minutos_para_pagar} minutos.`;
+  if(PIX){$('#pixbox').style.display='block';$('#cod').textContent=PIX}
+}
+
+function copiar(){navigator.clipboard.writeText(PIX).then(()=>{
+  const b=$('#copiar');b.textContent='✓ Copiado!';setTimeout(()=>b.textContent='Copiar código Pix',2500)})}
+
+document.addEventListener('DOMContentLoaded',iniciar);
+</script></body></html>
