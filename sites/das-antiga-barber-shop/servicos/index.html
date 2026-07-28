@@ -204,12 +204,15 @@ header .wrap{padding:var(--s8) var(--s5)}
    isso as subpáginas serviam 10 tamanhos de fonte contra 8 da home */
 .pg{padding:var(--s7) 0 var(--s5)}
 .pg h1{margin-bottom:var(--s2)}
+/* o mesmo filete do h2 da home — assinatura tem de valer no site inteiro */
+.pg h1::before{content:'';display:block;width:38px;height:2px;background:var(--acc);margin-bottom:var(--s3);border-radius:2px}
 .pg .sub{color:var(--muted);margin-bottom:var(--s5)}
 .pg .sub:empty{display:none}
 .voltar{display:inline-flex;align-items:center;min-height:var(--toque);margin:var(--s3) 0 0;color:var(--muted);text-decoration:none;font-size:var(--t-sm)}
 .voltar:hover{color:var(--acc)}
 </style></head><body>
 <nav><div class="wrap"><b>Das Antiga Barber Shop</b><div class="links"><a href="../">Início</a><a href="../servicos/" style="color:var(--acc)">Serviços</a><a href="../galeria/">Galeria</a><a class="ctan" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
+<div class="pole"></div>
 <section class="pg"><div class="wrap"><h1>Serviços & Preços</h1><p class="sub">Tudo o que a casa faz, com preço na mão.</p><div class="card tabela"><div class="row"><span>Corte</span><i></i><b>R$ 45</b></div><div class="row"><span>Barba</span><i></i><b>R$ 40</b></div><div class="row"><span>Sobrancelha</span><i></i><b>R$ 20</b></div><div class="row"><span>Botox Capilar</span><i></i><b>R$ 100</b></div></div><div class="card combo"><span>🔥 Corte + Barba</span><b>R$ 85</b></div></div></section><section><div class="wrap center"><a class="btn" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></div></section>
 <footer><div class="wrap"><b style="color:var(--txt)">Das Antiga Barber Shop</b><br>
 <a class="voltar" href="../">← voltar ao site</a>
