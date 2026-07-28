@@ -73,14 +73,14 @@ input:focus{outline:none;border-color:#d4af37}
     <div class="tick">✅</div><h2>Horário marcado!</h2>
     <div class="res" id="resumo"></div>
     <div class="pixbox" id="pixbox" style="display:none">
-      <p><b>Falta só o sinal de R$ 20.</b> Pague o Pix abaixo pra confirmar — o valor abate no seu atendimento.</p>
+      <p><b>Falta só o sinal.</b> Pague o Pix abaixo pra confirmar — o valor abate no seu atendimento.</p>
       <div class="cod" id="cod"></div>
       <button class="btn" id="copiar" onclick="copiar()">Copiar código Pix</button>
     </div>
     <p class="aviso" id="prazo"></p>
   </div></div>
 </div>
-<script>const PIX="00020126560014br.gov.bcb.pix0134demonstracao@vitrinedigital.com.br520400005303986540520.005802BR5920BARBEARIA ESTUDIO 476009JOINVILLE62090505SINAL63049DC0";
+<script>const PIX="";
 const API='https://api.omnisdata.app', SLUG='barbearia-modelo';
 let S={srv:null,prof:null,dia:null,hora:null,dados:null};
 const $=s=>document.querySelector(s), el=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e;};
