@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville</title>
-<meta name="description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora mesmo pelo Booksy.">
+<meta name="description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo nosso Booksy.">
 
-<meta property="og:title" content="Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville"><meta property="og:description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora mesmo pelo Booksy.">
+<meta property="og:title" content="Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville"><meta property="og:description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo nosso Booksy.">
 <meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg">
 <link rel="preload" as="image" href="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,8 +228,10 @@ header .wrap{padding:var(--s8) var(--s5)}
 /* MOVIMENTO COM INTENÇÃO: cada bloco entra um pouco depois do anterior.
    É o que as pessoas leem como "caro". O JS só marca .rev-on; sem JS, tudo
    aparece normalmente (a classe .rev nasce do próprio script). */
-.rev{opacity:0;transform:translateY(20px)}
-.rev-on{opacity:1;transform:none;
+/* só esconde quando o JS PROVOU que o navegador está pintando (ver JS_MOV).
+   Sem essa prova, .anim nunca entra e nada fica invisível. */
+.anim .rev{opacity:0;transform:translateY(20px)}
+.anim .rev-on{opacity:1;transform:none;
 transition:opacity .75s cubic-bezier(.22,.72,.28,1),transform .75s cubic-bezier(.22,.72,.28,1)}
 
 /* estados: sublinhado que cresce, card que levanta */
@@ -243,14 +245,14 @@ nav{transition:padding .3s ease}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
-.rev{opacity:1;transform:none}}
+.anim .rev{opacity:1;transform:none}}
 </style></head><body>
 
 <nav><div class="wrap"><b>Das Antiga Barber Shop</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a href="./servicos/">Serviços</a><a href="./galeria/">Galeria</a><a class="ctan" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header class="hsplit"><div class="wrap">
-<div class="col-txt"><h1>Das Antiga: o corte que respeita a sua tradição.</h1><p class="sub">Garanta seu horário agora mesmo pelo Booksy.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Aventureiro</span></div>
+<div class="col-txt"><h1>Das Antiga: a tradição que o Aventureiro respeita.</h1><p class="sub">Garanta seu horário agora pelo nosso Booksy.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Aventureiro</span></div>
 <p style="margin-top:var(--s5)"><a class="btn" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a><a class="btn ghost" href="#servicos" style="margin-left:var(--s3)">Ver preços</a></p>
-<p class="lead sobre">Uma barbearia raiz no coração do Aventureiro focada na precisão e no atendimento de confiança. Mantemos a essência do estilo clássico em cada detalhe do nosso trabalho.</p></div>
+<p class="lead sobre">Uma barbearia raiz feita para quem valoriza o corte clássico e o atendimento de confiança. Somos ponto de encontro no Aventureiro, focados em manter o estilo impecável.</p></div>
 <div class="col-img"><img src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg" alt="Das Antiga Barber Shop — foto 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/2.jpg" alt="Das Antiga Barber Shop — foto 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/3.jpg" alt="Das Antiga Barber Shop — foto 3"></div>
 </div></header>
 <div class="pole"></div>
@@ -260,7 +262,7 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 <section id="galeria" class="alt sec-bleed"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="mosaic mosaic--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/2.jpg" alt="Das Antiga Barber Shop — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/3.jpg" alt="Das Antiga Barber Shop — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/4.jpg" alt="Das Antiga Barber Shop — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/5.jpg" alt="Das Antiga Barber Shop — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/6.jpg" alt="Das Antiga Barber Shop — trabalho 5"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/7.jpg" alt="Das Antiga Barber Shop — trabalho 6"></div></div><div class="pole"></div></section>
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Tradição no Aventureiro</b><p>Somos referência local em cortes clássicos com a técnica que você já conhece.</p></div><div class="card m"><b>Estilo que conecta</b><p>Acompanhe nossos trabalhos diários no Instagram e veja a qualidade que entregamos.</p></div><div class="card m"><b>Agendamento ágil</b><p>Sem filas ou espera, utilize o Booksy para marcar seu horário com praticidade.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Tradição real</b><p>Mantemos a essência da barbearia raiz com foco em cortes de precisão.</p></div><div class="card m"><b>Agendamento prático</b><p>Utilizamos o Booksy para facilitar a marcação do seu horário na Rua Tuiuti.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Das Antiga Barber Shop</b><span>Rua Tuiuti, 2295 - Aventureiro, Joinville - SC</span>
@@ -285,38 +287,40 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
   }
 
   var lento = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // REDE 1: viewport degenerado nao anima. Se o navegador nao sabe o tamanho
-  // da tela, o observador nunca dispara e tudo ficaria invisivel.
   if (lento.matches || !('IntersectionObserver' in window)
       || !window.innerHeight || !window.innerWidth) return;
 
-  var alvos = [].slice.call(document.querySelectorAll(
-    'section > .wrap > *, .card, blockquote, .grid img, .mosaic img'));
-  if (!alvos.length) return;
-  alvos.forEach(function(e){ e.classList.add('rev'); });
+  // PORTAO: so escondemos algo DEPOIS que um quadro foi realmente pintado.
+  // Se o navegador nao esta compondo, este callback nunca roda, a classe
+  // 'anim' nunca entra, e o CSS que esconde (html.anim .rev) nunca vale.
+  requestAnimationFrame(function(){
+    var alvos = [].slice.call(document.querySelectorAll(
+      'section > .wrap > *, .card, blockquote, .grid img, .mosaic img'));
+    if (!alvos.length) return;
 
-  function revelar(e){ e.classList.add('rev-on'); }
-  // REDE 3: aconteca o que acontecer, em 2,5s tudo aparece.
-  var rede = setTimeout(function(){ alvos.forEach(revelar); }, 2500);
+    document.documentElement.classList.add('anim');
+    alvos.forEach(function(e){ e.classList.add('rev'); });
 
-  var obs = new IntersectionObserver(function(itens){
-    var i = 0;
-    itens.forEach(function(it){
-      if (!it.isIntersecting) return;
-      var atraso = Math.min(i++, 5) * 60;
-      setTimeout(function(){ revelar(it.target); }, atraso);
-      obs.unobserve(it.target);
+    function revelar(e){ e.classList.add('rev-on'); }
+    // rede final: aconteca o que acontecer, em 2,5s tudo aparece
+    setTimeout(function(){ alvos.forEach(revelar); }, 2500);
+
+    var obs = new IntersectionObserver(function(itens){
+      var i = 0;
+      itens.forEach(function(it){
+        if (!it.isIntersecting) return;
+        var atraso = Math.min(i++, 5) * 60;
+        setTimeout(function(){ revelar(it.target); }, atraso);
+        obs.unobserve(it.target);
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
+
+    alvos.forEach(function(e){
+      var r = e.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) { revelar(e); return; }
+      obs.observe(e);
     });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
-
-  alvos.forEach(function(e){
-    // REDE 2: o que ja esta na tela aparece agora, sem esperar rolagem
-    var r = e.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) { revelar(e); return; }
-    obs.observe(e);
   });
-
-  addEventListener('pagehide', function(){ clearTimeout(rede); });
 })();
 </script>
 </body></html>
