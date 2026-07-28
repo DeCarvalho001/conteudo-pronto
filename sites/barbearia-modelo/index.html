@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC</title>
-<meta name="description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual em dia no Estúdio 47.">
+<meta name="description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual impecável.">
 
-<meta property="og:title" content="Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC"><meta property="og:description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual em dia no Estúdio 47.">
+<meta property="og:title" content="Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC"><meta property="og:description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual impecável.">
 <meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg">
 <link rel="preload" as="image" href="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -228,8 +228,10 @@ header .wrap{padding:var(--s8) var(--s5)}
 /* MOVIMENTO COM INTENÇÃO: cada bloco entra um pouco depois do anterior.
    É o que as pessoas leem como "caro". O JS só marca .rev-on; sem JS, tudo
    aparece normalmente (a classe .rev nasce do próprio script). */
-.rev{opacity:0;transform:translateY(20px)}
-.rev-on{opacity:1;transform:none;
+/* só esconde quando o JS PROVOU que o navegador está pintando (ver JS_MOV).
+   Sem essa prova, .anim nunca entra e nada fica invisível. */
+.anim .rev{opacity:0;transform:translateY(20px)}
+.anim .rev-on{opacity:1;transform:none;
 transition:opacity .75s cubic-bezier(.22,.72,.28,1),transform .75s cubic-bezier(.22,.72,.28,1)}
 
 /* estados: sublinhado que cresce, card que levanta */
@@ -243,14 +245,14 @@ nav{transition:padding .3s ease}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
-.rev{opacity:1;transform:none}}
+.anim .rev{opacity:1;transform:none}}
 </style></head><body>
 
 <nav><div class="wrap"><b>Barbearia Estúdio 47</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a href="./servicos/">Serviços</a><a href="./galeria/">Galeria</a><a href="./avaliacoes/">Avaliações</a><a class="ctan" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header class="hsplit"><div class="wrap">
-<div class="col-txt"><h1>Estilo impecável no coração de Joinville.</h1><p class="sub">Garanta seu horário e mantenha o visual em dia no Estúdio 47.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Seg a Sex 09h às 20h; Sábado 08h às 18h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
+<div class="col-txt"><h1>Estilo que impõe respeito no Centro de Joinville.</h1><p class="sub">Garanta seu horário e mantenha o visual impecável.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Seg a Sex 09h às 20h; Sábado 08h às 18h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
 <p style="margin-top:var(--s5)"><a class="btn" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a><a class="btn ghost" href="#servicos" style="margin-left:var(--s3)">Ver preços</a></p>
-<p class="lead sobre">A Barbearia Estúdio 47 é o ponto de encontro para quem busca precisão no corte e respeito ao tempo. Combinamos técnica apurada e ambiente focado na sua experiência no Centro de Joinville.</p></div>
+<p class="lead sobre">A Barbearia Estúdio 47 combina precisão técnica com o rigor da pontualidade. Um espaço pensado para quem valoriza a agilidade e a qualidade no resultado final.</p></div>
 <div class="col-img"><img src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" alt="Barbearia Estúdio 47 — foto 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47 — foto 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47 — foto 3"></div>
 </div></header>
 <div class="pole"></div>
@@ -260,7 +262,7 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 <section id="galeria" class="alt sec-bleed"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="mosaic mosaic--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47 — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47 — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/4.jpg" alt="Barbearia Estúdio 47 — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/5.jpg" alt="Barbearia Estúdio 47 — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/6.jpg" alt="Barbearia Estúdio 47 — trabalho 5"></div></div><div class="pole"></div></section>
 <section class="alt"><div class="wrap"><h2>Quem corta aqui diz</h2><blockquote><p>Ambiente top e hora marcada é hora marcada de verdade. Virei cliente fixo.</p><cite>Diego S.</cite></blockquote><blockquote><p>Cortei aqui pro casamento e ficou impecável. Recomendo demais.</p><cite>Anderson P.</cite></blockquote><p class="mini">Avaliações reais de clientes · <a class="mini" href="https://www.google.com/maps/search/Barbearia%20Est%C3%BAdio%2047%20Centro%2C%20Joinville%20-%20SC" target="_blank" rel="noopener">ver no Google</a></p></div></section>
 <section><div class="wrap"><h2>Os barbeiros</h2><div class="planos"><div class="card eq"><span class="mono-b">L</span><b>Léo</b><small>degradê e navalha</small></div><div class="card eq"><span class="mono-b">R</span><b>Rafa</b><small>barba e acabamento</small></div><div class="card eq"><span class="mono-b">B</span><b>Bruno</b><small>corte social e infantil</small></div></div></div></section>
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Degradê de precisão</b><p>Executamos cortes com acabamento técnico rigoroso reconhecido pelos nossos clientes.</p></div><div class="card m"><b>Pontualidade absoluta</b><p>Nosso sistema de agendamento garante que seu atendimento comece exatamente no horário marcado.</p></div><div class="card m"><b>Foco no resultado</b><p>Entregamos cortes alinhados para o dia a dia ou ocasiões especiais com o mesmo padrão de qualidade.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Degradê de precisão</b><p>Executamos cortes com acabamento técnico de alto nível, reconhecido pelos clientes da região.</p></div><div class="card m"><b>Agenda sem falhas</b><p>Nosso sistema de agendamento garante que seu atendimento comece exatamente no horário marcado.</p></div><div class="card m"><b>Foco nos detalhes</b><p>Preparamos seu visual para eventos importantes com a atenção que cada fio exige.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia Estúdio 47</b><span>Centro, Joinville - SC</span>
@@ -285,38 +287,40 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
   }
 
   var lento = window.matchMedia('(prefers-reduced-motion: reduce)');
-  // REDE 1: viewport degenerado nao anima. Se o navegador nao sabe o tamanho
-  // da tela, o observador nunca dispara e tudo ficaria invisivel.
   if (lento.matches || !('IntersectionObserver' in window)
       || !window.innerHeight || !window.innerWidth) return;
 
-  var alvos = [].slice.call(document.querySelectorAll(
-    'section > .wrap > *, .card, blockquote, .grid img, .mosaic img'));
-  if (!alvos.length) return;
-  alvos.forEach(function(e){ e.classList.add('rev'); });
+  // PORTAO: so escondemos algo DEPOIS que um quadro foi realmente pintado.
+  // Se o navegador nao esta compondo, este callback nunca roda, a classe
+  // 'anim' nunca entra, e o CSS que esconde (html.anim .rev) nunca vale.
+  requestAnimationFrame(function(){
+    var alvos = [].slice.call(document.querySelectorAll(
+      'section > .wrap > *, .card, blockquote, .grid img, .mosaic img'));
+    if (!alvos.length) return;
 
-  function revelar(e){ e.classList.add('rev-on'); }
-  // REDE 3: aconteca o que acontecer, em 2,5s tudo aparece.
-  var rede = setTimeout(function(){ alvos.forEach(revelar); }, 2500);
+    document.documentElement.classList.add('anim');
+    alvos.forEach(function(e){ e.classList.add('rev'); });
 
-  var obs = new IntersectionObserver(function(itens){
-    var i = 0;
-    itens.forEach(function(it){
-      if (!it.isIntersecting) return;
-      var atraso = Math.min(i++, 5) * 60;
-      setTimeout(function(){ revelar(it.target); }, atraso);
-      obs.unobserve(it.target);
+    function revelar(e){ e.classList.add('rev-on'); }
+    // rede final: aconteca o que acontecer, em 2,5s tudo aparece
+    setTimeout(function(){ alvos.forEach(revelar); }, 2500);
+
+    var obs = new IntersectionObserver(function(itens){
+      var i = 0;
+      itens.forEach(function(it){
+        if (!it.isIntersecting) return;
+        var atraso = Math.min(i++, 5) * 60;
+        setTimeout(function(){ revelar(it.target); }, atraso);
+        obs.unobserve(it.target);
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
+
+    alvos.forEach(function(e){
+      var r = e.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) { revelar(e); return; }
+      obs.observe(e);
     });
-  }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
-
-  alvos.forEach(function(e){
-    // REDE 2: o que ja esta na tela aparece agora, sem esperar rolagem
-    var r = e.getBoundingClientRect();
-    if (r.top < window.innerHeight && r.bottom > 0) { revelar(e); return; }
-    obs.observe(e);
   });
-
-  addEventListener('pagehide', function(){ clearTimeout(rede); });
 })();
 </script>
 </body></html>
