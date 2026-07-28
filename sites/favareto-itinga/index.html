@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia Favareto — Barbearia em Itinga, Araquari</title>
-<meta name="description" content="Barbearia Favareto — barbearia em Itinga, Araquari. Agende seu horário e garanta um corte de precisão.">
+<meta name="description" content="Barbearia Favareto — barbearia em Itinga, Araquari. Garanta seu horário e renove o visual com o Marcio.">
 
-<meta property="og:title" content="Barbearia Favareto — Barbearia em Itinga, Araquari"><meta property="og:description" content="Barbearia Favareto — barbearia em Itinga, Araquari. Agende seu horário e garanta um corte de precisão.">
+<meta property="og:title" content="Barbearia Favareto — Barbearia em Itinga, Araquari"><meta property="og:description" content="Barbearia Favareto — barbearia em Itinga, Araquari. Garanta seu horário e renove o visual com o Marcio.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,7 +136,9 @@ margin-top:var(--s3);border-color:var(--acc)}
    encaixe. Em barbearia o rosto é o produto — merece a faixa inteira. */
 .faixa .wrap{margin-bottom:var(--s5)}
 .trilho{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x proximity;
-padding:var(--s1) max(var(--s5),calc((100vw - 1020px) / 2)) var(--s5);
+/* 100vw inclui a barra de rolagem e o cálculo omitia o --s5 do .wrap: o
+   primeiro card começava 16,5px à esquerda de todos os títulos da página. */
+padding:var(--s1) max(var(--s5),calc((100% - 1020px) / 2 + var(--s5))) var(--s5);
 scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .trilho::-webkit-scrollbar{display:none}
 .trilho .card{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
@@ -182,7 +184,9 @@ transform:scale(1.012)}
 .bleed .tit{max-width:1020px;margin:0 auto var(--s6);padding:0 var(--s5);
 font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.03em}
 .bleed .tit::before{position:absolute;margin-left:-2.6em;margin-top:.9em}
-@media(max-width:759px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
+/* abaixo de 1034px o .tit encosta na borda e o número absoluto cai em x=-7px,
+   fora da tela — pegava TODO tablet em retrato e notebook de 1024. */
+@media(max-width:1034px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -246,7 +250,9 @@ padding:var(--s2);letter-spacing:.02em}
 .hsplit{min-height:auto}
 .hsplit .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);
 align-items:center;text-align:left;padding:var(--s8) var(--s5)}
-.hsplit h1{margin-bottom:var(--s1)}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
+.hsplit h1{margin-bottom:var(--s1)}
+.hsplit .assin{margin-left:0;margin-right:auto}
+@media(max-width:759px){.hsplit .assin{margin-left:auto}}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
 .hsplit .col-txt{min-width:0}
 .hsplit .col-img{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 .hsplit .col-img img{width:100%;height:100%;min-height:150px;max-height:260px;
@@ -289,8 +295,8 @@ nav{transition:padding .3s ease}
    passa a COMUNICAR que você rolou. */
 nav.slim{box-shadow:0 6px 24px rgba(0,0,0,.34)}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
-nav.slim .marca b{font-size:var(--t-sm)}
-nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
+nav.slim .wrap>b{font-size:var(--t-sm)}
+nav .wrap>b{font-size:var(--t-md);transition:font-size .3s ease}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
 .anim .rev{opacity:1;transform:none}}
@@ -298,13 +304,13 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 <nav><div class="wrap"><b>Barbearia Favareto</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a class="ctan" href="https://wa.me/5547988428579?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
-<span class="kick">Ouro Clássico</span>
+<span class="kick">ITINGA · ARAQUARI</span>
 <h1>Barbearia Favareto: a referência do seu estilo no Itinga.</h1>
 <div class="assin"></div>
-<p class="sub">Agende seu horário e garanta um corte de precisão.</p>
+<p class="sub">Garanta seu horário e renove o visual com o Marcio.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Itinga</span></div>
 <p style="margin-top:var(--s6)"><a class="btn" href="https://wa.me/5547988428579?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></p>
-<p class="lead sobre">Localizada no Itinga, a Barbearia Favareto oferece um espaço dedicado ao cuidado masculino. Atendemos junto ao salão Kethler para proporcionar praticidade e foco no seu visual.</p>
+<p class="lead sobre">Localizada no Itinga, a Barbearia Favareto oferece um atendimento especializado para o público masculino. Estamos instalados em anexo ao salão Ketlher para facilitar sua rotina de cuidados.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -313,7 +319,7 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Localização estratégica</b><p>Estamos instalados no Itinga, facilitando o acesso para quem busca um corte de qualidade na região.</p></div><div class="card m"><b>Atendimento especializado</b><p>O Marcio dedica atenção exclusiva aos detalhes de cada corte, valorizando a sua identidade.</p></div><div class="card m"><b>Ambiente integrado</b><p>Nossa estrutura anexa ao salão Kethler oferece um ambiente organizado e confortável para o seu momento de cuidado.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Atendimento do Marcio</b><p>Experiência dedicada ao corte e barba com foco na precisão.</p></div><div class="card m"><b>Localização estratégica</b><p>Estamos situados na Rua São Paulo, facilitando o acesso no coração do Itinga.</p></div><div class="card m"><b>Estrutura integrada</b><p>Funcionamos em anexo ao salão Ketlher, em um ambiente preparado para receber você.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia Favareto</b><span>Rua São Paulo, 21 - Itinga, Araquari - SC</span>
