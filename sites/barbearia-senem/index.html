@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia Senem — Barbearia em Costa e Silva, Joinville</title>
-<meta name="description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta seu horário e mantenha o corte em dia.">
+<meta name="description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta o seu horário no Costa e Silva e venha renovar o visual.">
 
-<meta property="og:title" content="Barbearia Senem — Barbearia em Costa e Silva, Joinville"><meta property="og:description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta seu horário e mantenha o corte em dia.">
+<meta property="og:title" content="Barbearia Senem — Barbearia em Costa e Silva, Joinville"><meta property="og:description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta o seu horário no Costa e Silva e venha renovar o visual.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,8 +31,12 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 /* GRÃO: textura de filme por cima de tudo. Tira o "chapado" de tela; é
    assinatura de estúdio. 3,5% de opacidade — não se vê, se sente. */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.038;
-mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+/* SEM mix-blend-mode: overlay sobre fundo escuro é Cr=2*Cb*Cs — com
+   Cb=0,047 o ruído é multiplicado por 0,094 ANTES da opacidade. A amplitude
+   final ficava em 0,7-0,9 de 255, abaixo do piso de quantização de 8 bits.
+   Era placebo. Somando luz direto, a amplitude vai a ~12,8 níveis. */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.05;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 body{background:var(--bg);color:var(--txt);
 font:var(--t-base)/1.65 Inter,system-ui,-apple-system,sans-serif;
 text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
@@ -117,6 +121,13 @@ margin-top:var(--s3);border-color:var(--acc)}
 .plano{text-align:center}
 .plano .pp{font-size:var(--t-xl);color:var(--acc);font-weight:800;margin:var(--s2) 0 var(--s4)}
 .motivos{margin-top:var(--s6)}.m b{color:var(--acc)}
+/* QUEBRA-RITMO: a seção de motivos vira duas colunas e o título fica grudado
+   enquanto os cards rolam. `:has()` evita mexer no HTML. */
+@media(min-width:900px){
+section:has(.motivos) .wrap{display:grid;grid-template-columns:.72fr 1fr;
+gap:var(--s8);align-items:start}
+section:has(.motivos) h2{position:sticky;top:var(--s9);margin:0}
+section:has(.motivos) .motivos{margin-top:0;grid-template-columns:1fr}}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
 .grid img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;object-position:center 30%;
@@ -124,7 +135,10 @@ border-radius:12px}
 /* GRADE DE FOTO: seis fotos de origens diferentes viram uma sessão dirigida.
    Contraste puxado de leve, saturação contida — é o que separa "fotos que o
    dono mandou" de "ensaio". */
-.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.06) saturate(.9) brightness(.98);
+/* CAST compartilhado: o que faz fotos de origens diferentes brigarem é
+   TEMPERATURA, não saturação. Um viés de cor comum dá denominador ao conjunto.
+   E saturate(.9) sozinho ficava em cima do limiar de percepção (5-10%). */
+.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.12) saturate(.62) brightness(.97);
 transition:filter .5s ease,transform .5s ease}
 .grid img:hover,.mosaic img:hover,.hsplit .col-img img:hover{filter:contrast(1.02) saturate(1);
 transform:scale(1.012)}
@@ -143,7 +157,13 @@ transform:scale(1.012)}
 .mosaic--bleed img,.grid--bleed img{border-radius:6px}
 #galeria{padding:0 0 var(--s7)}
 #galeria .tit{padding-top:var(--s7)}
-.bleed .tit{max-width:1020px;margin:0 auto var(--s5);padding:0 var(--s5)}
+/* O MOMENTO: uma escala por página, não seis títulos iguais. As h2 tinham
+   todas 36px e a página vivia entre .875 e 2.25rem — sem pico, lê como sistema
+   e não como peça. O número fica pendurado à esquerda. */
+.bleed .tit{max-width:1020px;margin:0 auto var(--s6);padding:0 var(--s5);
+font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.03em}
+.bleed .tit::before{position:absolute;margin-left:-2.6em;margin-top:.9em}
+@media(max-width:759px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -240,9 +260,18 @@ footer a::after,.mini a::after{content:'';position:absolute;left:0;right:100%;bo
 height:1px;background:currentColor;transition:right .3s ease}
 footer a:hover::after,.mini a:hover::after{right:0}
 .card{transition:transform .35s cubic-bezier(.22,.72,.28,1),border-color .35s ease}
-.card:hover{transform:translateY(-3px);border-color:var(--line2)}
+/* o lift SÓ em card que é bloco autônomo (motivo, barbeiro, plano). A tabela de
+   preços é um .card e NÃO é interativa — levantar nela é afordância mentindo,
+   justo no bloco que o sujeito veio ler. */
+.card.m:hover,.card.eq:hover,.plano.card:hover{transform:translateY(-3px);
+border-color:var(--line2)}
 nav{transition:padding .3s ease}
+/* 8px de diferença ninguém percebe. Com sombra e a marca encolhendo, o nav
+   passa a COMUNICAR que você rolou. */
+nav.slim{box-shadow:0 6px 24px rgba(0,0,0,.34)}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
+nav.slim .marca b{font-size:var(--t-sm)}
+nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
 .anim .rev{opacity:1;transform:none}}
@@ -250,11 +279,11 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 
 <nav><div class="wrap"><b>Barbearia Senem</b><div class="links"><a href="./" style="color:var(--acc)">Início</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
-<h1>Respeito ao seu estilo, tradição no Costa e Silva.</h1>
-<p class="sub">Garanta seu horário e mantenha o corte em dia.</p>
+<h1>Barbearia Senem: O seu estilo, a sua marca.</h1>
+<p class="sub">Garanta o seu horário no Costa e Silva e venha renovar o visual.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Segunda a Sexta 09h às 18h; Sábado 09h às 13h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Costa e Silva</span></div>
 <p style="margin-top:var(--s6)"><a class="btn" href="tel:4731219662" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></p>
-<p class="lead sobre">A Barbearia Senem é o ponto de encontro de quem valoriza um atendimento técnico e preciso. Estamos localizados na Rua Antônio Geraldo Pereira, no coração do bairro Costa e Silva.</p>
+<p class="lead sobre">Localizada no bairro Costa e Silva, em Joinville, nossa barbearia foca na precisão do corte e no cuidado com a barba. Um espaço dedicado ao atendimento de qualidade para quem valoriza o próprio estilo.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -263,7 +292,7 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Localização estratégica</b><p>Atendimento de qualidade disponível no bairro Costa e Silva, em Joinville.</p></div><div class="card m"><b>Foco técnico</b><p>Profissionais dedicados ao alinhamento preciso do seu corte e barba.</p></div><div class="card m"><b>Ambiente autêntico</b><p>Um espaço pensado para o conforto e a rotina do homem que cuida da aparência.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Atendimento especializado</b><p>Profissionais focados em técnicas de corte e barbearia para o seu perfil.</p></div><div class="card m"><b>Localização estratégica</b><p>Estamos instalados na Rua Antônio Geraldo Pereira, no coração do bairro Costa e Silva.</p></div><div class="card m"><b>Ambiente autêntico</b><p>Um espaço pensado para oferecer conforto e agilidade no seu dia a dia em Joinville.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia Senem</b><span>R. Antônio Geraldo Pereira, 92 - Costa e Silva, Joinville - SC</span>
