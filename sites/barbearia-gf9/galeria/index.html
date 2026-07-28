@@ -130,7 +130,9 @@ margin-top:var(--s3);border-color:var(--acc)}
    encaixe. Em barbearia o rosto é o produto — merece a faixa inteira. */
 .faixa .wrap{margin-bottom:var(--s5)}
 .trilho{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x proximity;
-padding:var(--s1) max(var(--s5),calc((100vw - 1020px) / 2)) var(--s5);
+/* 100vw inclui a barra de rolagem e o cálculo omitia o --s5 do .wrap: o
+   primeiro card começava 16,5px à esquerda de todos os títulos da página. */
+padding:var(--s1) max(var(--s5),calc((100% - 1020px) / 2 + var(--s5))) var(--s5);
 scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .trilho::-webkit-scrollbar{display:none}
 .trilho .card{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
@@ -151,7 +153,7 @@ border-radius:12px}
 /* CAST compartilhado: o que faz fotos de origens diferentes brigarem é
    TEMPERATURA, não saturação. Um viés de cor comum dá denominador ao conjunto.
    E saturate(.9) sozinho ficava em cima do limiar de percepção (5-10%). */
-.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.09) saturate(.86) sepia(.1) hue-rotate(170deg);
+.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.09) saturate(.78);
 transition:filter .5s ease,transform .5s ease}
 .grid img:hover,.mosaic img:hover,.hsplit .col-img img:hover{filter:contrast(1.02) saturate(1);
 transform:scale(1.012)}
@@ -176,7 +178,9 @@ transform:scale(1.012)}
 .bleed .tit{max-width:1020px;margin:0 auto var(--s6);padding:0 var(--s5);
 font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.03em}
 .bleed .tit::before{position:absolute;margin-left:-2.6em;margin-top:.9em}
-@media(max-width:759px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
+/* abaixo de 1034px o .tit encosta na borda e o número absoluto cai em x=-7px,
+   fora da tela — pegava TODO tablet em retrato e notebook de 1024. */
+@media(max-width:1034px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -240,7 +244,9 @@ padding:var(--s2);letter-spacing:.02em}
 .hsplit{min-height:auto}
 .hsplit .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);
 align-items:center;text-align:left;padding:var(--s8) var(--s5)}
-.hsplit h1{margin-bottom:var(--s1)}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
+.hsplit h1{margin-bottom:var(--s1)}
+.hsplit .assin{margin-left:0;margin-right:auto}
+@media(max-width:759px){.hsplit .assin{margin-left:auto}}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
 .hsplit .col-txt{min-width:0}
 .hsplit .col-img{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 .hsplit .col-img img{width:100%;height:100%;min-height:150px;max-height:260px;
@@ -283,8 +289,8 @@ nav{transition:padding .3s ease}
    passa a COMUNICAR que você rolou. */
 nav.slim{box-shadow:0 6px 24px rgba(0,0,0,.34)}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
-nav.slim .marca b{font-size:var(--t-sm)}
-nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
+nav.slim .wrap>b{font-size:var(--t-sm)}
+nav .wrap>b{font-size:var(--t-md);transition:font-size .3s ease}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
 .anim .rev{opacity:1;transform:none}}
