@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>D'avila Barber Pub — Barbearia em Bucarein, Joinville</title>
-<meta name="description" content="D'avila Barber Pub — barbearia em Bucarein, Joinville. Garanta seu horário e experimente o atendimento que é referência em Joinville.">
+<meta name="description" content="D'avila Barber Pub — barbearia em Bucarein, Joinville. Garanta seu horário e venha viver a experiência completa em Joinville.">
 
-<meta property="og:title" content="D'avila Barber Pub — Barbearia em Bucarein, Joinville"><meta property="og:description" content="D'avila Barber Pub — barbearia em Bucarein, Joinville. Garanta seu horário e experimente o atendimento que é referência em Joinville.">
+<meta property="og:title" content="D'avila Barber Pub — Barbearia em Bucarein, Joinville"><meta property="og:description" content="D'avila Barber Pub — barbearia em Bucarein, Joinville. Garanta seu horário e venha viver a experiência completa em Joinville.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@ section{padding:var(--s8) 0}
 /* o delta de fundo entre bg e surface é ~1.1:1 (invisível). A divisão quem
    entrega é a hairline — o olho lê o corte sem precisar de contraste. */
 .alt{background:var(--surface);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
-.pole{height:3px;background:linear-gradient(90deg,transparent,var(--acc) 20%,var(--acc) 80%,transparent);opacity:.7}
+.pole{height:8px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,#efe9dc 14px 24px,var(--blue) 24px 34px,#efe9dc 34px 44px);opacity:.85}
 
 /* ── navegação: todo clicável com 44px de alvo ── */
 nav{position:sticky;top:0;z-index:50;background:rgba(11,10,10,.93);backdrop-filter:blur(10px);
@@ -63,6 +63,7 @@ nav .links a:not(.ctan){padding:0 var(--s3);border:1px solid var(--line2);border
 transition:border-color .18s,color .18s}
 nav .links a:not(.ctan):hover{border-color:var(--acc);color:var(--acc)}
 nav .ctan{background:var(--acc);color:var(--onacc);padding:0 var(--s4);border-radius:8px}
+.marca{text-decoration:none;color:inherit}
 .logo{width:var(--toque);height:var(--toque);border-radius:10px;object-fit:cover}
 .logo.mono{display:flex;align-items:center;justify-content:center;background:var(--acc);
 color:var(--onacc);font-family:"Anton";font-size:var(--t-lg)}
@@ -110,7 +111,15 @@ border-radius:12px}
 /* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
    anatomia idêntica leem como gerador — com um, a página respira. */
 .bleed{max-width:none;padding:0}
+/* a seção full-bleed anula o próprio padding e devolve o respiro POR DENTRO —
+   senão a listra flutua 64px pra dentro em vez de encostar na borda. E a
+   hairline sai: a listra já é o divisor, as duas juntas viram redundância. */
+.sec-bleed{padding:0;border-top:0;border-bottom:0}
+.sec-bleed .bleed{padding:var(--s8) 0}
 .mosaic--bleed,.grid--bleed{padding:0 var(--s2)}
+/* full-bleed sem subir a contagem de colunas vira slideshow em monitor grande */
+@media(min-width:1200px){.mosaic--bleed{column-count:4}}
+@media(min-width:1600px){.mosaic--bleed{column-count:5}}
 .mosaic--bleed img,.grid--bleed img{border-radius:6px}
 #galeria{padding:0 0 var(--s7)}
 #galeria .tit{padding-top:var(--s7)}
@@ -123,7 +132,7 @@ border-radius:12px}
    ainda vira detalhe editorial */
 blockquote{position:relative;background:var(--bg);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;
 padding:var(--s4) var(--s5);margin:0 0 var(--s3);color:var(--txt);font-style:italic;opacity:.92}
-blockquote::before{content:'C';position:absolute;top:-.18em;left:.18em;
+blockquote::before{content:'“';position:absolute;top:-.18em;left:.18em;
 font-family:"Anton",Georgia,serif;font-size:calc(var(--t-2xl) * 1.55);color:var(--acc);
 opacity:.22;line-height:1;pointer-events:none}
 blockquote p{position:relative}
@@ -150,7 +159,13 @@ background:rgba(11,10,10,.95);border-top:1px solid var(--line)}
 .bar .btn{flex:1;text-align:center}
 
 .dur{display:block;font-size:var(--t-xs);color:var(--muted);font-weight:400;margin-top:2px}
-.eq{display:flex;align-items:center;gap:var(--s4);text-align:left}
+/* grid, não flex: com 3 filhos diretos o flex punha monograma, nome e
+   especialidade na MESMA linha. Aqui o disco ocupa as duas linhas à esquerda. */
+.eq{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s4);
+align-items:center;text-align:left}
+.mono-b{grid-row:1/span 2}
+.eq b{grid-column:2;align-self:end}
+.eq small{grid-column:2;align-self:start}
 /* monograma: a inicial desenhada no display do tema. Artesanal — emoji não é. */
 .mono-b{flex:none;width:52px;height:52px;border-radius:50%;display:flex;
 align-items:center;justify-content:center;background:var(--bg);
@@ -164,7 +179,7 @@ font-family:"Anton",Georgia,serif;font-size:var(--t-lg);line-height:1}
 border-left:3px solid var(--gold);border-radius:14px;padding:var(--s4)}
 .provatop .est{color:var(--gold);font-size:var(--t-sm);letter-spacing:.08em}
 .provatop p{margin-top:var(--s2);font-size:var(--t-base);line-height:1.5}
-.provatop .qn{display:block;margin-top:var(--s2);color:var(--muted);font-size:var(--t-sm)}
+/* .qn foi absorvido por <cite>: dois markups pro mesmo dado é dívida */
 .demo{background:var(--red);color:#fff;text-align:center;font-size:var(--t-sm);
 padding:var(--s2);letter-spacing:.02em}
 
@@ -194,11 +209,11 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 <nav><div class="wrap"><b>D'avila Barber Pub</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a class="ctan" href="https://wa.me/5547996760800?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
-<h1>D'avila Barber Pub: Onde o estilo encontra a tradição.</h1>
-<p class="sub">Garanta seu horário e experimente o atendimento que é referência em Joinville.</p>
+<h1>D'avila Barber Pub: Onde a tradição encontra o seu estilo.</h1>
+<p class="sub">Garanta seu horário e venha viver a experiência completa em Joinville.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.6l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.8l5.8-.9z"/></svg> 5.0 · 32 avaliações</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Terça a Sexta 10h às 21h; Sábado 09h às 19h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Bucarein</span></div>
-<p style="margin-top:28px"><a class="btn" href="https://wa.me/5547996760800?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></p>
-<p class="lead sobre">Localizada na Av. Getúlio Vargas, unimos o conceito de barbearia visagista com a atmosfera de um pub autêntico. Oferecemos um ambiente completo para quem busca precisão no corte e um momento de descontração.</p>
+<p style="margin-top:var(--s6)"><a class="btn" href="https://wa.me/5547996760800?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></p>
+<p class="lead sobre">Localizada no Bucarein, nossa barbearia une o conceito de pub com um atendimento focado em visagismo. Oferecemos um ambiente equipado com bar, TV e wi-fi para o seu conforto.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -207,9 +222,8 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Visagismo especializado</b><p>Técnicas de corte personalizadas para valorizar o seu estilo e traços faciais.</p></div><div class="card m"><b>Experiência completa</b><p>Desfrute de bar, wi-fi e TV em um espaço com acessibilidade garantida.</p></div><div class="card m"><b>Referência local</b><p>Mantemos uma nota máxima de 5.0 baseada na opinião dos nossos clientes em Joinville.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Visagismo especializado</b><p>Nossos profissionais analisam os traços do seu rosto para definir o corte ideal.</p></div><div class="card m"><b>Conceito de Pub</b><p>Desfrute de um espaço completo com bar, TV e wi-fi enquanto cuida do seu visual.</p></div><div class="card m"><b>Excelência aprovada</b><p>Mantemos a nota máxima de 5.0 estrelas baseada na avaliação dos nossos clientes.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
-<p class="lead">Av. Getúlio Vargas, 783 - Bucarein, Joinville - SC · Terça a Sexta 10h às 21h; Sábado 09h às 19h</p>
 <div class="ondecx">
 <div class="onde-txt"><b>D'avila Barber Pub</b><span>Av. Getúlio Vargas, 783 - Bucarein, Joinville - SC</span>
 <span>Terça a Sexta 10h às 21h; Sábado 09h às 19h</span></div>
@@ -219,7 +233,7 @@ header .wrap{padding:var(--s8) var(--s5)}
 <footer><div class="wrap">
 <b style="color:var(--txt)">D'avila Barber Pub</b><br>Av. Getúlio Vargas, 783 - Bucarein, Joinville - SC · (47) 99676-0800<br>
 <a href="https://instagram.com/davilabarberoficial" target="_blank" rel="noopener"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="3.7"/><circle cx="17.3" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @davilabarberoficial</a>
-<p class="mini" style="margin-top:14px">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
+<p class="mini" style="margin-top:var(--s4)">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
 </div></footer>
 <div class="bar"><a class="btn" href="https://wa.me/5547996760800?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></div>
 </body></html>
