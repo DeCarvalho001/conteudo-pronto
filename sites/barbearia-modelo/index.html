@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC</title>
-<meta name="description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário no Centro de Joinville e mantenha o visual impecável.">
+<meta name="description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual em dia no Estúdio 47.">
 
-<meta property="og:title" content="Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC"><meta property="og:description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário no Centro de Joinville e mantenha o visual impecável.">
+<meta property="og:title" content="Barbearia Estúdio 47 — Barbearia em Centro, Joinville - SC"><meta property="og:description" content="Barbearia Estúdio 47 — barbearia em Centro, Joinville - SC. Garanta seu horário e mantenha o visual em dia no Estúdio 47.">
 <meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg">
 <link rel="preload" as="image" href="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -136,7 +136,9 @@ margin-top:var(--s3);border-color:var(--acc)}
    encaixe. Em barbearia o rosto é o produto — merece a faixa inteira. */
 .faixa .wrap{margin-bottom:var(--s5)}
 .trilho{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x proximity;
-padding:var(--s1) max(var(--s5),calc((100vw - 1020px) / 2)) var(--s5);
+/* 100vw inclui a barra de rolagem e o cálculo omitia o --s5 do .wrap: o
+   primeiro card começava 16,5px à esquerda de todos os títulos da página. */
+padding:var(--s1) max(var(--s5),calc((100% - 1020px) / 2 + var(--s5))) var(--s5);
 scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .trilho::-webkit-scrollbar{display:none}
 .trilho .card{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
@@ -182,7 +184,9 @@ transform:scale(1.012)}
 .bleed .tit{max-width:1020px;margin:0 auto var(--s6);padding:0 var(--s5);
 font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.03em}
 .bleed .tit::before{position:absolute;margin-left:-2.6em;margin-top:.9em}
-@media(max-width:759px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
+/* abaixo de 1034px o .tit encosta na borda e o número absoluto cai em x=-7px,
+   fora da tela — pegava TODO tablet em retrato e notebook de 1024. */
+@media(max-width:1034px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -246,7 +250,9 @@ padding:var(--s2);letter-spacing:.02em}
 .hsplit{min-height:auto}
 .hsplit .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);
 align-items:center;text-align:left;padding:var(--s8) var(--s5)}
-.hsplit h1{margin-bottom:var(--s1)}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
+.hsplit h1{margin-bottom:var(--s1)}
+.hsplit .assin{margin-left:0;margin-right:auto}
+@media(max-width:759px){.hsplit .assin{margin-left:auto}}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
 .hsplit .col-txt{min-width:0}
 .hsplit .col-img{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 .hsplit .col-img img{width:100%;height:100%;min-height:150px;max-height:260px;
@@ -289,8 +295,8 @@ nav{transition:padding .3s ease}
    passa a COMUNICAR que você rolou. */
 nav.slim{box-shadow:0 6px 24px rgba(0,0,0,.34)}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
-nav.slim .marca b{font-size:var(--t-sm)}
-nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
+nav.slim .wrap>b{font-size:var(--t-sm)}
+nav .wrap>b{font-size:var(--t-md);transition:font-size .3s ease}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
 .anim .rev{opacity:1;transform:none}}
@@ -298,9 +304,10 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 <nav><div class="wrap"><b>Barbearia Estúdio 47</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a href="./servicos/">Serviços</a><a href="./galeria/">Galeria</a><a href="./avaliacoes/">Avaliações</a><a class="ctan" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header class="hsplit"><div class="wrap">
-<div class="col-txt"><h1>Estúdio 47: Precisão no corte, respeito ao seu tempo.</h1><p class="sub">Garanta seu horário no Centro de Joinville e mantenha o visual impecável.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Seg a Sex 09h às 20h; Sábado 08h às 18h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
+<div class="col-txt"><span class="kick">CENTRO · JOINVILLE - SC</span><h1>Estilo impecável no coração de Joinville.</h1><div class="assin"></div>
+<p class="sub">Garanta seu horário e mantenha o visual em dia no Estúdio 47.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Seg a Sex 09h às 20h; Sábado 08h às 18h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
 <p style="margin-top:var(--s5)"><a class="btn" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a><a class="btn ghost" href="#servicos" style="margin-left:var(--s3)">Ver preços</a></p>
-<p class="lead sobre">No Estúdio 47, unimos a técnica apurada em degradês à pontualidade que o seu dia exige. Um espaço pensado para quem valoriza um serviço de alta qualidade no coração da cidade.</p></div>
+<p class="lead sobre">Localizada no Centro de Joinville, a Barbearia Estúdio 47 une precisão técnica e pontualidade. Um espaço pensado para quem valoriza um corte de alta qualidade sem perder tempo.</p></div>
 <div class="col-img"><img src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" alt="Barbearia Estúdio 47 — foto 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47 — foto 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47 — foto 3"></div>
 </div></header>
 <div class="pole"></div>
@@ -310,7 +317,7 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 <section id="galeria" class="alt sec-bleed"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="mosaic mosaic--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47 — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47 — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/4.jpg" alt="Barbearia Estúdio 47 — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/5.jpg" alt="Barbearia Estúdio 47 — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/6.jpg" alt="Barbearia Estúdio 47 — trabalho 5"></div></div><div class="pole"></div></section>
 <section class="alt"><div class="wrap"><h2>Quem corta aqui diz</h2><blockquote><p>Ambiente top e hora marcada é hora marcada de verdade. Virei cliente fixo.</p><cite>Diego S.</cite></blockquote><blockquote><p>Cortei aqui pro casamento e ficou impecável. Recomendo demais.</p><cite>Anderson P.</cite></blockquote><p class="mini">Avaliações reais de clientes · <a class="mini" href="https://www.google.com/maps/search/Barbearia%20Est%C3%BAdio%2047%20Centro%2C%20Joinville%20-%20SC" target="_blank" rel="noopener">ver no Google</a></p></div></section>
 <section class="faixa"><div class="wrap"><h2>Os barbeiros</h2></div><div class="trilho"><div class="card eq"><span class="mono-b">L</span><b>Léo</b><small>degradê e navalha</small></div><div class="card eq"><span class="mono-b">R</span><b>Rafa</b><small>barba e acabamento</small></div><div class="card eq"><span class="mono-b">B</span><b>Bruno</b><small>corte social e infantil</small></div></div></section>
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Degradê de precisão</b><p>Nossos barbeiros dominam a técnica para entregar um acabamento alinhado e impecável.</p></div><div class="card m"><b>Agenda sem falhas</b><p>Respeitamos rigorosamente o seu horário para que você não perca tempo na fila.</p></div><div class="card m"><b>Atendimento especializado</b><p>Cortes pensados para eventos importantes ou para a rotina de quem busca um visual de confiança.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Degradê de precisão</b><p>Executamos cortes com técnica apurada, reconhecidos pela qualidade no acabamento.</p></div><div class="card m"><b>Agenda sem espera</b><p>Respeitamos rigorosamente seu horário marcado, garantindo um atendimento ágil e profissional.</p></div><div class="card m"><b>Resultados de destaque</b><p>Nossos clientes confiam em nosso padrão para eventos importantes e para o dia a dia.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia Estúdio 47</b><span>Centro, Joinville - SC</span>
