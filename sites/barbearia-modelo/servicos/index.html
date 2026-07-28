@@ -64,11 +64,12 @@ color:var(--onacc);font-family:"Bebas Neue";font-size:var(--t-lg)}
 header{min-height:78vh;display:flex;align-items:center;text-align:center}
 header .wrap{padding:var(--s9) var(--s5)}
 .sub{color:var(--muted);font-size:var(--t-md);max-width:52ch;margin:var(--s4) auto var(--s6)}
-.chip{display:inline-block;background:var(--chip);border:1px solid var(--line2);
+.ic{display:inline-block;vertical-align:-.18em;flex:none}
+.chip{display:inline-flex;align-items:center;gap:var(--s2);background:var(--chip);border:1px solid var(--line2);
 border-radius:999px;padding:var(--s2) var(--s3);margin:var(--s1);font-size:var(--t-sm)}
 
 /* ── botões: alvo generoso, sombra em camadas, estado de foco visível ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
 background:var(--acc);color:var(--onacc);font-weight:800;text-decoration:none;
 padding:var(--s3) var(--s6);min-height:52px;border-radius:10px;font-size:var(--t-md);
 box-shadow:var(--sombra);transition:transform .15s,box-shadow .15s}
@@ -100,6 +101,14 @@ margin-top:var(--s3);border-color:var(--acc)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
 .grid img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;object-position:center 30%;
 border-radius:12px}
+/* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
+   anatomia idêntica leem como gerador — com um, a página respira. */
+.bleed{max-width:none;padding:0}
+.mosaic--bleed,.grid--bleed{padding:0 var(--s2)}
+.mosaic--bleed img,.grid--bleed img{border-radius:6px}
+#galeria{padding:0 0 var(--s7)}
+#galeria .tit{padding-top:var(--s7)}
+.bleed .tit{max-width:1020px;margin:0 auto var(--s5);padding:0 var(--s5)}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -115,6 +124,13 @@ blockquote p{position:relative}
 cite{display:block;margin-top:var(--s2);font-style:normal;color:var(--muted);font-size:var(--t-sm)}
 .lead{color:var(--muted);max-width:62ch}.sobre{margin:var(--s4) auto 0}
 .mini{color:var(--muted);font-size:var(--t-sm);opacity:.85}.mini a{color:var(--acc)}
+/* card de endereço no lugar do iframe do Google: carrega instantâneo, não
+   vaza UI nem cookie de terceiro, e não abre um buraco claro no tema escuro */
+.ondecx{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+gap:var(--s5);background:var(--surface);border:1px solid var(--line);
+border-radius:var(--rad);padding:var(--s6)}
+.onde-txt b{display:block;font-size:var(--t-md);margin-bottom:var(--s2)}
+.onde-txt span{display:block;color:var(--muted);font-size:var(--t-sm)}
 iframe{width:100%;height:380px;border:0;border-radius:var(--rad)}
 
 footer{padding:var(--s7) 0 var(--s9);border-top:1px solid var(--line);color:var(--muted);
@@ -128,6 +144,12 @@ background:rgba(12,11,9,.95);border-top:1px solid var(--line)}
 .bar .btn{flex:1;text-align:center}
 
 .dur{display:block;font-size:var(--t-xs);color:var(--muted);font-weight:400;margin-top:2px}
+.eq{display:flex;align-items:center;gap:var(--s4);text-align:left}
+/* monograma: a inicial desenhada no display do tema. Artesanal — emoji não é. */
+.mono-b{flex:none;width:52px;height:52px;border-radius:50%;display:flex;
+align-items:center;justify-content:center;background:var(--bg);
+border:1.5px solid var(--acc);color:var(--acc);
+font-family:"Bebas Neue",Georgia,serif;font-size:var(--t-lg);line-height:1}
 .eq b{display:block;font-size:var(--t-base)}
 .eq small{color:var(--muted);font-size:var(--t-sm)}
 
