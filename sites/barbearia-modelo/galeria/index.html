@@ -25,8 +25,12 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 /* GRÃO: textura de filme por cima de tudo. Tira o "chapado" de tela; é
    assinatura de estúdio. 3,5% de opacidade — não se vê, se sente. */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.038;
-mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
+/* SEM mix-blend-mode: overlay sobre fundo escuro é Cr=2*Cb*Cs — com
+   Cb=0,047 o ruído é multiplicado por 0,094 ANTES da opacidade. A amplitude
+   final ficava em 0,7-0,9 de 255, abaixo do piso de quantização de 8 bits.
+   Era placebo. Somando luz direto, a amplitude vai a ~12,8 níveis. */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.05;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 body{background:var(--bg);color:var(--txt);
 font:var(--t-base)/1.65 Inter,system-ui,-apple-system,sans-serif;
 text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
@@ -111,6 +115,13 @@ margin-top:var(--s3);border-color:var(--acc)}
 .plano{text-align:center}
 .plano .pp{font-size:var(--t-xl);color:var(--acc);font-weight:800;margin:var(--s2) 0 var(--s4)}
 .motivos{margin-top:var(--s6)}.m b{color:var(--acc)}
+/* QUEBRA-RITMO: a seção de motivos vira duas colunas e o título fica grudado
+   enquanto os cards rolam. `:has()` evita mexer no HTML. */
+@media(min-width:900px){
+section:has(.motivos) .wrap{display:grid;grid-template-columns:.72fr 1fr;
+gap:var(--s8);align-items:start}
+section:has(.motivos) h2{position:sticky;top:var(--s9);margin:0}
+section:has(.motivos) .motivos{margin-top:0;grid-template-columns:1fr}}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
 .grid img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;object-position:center 30%;
@@ -118,7 +129,10 @@ border-radius:12px}
 /* GRADE DE FOTO: seis fotos de origens diferentes viram uma sessão dirigida.
    Contraste puxado de leve, saturação contida — é o que separa "fotos que o
    dono mandou" de "ensaio". */
-.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.06) saturate(.9) brightness(.98);
+/* CAST compartilhado: o que faz fotos de origens diferentes brigarem é
+   TEMPERATURA, não saturação. Um viés de cor comum dá denominador ao conjunto.
+   E saturate(.9) sozinho ficava em cima do limiar de percepção (5-10%). */
+.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.09) saturate(.84) sepia(.14) hue-rotate(-8deg);
 transition:filter .5s ease,transform .5s ease}
 .grid img:hover,.mosaic img:hover,.hsplit .col-img img:hover{filter:contrast(1.02) saturate(1);
 transform:scale(1.012)}
@@ -137,7 +151,13 @@ transform:scale(1.012)}
 .mosaic--bleed img,.grid--bleed img{border-radius:6px}
 #galeria{padding:0 0 var(--s7)}
 #galeria .tit{padding-top:var(--s7)}
-.bleed .tit{max-width:1020px;margin:0 auto var(--s5);padding:0 var(--s5)}
+/* O MOMENTO: uma escala por página, não seis títulos iguais. As h2 tinham
+   todas 36px e a página vivia entre .875 e 2.25rem — sem pico, lê como sistema
+   e não como peça. O número fica pendurado à esquerda. */
+.bleed .tit{max-width:1020px;margin:0 auto var(--s6);padding:0 var(--s5);
+font-size:clamp(3.2rem,10vw,7rem);line-height:.92;letter-spacing:-.03em}
+.bleed .tit::before{position:absolute;margin-left:-2.6em;margin-top:.9em}
+@media(max-width:759px){.bleed .tit::before{position:static;margin:0 0 var(--s3)}}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -234,9 +254,18 @@ footer a::after,.mini a::after{content:'';position:absolute;left:0;right:100%;bo
 height:1px;background:currentColor;transition:right .3s ease}
 footer a:hover::after,.mini a:hover::after{right:0}
 .card{transition:transform .35s cubic-bezier(.22,.72,.28,1),border-color .35s ease}
-.card:hover{transform:translateY(-3px);border-color:var(--line2)}
+/* o lift SÓ em card que é bloco autônomo (motivo, barbeiro, plano). A tabela de
+   preços é um .card e NÃO é interativa — levantar nela é afordância mentindo,
+   justo no bloco que o sujeito veio ler. */
+.card.m:hover,.card.eq:hover,.plano.card:hover{transform:translateY(-3px);
+border-color:var(--line2)}
 nav{transition:padding .3s ease}
+/* 8px de diferença ninguém percebe. Com sombra e a marca encolhendo, o nav
+   passa a COMUNICAR que você rolou. */
+nav.slim{box-shadow:0 6px 24px rgba(0,0,0,.34)}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
+nav.slim .marca b{font-size:var(--t-sm)}
+nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
 .anim .rev{opacity:1;transform:none}}
@@ -246,7 +275,12 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 .pg{padding:var(--s7) 0 var(--s5)}
 .pg h1{margin-bottom:var(--s2)}
 /* o mesmo filete do h2 da home — assinatura tem de valer no site inteiro */
-.pg h1::before{content:'';display:block;width:38px;height:2px;background:var(--acc);margin-bottom:var(--s3);border-radius:2px}
+/* MESMA linguagem da home: o número editorial, não o filete genérico.
+   Cada subpágina tem o seu, na ordem do menu — a numeração continua a da home
+   em vez de recomeçar do nada. */
+.pg h1::before{content:attr(data-n) ' —';display:block;
+font:700 var(--t-xs)/1 Inter,system-ui,sans-serif;letter-spacing:.24em;
+color:var(--acc);margin-bottom:var(--s3)}
 .pg .sub{color:var(--muted);margin-bottom:var(--s5)}
 .pg .sub:empty{display:none}
 .voltar{display:inline-flex;align-items:center;min-height:var(--toque);margin:var(--s3) 0 0;color:var(--muted);text-decoration:none;font-size:var(--t-sm)}
@@ -254,7 +288,7 @@ nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 </style></head><body>
 <nav><div class="wrap"><b>Barbearia Estúdio 47</b><div class="links"><a href="../">Início</a><a href="../servicos/">Serviços</a><a href="../galeria/" style="color:var(--acc)">Galeria</a><a href="../avaliacoes/">Avaliações</a><a class="ctan" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <div class="pole"></div>
-<section class="pg"><div class="wrap"><h1>Nosso trabalho</h1><p class="sub">O corte fala por si.</p><div class="grid"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/4.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/5.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/6.jpg" alt="Barbearia Estúdio 47"></div></div></section><section><div class="wrap center"><a class="btn" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Quero um desses</a></div></section>
+<section class="pg"><div class="wrap"><h1 data-n="03">Nosso trabalho</h1><p class="sub">O corte fala por si.</p><div class="grid"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/1.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/2.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/3.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/4.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/5.jpg" alt="Barbearia Estúdio 47"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-modelo/6.jpg" alt="Barbearia Estúdio 47"></div></div></section><section><div class="wrap center"><a class="btn" href="https://wa.me/5547996912634?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Quero um desses</a></div></section>
 <footer><div class="wrap"><b style="color:var(--txt)">Barbearia Estúdio 47</b><br>
 <a class="voltar" href="../">← voltar ao site</a>
 <p class="mini" style="margin-top:12px">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
