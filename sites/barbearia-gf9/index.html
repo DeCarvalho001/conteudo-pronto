@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia GF9 — Barbearia em Iririú, Joinville</title>
-<meta name="description" content="Barbearia GF9 — barbearia em Iririú, Joinville. Garanta seu horário e venha cuidar do seu visual no Iririú.">
+<meta name="description" content="Barbearia GF9 — barbearia em Iririú, Joinville. Garanta seu horário e venha cuidar do visual com o Gilmar.">
 
-<meta property="og:title" content="Barbearia GF9 — Barbearia em Iririú, Joinville"><meta property="og:description" content="Barbearia GF9 — barbearia em Iririú, Joinville. Garanta seu horário e venha cuidar do seu visual no Iririú.">
+<meta property="og:title" content="Barbearia GF9 — Barbearia em Iririú, Joinville"><meta property="og:description" content="Barbearia GF9 — barbearia em Iririú, Joinville. Garanta seu horário e venha cuidar do visual com o Gilmar.">
 <meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/1.jpg">
 <link rel="preload" as="image" href="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@ section{padding:var(--s8) 0}
 /* o delta de fundo entre bg e surface é ~1.1:1 (invisível). A divisão quem
    entrega é a hairline — o olho lê o corte sem precisar de contraste. */
 .alt{background:var(--surface);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
-.pole{height:3px;background:linear-gradient(90deg,transparent,var(--acc) 20%,var(--acc) 80%,transparent);opacity:.7}
+.pole{height:8px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,#efe9dc 14px 24px,var(--blue) 24px 34px,#efe9dc 34px 44px);opacity:.85}
 
 /* ── navegação: todo clicável com 44px de alvo ── */
 nav{position:sticky;top:0;z-index:50;background:rgba(10,14,20,.92);backdrop-filter:blur(10px);
@@ -63,6 +63,7 @@ nav .links a:not(.ctan){padding:0 var(--s3);border:1px solid var(--line2);border
 transition:border-color .18s,color .18s}
 nav .links a:not(.ctan):hover{border-color:var(--acc);color:var(--acc)}
 nav .ctan{background:var(--acc);color:var(--onacc);padding:0 var(--s4);border-radius:8px}
+.marca{text-decoration:none;color:inherit}
 .logo{width:var(--toque);height:var(--toque);border-radius:10px;object-fit:cover}
 .logo.mono{display:flex;align-items:center;justify-content:center;background:var(--acc);
 color:var(--onacc);font-family:"Oswald";font-size:var(--t-lg)}
@@ -110,7 +111,15 @@ border-radius:12px}
 /* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
    anatomia idêntica leem como gerador — com um, a página respira. */
 .bleed{max-width:none;padding:0}
+/* a seção full-bleed anula o próprio padding e devolve o respiro POR DENTRO —
+   senão a listra flutua 64px pra dentro em vez de encostar na borda. E a
+   hairline sai: a listra já é o divisor, as duas juntas viram redundância. */
+.sec-bleed{padding:0;border-top:0;border-bottom:0}
+.sec-bleed .bleed{padding:var(--s8) 0}
 .mosaic--bleed,.grid--bleed{padding:0 var(--s2)}
+/* full-bleed sem subir a contagem de colunas vira slideshow em monitor grande */
+@media(min-width:1200px){.mosaic--bleed{column-count:4}}
+@media(min-width:1600px){.mosaic--bleed{column-count:5}}
 .mosaic--bleed img,.grid--bleed img{border-radius:6px}
 #galeria{padding:0 0 var(--s7)}
 #galeria .tit{padding-top:var(--s7)}
@@ -123,7 +132,7 @@ border-radius:12px}
    ainda vira detalhe editorial */
 blockquote{position:relative;background:var(--bg);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;
 padding:var(--s4) var(--s5);margin:0 0 var(--s3);color:var(--txt);font-style:italic;opacity:.92}
-blockquote::before{content:'C';position:absolute;top:-.18em;left:.18em;
+blockquote::before{content:'“';position:absolute;top:-.18em;left:.18em;
 font-family:"Oswald",Georgia,serif;font-size:calc(var(--t-2xl) * 1.55);color:var(--acc);
 opacity:.22;line-height:1;pointer-events:none}
 blockquote p{position:relative}
@@ -150,7 +159,13 @@ background:rgba(10,14,20,.95);border-top:1px solid var(--line)}
 .bar .btn{flex:1;text-align:center}
 
 .dur{display:block;font-size:var(--t-xs);color:var(--muted);font-weight:400;margin-top:2px}
-.eq{display:flex;align-items:center;gap:var(--s4);text-align:left}
+/* grid, não flex: com 3 filhos diretos o flex punha monograma, nome e
+   especialidade na MESMA linha. Aqui o disco ocupa as duas linhas à esquerda. */
+.eq{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s4);
+align-items:center;text-align:left}
+.mono-b{grid-row:1/span 2}
+.eq b{grid-column:2;align-self:end}
+.eq small{grid-column:2;align-self:start}
 /* monograma: a inicial desenhada no display do tema. Artesanal — emoji não é. */
 .mono-b{flex:none;width:52px;height:52px;border-radius:50%;display:flex;
 align-items:center;justify-content:center;background:var(--bg);
@@ -164,7 +179,7 @@ font-family:"Oswald",Georgia,serif;font-size:var(--t-lg);line-height:1}
 border-left:3px solid var(--gold);border-radius:14px;padding:var(--s4)}
 .provatop .est{color:var(--gold);font-size:var(--t-sm);letter-spacing:.08em}
 .provatop p{margin-top:var(--s2);font-size:var(--t-base);line-height:1.5}
-.provatop .qn{display:block;margin-top:var(--s2);color:var(--muted);font-size:var(--t-sm)}
+/* .qn foi absorvido por <cite>: dois markups pro mesmo dado é dívida */
 .demo{background:var(--red);color:#fff;text-align:center;font-size:var(--t-sm);
 padding:var(--s2);letter-spacing:.02em}
 
@@ -194,22 +209,21 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 <nav><div class="wrap"><b>Barbearia GF9</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a href="./galeria/">Galeria</a><a href="./avaliacoes/">Avaliações</a><a class="ctan" href="https://wa.me/5547996478350?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header style="background:linear-gradient(180deg,rgba(8,11,17,.55),var(--bg) 96%),url('https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/1.jpg') center/cover no-repeat"><div class="wrap">
-<h1>Barbearia GF9: Estilo que marca, tradição que fica.</h1>
-<p class="sub">Garanta seu horário e venha cuidar do seu visual no Iririú.</p>
+<h1>Barbearia GF9: Precisão e Estilo no Iririú</h1>
+<p class="sub">Garanta seu horário e venha cuidar do visual com o Gilmar.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3.6l2.6 5.3 5.8.9-4.2 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8L3.6 9.8l5.8-.9z"/></svg> 5.0 · 42 avaliações</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Seg 13h30–19h · Qui e Sex 9h–19h30 · Sáb 9h–17h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Iririú</span></div>
-<p style="margin-top:28px"><a class="btn" href="https://wa.me/5547996478350?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></p>
-<p class="lead sobre">A Barbearia GF9 é o ponto de encontro de quem busca cortes precisos, do degradê ao corte na tesoura, em um ambiente familiar e acolhedor. Sob o comando do Gilmar, unimos técnica refinada com navalha à atenção aos detalhes que fideliza gerações.</p>
+<p style="margin-top:var(--s6)"><a class="btn" href="https://wa.me/5547996478350?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></p>
+<p class="lead sobre">Localizada na Rua Arthur Zoefeld, a Barbearia GF9 oferece um ambiente moderno e familiar para quem busca excelência. Aqui, a tradição da navalha encontra o corte personalizado que você procura.</p>
 </div></header>
 <div class="pole"></div>
 <div class="provatop"><div class="cx"><div class="est">★★★★★ 5.0</div><p>Melhor barbearia! Atendimento com excelência. Local aconchegante que te faz parecer estar em casa.</p><span class="qn">Uma de 42 avaliações no Google</span></div></div>
 
 
-<section id="galeria" class="alt"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="grid grid--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/2.jpg" alt="Barbearia GF9 — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/3.jpg" alt="Barbearia GF9 — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/4.jpg" alt="Barbearia GF9 — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/5.jpg" alt="Barbearia GF9 — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/6.jpg" alt="Barbearia GF9 — trabalho 5"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/7.jpg" alt="Barbearia GF9 — trabalho 6"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/8.jpg" alt="Barbearia GF9 — trabalho 7"></div></div><div class="pole"></div></section>
-<section class="alt"><div class="wrap"><h2>Quem corta aqui diz</h2><blockquote><p>Melhor barbearia! Atendimento com excelência. Local aconchegante que te faz parecer estar em casa.</p></blockquote><blockquote><p>Melhor barbearia de Joinville e região! Atendimento show, corte de qualidade.</p></blockquote><blockquote><p>Recomendo muito o Gilmar. Atencioso nos detalhes, acabamento perfeito e profissionalismo!</p></blockquote><blockquote><p>Excelente profissional, não é à toa que frequento há 10 anos!</p></blockquote><p class="mini">Avaliações reais de clientes · <a class="mini" href="https://www.google.com/maps/search/Barbearia%20GF9%20R.%20Arthur%20Zoefeld%2C%20728%20-%20Iriri%C3%BA%2C%20Joinville%20-%20SC" target="_blank" rel="noopener">ver no Google</a></p></div></section>
+<section id="galeria" class="alt sec-bleed"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="grid grid--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/2.jpg" alt="Barbearia GF9 — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/3.jpg" alt="Barbearia GF9 — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/4.jpg" alt="Barbearia GF9 — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/5.jpg" alt="Barbearia GF9 — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/6.jpg" alt="Barbearia GF9 — trabalho 5"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/7.jpg" alt="Barbearia GF9 — trabalho 6"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/barbearia-gf9/8.jpg" alt="Barbearia GF9 — trabalho 7"></div></div><div class="pole"></div></section>
+<section class="alt"><div class="wrap"><h2>Quem corta aqui diz</h2><blockquote><p>Melhor barbearia de Joinville e região! Atendimento show, corte de qualidade.</p></blockquote><blockquote><p>Recomendo muito o Gilmar. Atencioso nos detalhes, acabamento perfeito e profissionalismo!</p></blockquote><blockquote><p>Excelente profissional, não é à toa que frequento há 10 anos!</p></blockquote><p class="mini">Avaliações reais de clientes · <a class="mini" href="https://www.google.com/maps/search/Barbearia%20GF9%20R.%20Arthur%20Zoefeld%2C%20728%20-%20Iriri%C3%BA%2C%20Joinville%20-%20SC" target="_blank" rel="noopener">ver no Google</a></p></div></section>
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Excelência Comprovada</b><p>Mantemos nota máxima com 42 avaliações de clientes que confiam em nosso padrão de atendimento.</p></div><div class="card m"><b>Corte Personalizado</b><p>Especialistas em degradê, barba na navalha e cortes na tesoura adaptados ao seu perfil.</p></div><div class="card m"><b>Ambiente Familiar</b><p>Espaço aconchegante preparado para receber homens e crianças com total conforto.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Excelência Reconhecida</b><p>Mantemos nota máxima no Google através da confiança de nossos clientes fiéis.</p></div><div class="card m"><b>Corte Sob Medida</b><p>Dominamos técnicas de degradê, tesoura e acabamento impecável com navalha.</p></div><div class="card m"><b>Ambiente Familiar</b><p>Espaço acolhedor e preparado para atender desde o público adulto até cortes infantis.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
-<p class="lead">R. Arthur Zoefeld, 728 - Iririú, Joinville - SC · Seg 13h30–19h · Qui e Sex 9h–19h30 · Sáb 9h–17h</p>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia GF9</b><span>R. Arthur Zoefeld, 728 - Iririú, Joinville - SC</span>
 <span>Seg 13h30–19h · Qui e Sex 9h–19h30 · Sáb 9h–17h</span></div>
@@ -219,7 +233,7 @@ header .wrap{padding:var(--s8) var(--s5)}
 <footer><div class="wrap">
 <b style="color:var(--txt)">Barbearia GF9</b><br>R. Arthur Zoefeld, 728 - Iririú, Joinville - SC · (47) 99647-8350<br>
 <a href="https://instagram.com/barbeariagf9" target="_blank" rel="noopener"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="3.7"/><circle cx="17.3" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @barbeariagf9</a>
-<p class="mini" style="margin-top:14px">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
+<p class="mini" style="margin-top:var(--s4)">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
 </div></footer>
 <div class="bar"><a class="btn" href="https://wa.me/5547996478350?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></div>
 </body></html>
