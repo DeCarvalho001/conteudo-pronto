@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Clube Ministro — Barbearia em Centro, Joinville</title>
-<meta name="description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade Centro e cuide da sua imagem com quem entende de estilo.">
+<meta name="description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade do Centro e cuide da sua imagem.">
 
-<meta property="og:title" content="Clube Ministro — Barbearia em Centro, Joinville"><meta property="og:description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade Centro e cuide da sua imagem com quem entende de estilo.">
+<meta property="og:title" content="Clube Ministro — Barbearia em Centro, Joinville"><meta property="og:description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade do Centro e cuide da sua imagem.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,11 +70,12 @@ color:var(--onacc);font-family:"Anton";font-size:var(--t-lg)}
 header{min-height:78vh;display:flex;align-items:center;text-align:center}
 header .wrap{padding:var(--s9) var(--s5)}
 .sub{color:var(--muted);font-size:var(--t-md);max-width:52ch;margin:var(--s4) auto var(--s6)}
-.chip{display:inline-block;background:var(--chip);border:1px solid var(--line2);
+.ic{display:inline-block;vertical-align:-.18em;flex:none}
+.chip{display:inline-flex;align-items:center;gap:var(--s2);background:var(--chip);border:1px solid var(--line2);
 border-radius:999px;padding:var(--s2) var(--s3);margin:var(--s1);font-size:var(--t-sm)}
 
 /* ── botões: alvo generoso, sombra em camadas, estado de foco visível ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);
 background:var(--acc);color:var(--onacc);font-weight:800;text-decoration:none;
 padding:var(--s3) var(--s6);min-height:52px;border-radius:10px;font-size:var(--t-md);
 box-shadow:var(--sombra);transition:transform .15s,box-shadow .15s}
@@ -106,6 +107,14 @@ margin-top:var(--s3);border-color:var(--acc)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
 .grid img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;object-position:center 30%;
 border-radius:12px}
+/* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
+   anatomia idêntica leem como gerador — com um, a página respira. */
+.bleed{max-width:none;padding:0}
+.mosaic--bleed,.grid--bleed{padding:0 var(--s2)}
+.mosaic--bleed img,.grid--bleed img{border-radius:6px}
+#galeria{padding:0 0 var(--s7)}
+#galeria .tit{padding-top:var(--s7)}
+.bleed .tit{max-width:1020px;margin:0 auto var(--s5);padding:0 var(--s5)}
 .mosaic{column-count:3;column-gap:var(--s3)}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
@@ -121,6 +130,13 @@ blockquote p{position:relative}
 cite{display:block;margin-top:var(--s2);font-style:normal;color:var(--muted);font-size:var(--t-sm)}
 .lead{color:var(--muted);max-width:62ch}.sobre{margin:var(--s4) auto 0}
 .mini{color:var(--muted);font-size:var(--t-sm);opacity:.85}.mini a{color:var(--acc)}
+/* card de endereço no lugar do iframe do Google: carrega instantâneo, não
+   vaza UI nem cookie de terceiro, e não abre um buraco claro no tema escuro */
+.ondecx{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;
+gap:var(--s5);background:var(--surface);border:1px solid var(--line);
+border-radius:var(--rad);padding:var(--s6)}
+.onde-txt b{display:block;font-size:var(--t-md);margin-bottom:var(--s2)}
+.onde-txt span{display:block;color:var(--muted);font-size:var(--t-sm)}
 iframe{width:100%;height:380px;border:0;border-radius:var(--rad)}
 
 footer{padding:var(--s7) 0 var(--s9);border-top:1px solid var(--line);color:var(--muted);
@@ -134,6 +150,12 @@ background:rgba(11,10,10,.95);border-top:1px solid var(--line)}
 .bar .btn{flex:1;text-align:center}
 
 .dur{display:block;font-size:var(--t-xs);color:var(--muted);font-weight:400;margin-top:2px}
+.eq{display:flex;align-items:center;gap:var(--s4);text-align:left}
+/* monograma: a inicial desenhada no display do tema. Artesanal — emoji não é. */
+.mono-b{flex:none;width:52px;height:52px;border-radius:50%;display:flex;
+align-items:center;justify-content:center;background:var(--bg);
+border:1.5px solid var(--acc);color:var(--acc);
+font-family:"Anton",Georgia,serif;font-size:var(--t-lg);line-height:1}
 .eq b{display:block;font-size:var(--t-base)}
 .eq small{color:var(--muted);font-size:var(--t-sm)}
 
@@ -173,10 +195,10 @@ header .wrap{padding:var(--s8) var(--s5)}
 <nav><div class="wrap"><b>Clube Ministro</b><div class="links"><a href="./" style="color:var(--acc)">Início</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
 <h1>Clube Ministro: O ponto de encontro do homem de negócios.</h1>
-<p class="sub">Garanta seu horário na unidade Centro e cuide da sua imagem com quem entende de estilo.</p>
-<div><span class="chip">📍 Centro</span></div>
-<p style="margin-top:28px"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener">📞 Ligar e agendar</a></p>
-<p class="lead sobre">Mais que uma barbearia, um espaço de alfaiataria, estética e café bistrô. O ambiente ideal para o networking de empresários em Joinville.</p>
+<p class="sub">Garanta seu horário na unidade do Centro e cuide da sua imagem.</p>
+<div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
+<p style="margin-top:28px"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></p>
+<p class="lead sobre">Mais que uma barbearia, um espaço de alfaiataria, estética e gastronomia selecionada. O ambiente ideal para o networking de empresários em Joinville.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -185,15 +207,19 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Experiência completa</b><p>Integramos barbearia, boutique e adega em um só ambiente.</p></div><div class="card m"><b>Networking estratégico</b><p>Um espaço pensado para o encontro e relacionamento entre empresários.</p></div><div class="card m"><b>Localização privilegiada</b><p>Estamos situados no coração do Centro, na Rua Ministro Calógeras.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Experiência completa</b><p>Integramos barbearia, boutique e café bistrô em um único ambiente premium.</p></div><div class="card m"><b>Networking estratégico</b><p>Um espaço de convivência pensado para o relacionamento entre empresários da região.</p></div><div class="card m"><b>Localização central</b><p>Situada estrategicamente na Rua Ministro Calógeras para atender sua rotina no Centro.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <p class="lead">Rua Ministro Calógeras, 896 - Centro, Joinville - SC</p>
-<iframe loading="lazy" src="https://maps.google.com/maps?q=-26.3075518,-48.8488477&z=18&t=k&output=embed" title="Mapa — Clube Ministro"></iframe>
+<div class="ondecx">
+<div class="onde-txt"><b>Clube Ministro</b><span>Rua Ministro Calógeras, 896 - Centro, Joinville - SC</span>
+</div>
+<a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=-26.3075518%2C-48.8488477" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><path d="M9.6 10.6l4.8-2.2-2.2 4.8-.9-1.7z" fill="currentColor" stroke="none"/></svg> Traçar rota</a>
+</div>
 </div></section>
 <footer><div class="wrap">
 <b style="color:var(--txt)">Clube Ministro</b><br>Rua Ministro Calógeras, 896 - Centro, Joinville - SC · (47) 3467-4895<br>
 
 <p class="mini" style="margin-top:14px">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
 </div></footer>
-<div class="bar"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener">📞 Ligar e agendar</a></div>
+<div class="bar"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></div>
 </body></html>
