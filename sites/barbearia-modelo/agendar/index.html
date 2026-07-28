@@ -1,7 +1,7 @@
 <!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Agendar — </title>
-<meta name="description" content="Marque seu horário na  em 3 toques. Sem baixar app, sem criar conta.">
+<title>Agendar — Barbearia Estúdio 47</title>
+<meta name="description" content="Marque seu horário na Barbearia Estúdio 47 em 3 toques. Sem baixar app, sem criar conta.">
 <style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{background:#0b0b0c;color:#f2f2f2;font:400 17px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
  padding:0 0 40px;min-height:100vh}
@@ -52,7 +52,7 @@ input:focus{outline:none;border-color:#d4af37}
 .aviso{font-size:13px;color:#8a8a8e;text-align:center;margin-top:14px}
 .carr{text-align:center;color:#8a8a8e;padding:22px;font-size:15px}
 .esc{display:none}</style></head><body>
-<div class="top"><h1></h1><p>Marque em 3 toques — sem baixar nada</p></div>
+<div class="top"><h1>Barbearia Estúdio 47</h1><p>Marque em 3 toques — sem baixar nada</p></div>
 <div class="w">
   <div id="erro" class="msg" style="display:none"></div>
   <p id="carr" class="carr">carregando a agenda…</p>
@@ -73,14 +73,14 @@ input:focus{outline:none;border-color:#d4af37}
     <div class="tick">✅</div><h2>Horário marcado!</h2>
     <div class="res" id="resumo"></div>
     <div class="pixbox" id="pixbox" style="display:none">
-      <p><b>Falta só o sinal de R$ 20.00.</b> Pague o Pix abaixo pra confirmar — o valor abate no seu atendimento.</p>
+      <p><b>Falta só o sinal de R$ 20.</b> Pague o Pix abaixo pra confirmar — o valor abate no seu atendimento.</p>
       <div class="cod" id="cod"></div>
       <button class="btn" id="copiar" onclick="copiar()">Copiar código Pix</button>
     </div>
     <p class="aviso" id="prazo"></p>
   </div></div>
 </div>
-<script>const PIX="00020126560014br.gov.bcb.pix0134demonstracao@vitrinedigital.com.br520400005303986540520.005802BR5916BARBEARIA MODELO6009JOINVILLE62090505SINAL630423D5";
+<script>const PIX="00020126560014br.gov.bcb.pix0134demonstracao@vitrinedigital.com.br520400005303986540520.005802BR5920BARBEARIA ESTUDIO 476009JOINVILLE62090505SINAL63049DC0";
 const API='https://api.omnisdata.app', SLUG='barbearia-modelo';
 let S={srv:null,prof:null,dia:null,hora:null,dados:null};
 const $=s=>document.querySelector(s), el=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e;};
