@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Clube Ministro — Barbearia em Centro, Joinville</title>
-<meta name="description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade do Centro e mantenha o padrão.">
+<meta name="description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade Centro e eleve seu padrão.">
 
-<meta property="og:title" content="Clube Ministro — Barbearia em Centro, Joinville"><meta property="og:description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade do Centro e mantenha o padrão.">
+<meta property="og:title" content="Clube Ministro — Barbearia em Centro, Joinville"><meta property="og:description" content="Clube Ministro — barbearia em Centro, Joinville. Garanta seu horário na unidade Centro e eleve seu padrão.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@ section{padding:var(--s8) 0}
 /* o delta de fundo entre bg e surface é ~1.1:1 (invisível). A divisão quem
    entrega é a hairline — o olho lê o corte sem precisar de contraste. */
 .alt{background:var(--surface);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
-.pole{height:3px;background:linear-gradient(90deg,transparent,var(--acc) 20%,var(--acc) 80%,transparent);opacity:.7}
+.pole{height:8px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,#efe9dc 14px 24px,var(--blue) 24px 34px,#efe9dc 34px 44px);opacity:.85}
 
 /* ── navegação: todo clicável com 44px de alvo ── */
 nav{position:sticky;top:0;z-index:50;background:rgba(11,10,10,.93);backdrop-filter:blur(10px);
@@ -63,6 +63,7 @@ nav .links a:not(.ctan){padding:0 var(--s3);border:1px solid var(--line2);border
 transition:border-color .18s,color .18s}
 nav .links a:not(.ctan):hover{border-color:var(--acc);color:var(--acc)}
 nav .ctan{background:var(--acc);color:var(--onacc);padding:0 var(--s4);border-radius:8px}
+.marca{text-decoration:none;color:inherit}
 .logo{width:var(--toque);height:var(--toque);border-radius:10px;object-fit:cover}
 .logo.mono{display:flex;align-items:center;justify-content:center;background:var(--acc);
 color:var(--onacc);font-family:"Anton";font-size:var(--t-lg)}
@@ -110,7 +111,15 @@ border-radius:12px}
 /* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
    anatomia idêntica leem como gerador — com um, a página respira. */
 .bleed{max-width:none;padding:0}
+/* a seção full-bleed anula o próprio padding e devolve o respiro POR DENTRO —
+   senão a listra flutua 64px pra dentro em vez de encostar na borda. E a
+   hairline sai: a listra já é o divisor, as duas juntas viram redundância. */
+.sec-bleed{padding:0;border-top:0;border-bottom:0}
+.sec-bleed .bleed{padding:var(--s8) 0}
 .mosaic--bleed,.grid--bleed{padding:0 var(--s2)}
+/* full-bleed sem subir a contagem de colunas vira slideshow em monitor grande */
+@media(min-width:1200px){.mosaic--bleed{column-count:4}}
+@media(min-width:1600px){.mosaic--bleed{column-count:5}}
 .mosaic--bleed img,.grid--bleed img{border-radius:6px}
 #galeria{padding:0 0 var(--s7)}
 #galeria .tit{padding-top:var(--s7)}
@@ -123,7 +132,7 @@ border-radius:12px}
    ainda vira detalhe editorial */
 blockquote{position:relative;background:var(--bg);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;
 padding:var(--s4) var(--s5);margin:0 0 var(--s3);color:var(--txt);font-style:italic;opacity:.92}
-blockquote::before{content:'C';position:absolute;top:-.18em;left:.18em;
+blockquote::before{content:'“';position:absolute;top:-.18em;left:.18em;
 font-family:"Anton",Georgia,serif;font-size:calc(var(--t-2xl) * 1.55);color:var(--acc);
 opacity:.22;line-height:1;pointer-events:none}
 blockquote p{position:relative}
@@ -150,7 +159,13 @@ background:rgba(11,10,10,.95);border-top:1px solid var(--line)}
 .bar .btn{flex:1;text-align:center}
 
 .dur{display:block;font-size:var(--t-xs);color:var(--muted);font-weight:400;margin-top:2px}
-.eq{display:flex;align-items:center;gap:var(--s4);text-align:left}
+/* grid, não flex: com 3 filhos diretos o flex punha monograma, nome e
+   especialidade na MESMA linha. Aqui o disco ocupa as duas linhas à esquerda. */
+.eq{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s4);
+align-items:center;text-align:left}
+.mono-b{grid-row:1/span 2}
+.eq b{grid-column:2;align-self:end}
+.eq small{grid-column:2;align-self:start}
 /* monograma: a inicial desenhada no display do tema. Artesanal — emoji não é. */
 .mono-b{flex:none;width:52px;height:52px;border-radius:50%;display:flex;
 align-items:center;justify-content:center;background:var(--bg);
@@ -164,7 +179,7 @@ font-family:"Anton",Georgia,serif;font-size:var(--t-lg);line-height:1}
 border-left:3px solid var(--gold);border-radius:14px;padding:var(--s4)}
 .provatop .est{color:var(--gold);font-size:var(--t-sm);letter-spacing:.08em}
 .provatop p{margin-top:var(--s2);font-size:var(--t-base);line-height:1.5}
-.provatop .qn{display:block;margin-top:var(--s2);color:var(--muted);font-size:var(--t-sm)}
+/* .qn foi absorvido por <cite>: dois markups pro mesmo dado é dívida */
 .demo{background:var(--red);color:#fff;text-align:center;font-size:var(--t-sm);
 padding:var(--s2);letter-spacing:.02em}
 
@@ -194,11 +209,11 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 <nav><div class="wrap"><b>Clube Ministro</b><div class="links"><a href="./" style="color:var(--acc)">Início</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
-<h1>O ponto de encontro do homem de negócios.</h1>
-<p class="sub">Garanta seu horário na unidade do Centro e mantenha o padrão.</p>
+<h1>Clube Ministro: O ponto de encontro do homem de negócios.</h1>
+<p class="sub">Garanta seu horário na unidade Centro e eleve seu padrão.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Centro</span></div>
-<p style="margin-top:28px"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></p>
-<p class="lead sobre">O Clube Ministro une barbearia de alta precisão a um ambiente de networking exclusivo. Mais que estética, um espaço que integra alfaiataria, adega e bistrô.</p>
+<p style="margin-top:var(--s6)"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></p>
+<p class="lead sobre">Um ambiente exclusivo que une barbearia, alfaiataria e gastronomia em um só lugar. O espaço ideal para cuidar da imagem enquanto articula seus próximos passos.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -207,9 +222,8 @@ header .wrap{padding:var(--s8) var(--s5)}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Experiência completa</b><p>Integramos serviços de barbearia, estética e alfaiataria em um só local.</p></div><div class="card m"><b>Ambiente de networking</b><p>Um espaço planejado para o convívio e a conexão entre empresários.</p></div><div class="card m"><b>Conveniência premium</b><p>Desfrute de nosso café bistrô e adega enquanto cuida do seu estilo.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Experiência completa</b><p>Integramos serviços de barbearia, estética e boutique sob o mesmo teto.</p></div><div class="card m"><b>Networking estratégico</b><p>Um ambiente frequentado por empresários que valorizam conexões de qualidade.</p></div><div class="card m"><b>Conveniência refinada</b><p>Desfrute de nosso café bistrô e adega durante seu atendimento no Centro.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
-<p class="lead">Rua Ministro Calógeras, 896 - Centro, Joinville - SC</p>
 <div class="ondecx">
 <div class="onde-txt"><b>Clube Ministro</b><span>Rua Ministro Calógeras, 896 - Centro, Joinville - SC</span>
 </div>
@@ -219,7 +233,7 @@ header .wrap{padding:var(--s8) var(--s5)}
 <footer><div class="wrap">
 <b style="color:var(--txt)">Clube Ministro</b><br>Rua Ministro Calógeras, 896 - Centro, Joinville - SC · (47) 3467-4895<br>
 
-<p class="mini" style="margin-top:14px">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
+<p class="mini" style="margin-top:var(--s4)">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
 </div></footer>
 <div class="bar"><a class="btn" href="tel:4734674895" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></div>
 </body></html>
