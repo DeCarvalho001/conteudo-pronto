@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Barbearia Senem — Barbearia em Costa e Silva, Joinville</title>
-<meta name="description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta o seu horário no Costa e Silva e venha renovar o visual.">
+<meta name="description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Agende seu horário e garanta o corte ideal no Costa e Silva.">
 
-<meta property="og:title" content="Barbearia Senem — Barbearia em Costa e Silva, Joinville"><meta property="og:description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Garanta o seu horário no Costa e Silva e venha renovar o visual.">
+<meta property="og:title" content="Barbearia Senem — Barbearia em Costa e Silva, Joinville"><meta property="og:description" content="Barbearia Senem — barbearia em Costa e Silva, Joinville. Agende seu horário e garanta o corte ideal no Costa e Silva.">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,9 @@ text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:"Anton",Inter,sans-serif;letter-spacing:.015em;
 font-weight:400;
 text-wrap:balance;line-height:1.15}
-h1{font-size:clamp(2.25rem,7vw,4rem);line-height:1.04;letter-spacing:-.015em}
+/* AMPLITUDE: o topo da página precisa ter mais presença que o meio. Display
+   grande pede entrelinha curta — senão vira lista de linhas soltas. */
+h1{font-size:clamp(2.6rem,8.5vw,6.4rem);line-height:.94;letter-spacing:-.03em}
 /* h2 inteiro na cor de acento é assinatura de template. O acento vira um
    filete curto acima do título — detalhe editorial, sem tocar no HTML. */
 h2{font-size:var(--t-2xl);color:var(--txt);margin:0 0 var(--s5)}
@@ -85,8 +87,17 @@ nav .ctan{background:var(--acc);color:var(--onacc);padding:0 var(--s4);border-ra
 .logo.mono{display:flex;align-items:center;justify-content:center;background:var(--acc);
 color:var(--onacc);font-family:"Anton";font-size:var(--t-lg)}
 
-header{min-height:78vh;display:flex;align-items:center;text-align:center}
-header .wrap{padding:var(--s9) var(--s5)}
+header{min-height:82vh;display:flex;align-items:center;text-align:center}
+header .wrap{padding:var(--s9) var(--s5);max-width:900px}
+/* kicker: contexto antes do nome. Usa o rótulo do tema, que existia no
+   dicionário e nunca tinha aparecido em lugar nenhum. */
+.kick{display:block;font:700 var(--t-xs)/1 Inter,system-ui,sans-serif;
+letter-spacing:.34em;text-transform:uppercase;color:var(--acc);
+margin-bottom:var(--s5);opacity:.9}
+/* a assinatura do nicho embaixo do título, não só no rodapé */
+.assin{width:96px;height:5px;margin:var(--s5) auto 0;border-radius:3px;
+background:repeating-linear-gradient(-45deg,var(--red) 0 9px,#efe9dc 9px 16px,
+var(--blue) 16px 23px,#efe9dc 23px 30px);opacity:.9}
 .sub{color:var(--muted);font-size:var(--t-md);max-width:52ch;margin:var(--s4) auto var(--s6)}
 .ic{display:inline-block;vertical-align:-.18em;flex:none}
 .chip{display:inline-flex;align-items:center;gap:var(--s2);background:var(--chip);border:1px solid var(--line2);
@@ -121,6 +132,14 @@ margin-top:var(--s3);border-color:var(--acc)}
 .plano{text-align:center}
 .plano .pp{font-size:var(--t-xl);color:var(--acc);font-weight:800;margin:var(--s2) 0 var(--s4)}
 .motivos{margin-top:var(--s6)}.m b{color:var(--acc)}
+/* SEGUNDO quebra-ritmo: os barbeiros saem do container e viram trilho com
+   encaixe. Em barbearia o rosto é o produto — merece a faixa inteira. */
+.faixa .wrap{margin-bottom:var(--s5)}
+.trilho{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x proximity;
+padding:var(--s1) max(var(--s5),calc((100vw - 1020px) / 2)) var(--s5);
+scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.trilho::-webkit-scrollbar{display:none}
+.trilho .card{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
 /* QUEBRA-RITMO: a seção de motivos vira duas colunas e o título fica grudado
    enquanto os cards rolam. `:has()` evita mexer no HTML. */
 @media(min-width:900px){
@@ -279,11 +298,13 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 <nav><div class="wrap"><b>Barbearia Senem</b><div class="links"><a href="./" style="color:var(--acc)">Início</a></div></div></nav>
 <header style="background:radial-gradient(120% 90% at 50% 0%,var(--surface),var(--bg))"><div class="wrap">
-<h1>Barbearia Senem: O seu estilo, a sua marca.</h1>
-<p class="sub">Garanta o seu horário no Costa e Silva e venha renovar o visual.</p>
+<span class="kick">Noir Urbano</span>
+<h1>Barbearia Senem: O seu estilo, a nossa precisão.</h1>
+<div class="assin"></div>
+<p class="sub">Agende seu horário e garanta o corte ideal no Costa e Silva.</p>
 <div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg> Segunda a Sexta 09h às 18h; Sábado 09h às 13h</span><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Costa e Silva</span></div>
 <p style="margin-top:var(--s6)"><a class="btn" href="tel:4731219662" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.9v2.6a1.7 1.7 0 0 1-1.9 1.7 17 17 0 0 1-7.4-2.6 16.6 16.6 0 0 1-5.1-5.1A17 17 0 0 1 4 6.1 1.7 1.7 0 0 1 5.7 4.2h2.6a1.7 1.7 0 0 1 1.7 1.5c.1.9.3 1.7.6 2.5a1.7 1.7 0 0 1-.4 1.8l-1.1 1.1a13.6 13.6 0 0 0 5.1 5.1l1.1-1.1a1.7 1.7 0 0 1 1.8-.4c.8.3 1.6.5 2.5.6a1.7 1.7 0 0 1 1.4 1.6z"/></svg> Ligar e agendar</a></p>
-<p class="lead sobre">Localizada no bairro Costa e Silva, em Joinville, nossa barbearia foca na precisão do corte e no cuidado com a barba. Um espaço dedicado ao atendimento de qualidade para quem valoriza o próprio estilo.</p>
+<p class="lead sobre">Localizada no bairro Costa e Silva, a Barbearia Senem oferece um ambiente dedicado ao cuidado masculino. Foco em técnica e atendimento especializado para quem valoriza a presença.</p>
 </div></header>
 <div class="pole"></div>
 
@@ -292,7 +313,7 @@ nav .marca b{font-size:var(--t-md);transition:font-size .3s ease}
 
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Atendimento especializado</b><p>Profissionais focados em técnicas de corte e barbearia para o seu perfil.</p></div><div class="card m"><b>Localização estratégica</b><p>Estamos instalados na Rua Antônio Geraldo Pereira, no coração do bairro Costa e Silva.</p></div><div class="card m"><b>Ambiente autêntico</b><p>Um espaço pensado para oferecer conforto e agilidade no seu dia a dia em Joinville.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Atendimento local</b><p>Estamos estrategicamente situados na Rua Antônio Geraldo Pereira, no bairro Costa e Silva.</p></div><div class="card m"><b>Técnica apurada</b><p>Focamos na precisão do corte e no alinhamento do visual para cada cliente.</p></div><div class="card m"><b>Ambiente focado</b><p>Um espaço em Joinville pensado para quem busca qualidade e seriedade no serviço de barbearia.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Barbearia Senem</b><span>R. Antônio Geraldo Pereira, 92 - Costa e Silva, Joinville - SC</span>
