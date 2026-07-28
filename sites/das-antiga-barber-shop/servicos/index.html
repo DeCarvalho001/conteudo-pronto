@@ -43,7 +43,9 @@ text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
 h1,h2,h3{font-family:"Bebas Neue",Inter,sans-serif;letter-spacing:.03em;
 font-weight:400;
 text-wrap:balance;line-height:1.15}
-h1{font-size:clamp(2.25rem,7vw,4rem);line-height:1.04;letter-spacing:-.015em}
+/* AMPLITUDE: o topo da página precisa ter mais presença que o meio. Display
+   grande pede entrelinha curta — senão vira lista de linhas soltas. */
+h1{font-size:clamp(2.6rem,8.5vw,6.4rem);line-height:.94;letter-spacing:-.03em}
 /* h2 inteiro na cor de acento é assinatura de template. O acento vira um
    filete curto acima do título — detalhe editorial, sem tocar no HTML. */
 h2{font-size:var(--t-2xl);color:var(--txt);margin:0 0 var(--s5)}
@@ -79,8 +81,17 @@ nav .ctan{background:var(--acc);color:var(--onacc);padding:0 var(--s4);border-ra
 .logo.mono{display:flex;align-items:center;justify-content:center;background:var(--acc);
 color:var(--onacc);font-family:"Bebas Neue";font-size:var(--t-lg)}
 
-header{min-height:78vh;display:flex;align-items:center;text-align:center}
-header .wrap{padding:var(--s9) var(--s5)}
+header{min-height:82vh;display:flex;align-items:center;text-align:center}
+header .wrap{padding:var(--s9) var(--s5);max-width:900px}
+/* kicker: contexto antes do nome. Usa o rótulo do tema, que existia no
+   dicionário e nunca tinha aparecido em lugar nenhum. */
+.kick{display:block;font:700 var(--t-xs)/1 Inter,system-ui,sans-serif;
+letter-spacing:.34em;text-transform:uppercase;color:var(--acc);
+margin-bottom:var(--s5);opacity:.9}
+/* a assinatura do nicho embaixo do título, não só no rodapé */
+.assin{width:96px;height:5px;margin:var(--s5) auto 0;border-radius:3px;
+background:repeating-linear-gradient(-45deg,var(--red) 0 9px,#efe9dc 9px 16px,
+var(--blue) 16px 23px,#efe9dc 23px 30px);opacity:.9}
 .sub{color:var(--muted);font-size:var(--t-md);max-width:52ch;margin:var(--s4) auto var(--s6)}
 .ic{display:inline-block;vertical-align:-.18em;flex:none}
 .chip{display:inline-flex;align-items:center;gap:var(--s2);background:var(--chip);border:1px solid var(--line2);
@@ -115,6 +126,14 @@ margin-top:var(--s3);border-color:var(--acc)}
 .plano{text-align:center}
 .plano .pp{font-size:var(--t-xl);color:var(--acc);font-weight:800;margin:var(--s2) 0 var(--s4)}
 .motivos{margin-top:var(--s6)}.m b{color:var(--acc)}
+/* SEGUNDO quebra-ritmo: os barbeiros saem do container e viram trilho com
+   encaixe. Em barbearia o rosto é o produto — merece a faixa inteira. */
+.faixa .wrap{margin-bottom:var(--s5)}
+.trilho{display:flex;gap:var(--s4);overflow-x:auto;scroll-snap-type:x proximity;
+padding:var(--s1) max(var(--s5),calc((100vw - 1020px) / 2)) var(--s5);
+scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.trilho::-webkit-scrollbar{display:none}
+.trilho .card{flex:0 0 clamp(230px,74vw,300px);scroll-snap-align:start}
 /* QUEBRA-RITMO: a seção de motivos vira duas colunas e o título fica grudado
    enquanto os cards rolam. `:has()` evita mexer no HTML. */
 @media(min-width:900px){
