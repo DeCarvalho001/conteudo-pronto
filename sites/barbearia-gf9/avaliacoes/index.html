@@ -222,8 +222,10 @@ header .wrap{padding:var(--s8) var(--s5)}
 /* MOVIMENTO COM INTENÇÃO: cada bloco entra um pouco depois do anterior.
    É o que as pessoas leem como "caro". O JS só marca .rev-on; sem JS, tudo
    aparece normalmente (a classe .rev nasce do próprio script). */
-.rev{opacity:0;transform:translateY(20px)}
-.rev-on{opacity:1;transform:none;
+/* só esconde quando o JS PROVOU que o navegador está pintando (ver JS_MOV).
+   Sem essa prova, .anim nunca entra e nada fica invisível. */
+.anim .rev{opacity:0;transform:translateY(20px)}
+.anim .rev-on{opacity:1;transform:none;
 transition:opacity .75s cubic-bezier(.22,.72,.28,1),transform .75s cubic-bezier(.22,.72,.28,1)}
 
 /* estados: sublinhado que cresce, card que levanta */
@@ -237,7 +239,7 @@ nav{transition:padding .3s ease}
 nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
-.rev{opacity:1;transform:none}}
+.anim .rev{opacity:1;transform:none}}
 
 /* tokens do sistema — este bloco tinha tamanhos e espaços próprios e por
    isso as subpáginas serviam 10 tamanhos de fonte contra 8 da home */
