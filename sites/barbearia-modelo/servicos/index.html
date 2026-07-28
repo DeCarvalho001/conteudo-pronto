@@ -7,6 +7,9 @@
 :root{--bg:#0c0b09;--surface:#171410;--txt:#efe9dc;--acc:#c9a227;
 --onacc:#141109;--muted:#a89f8d;--line:#262019;--line2:#3a332a;
 --red:#8c2f2f;--blue:#27415e;--rad:14px;
+/* usadas no CSS e que faltavam no :root — sem elas a barra do depoimento
+   some, as estrelas perdem o dourado e os chips ficam sem fundo */
+--chip:rgba(23,20,16,.85);--gold:#c9a227;
 /* ── escala tipográfica: 7 degraus, razão ~1.25. NENHUM tamanho fora daqui ── */
 --t-xs:.75rem;--t-sm:.875rem;--t-base:1rem;--t-md:1.125rem;--t-lg:1.375rem;
 --t-xl:1.75rem;--t-2xl:2.25rem;
@@ -30,11 +33,17 @@ h1,h2,h3{font-family:"Bebas Neue",Inter,sans-serif;letter-spacing:.03em;
 font-weight:400;
 text-wrap:balance;line-height:1.15}
 h1{font-size:clamp(2.25rem,7vw,4rem);line-height:1.04;letter-spacing:-.015em}
-h2{font-size:var(--t-2xl);color:var(--acc);margin:0 0 var(--s5)}
+/* h2 inteiro na cor de acento é assinatura de template. O acento vira um
+   filete curto acima do título — detalhe editorial, sem tocar no HTML. */
+h2{font-size:var(--t-2xl);color:var(--txt);margin:0 0 var(--s5)}
+h2::before{content:'';display:block;width:38px;height:2px;background:var(--acc);margin-bottom:var(--s3);border-radius:2px}
 h3{font-size:var(--t-lg)}
 p{text-wrap:pretty}
 
-section{padding:var(--s8) 0}.alt{background:var(--surface)}
+section{padding:var(--s8) 0}
+/* o delta de fundo entre bg e surface é ~1.1:1 (invisível). A divisão quem
+   entrega é a hairline — o olho lê o corte sem precisar de contraste. */
+.alt{background:var(--surface);border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}
 .pole{height:8px;background:repeating-linear-gradient(-45deg,var(--red) 0 14px,#efe9dc 14px 24px,var(--blue) 24px 34px,#efe9dc 34px 44px);opacity:.85}
 
 /* ── navegação: todo clicável com 44px de alvo ── */
@@ -95,8 +104,15 @@ border-radius:12px}
 .mosaic img{width:100%;margin:0 0 var(--s3);border-radius:12px;display:block}
 @media(max-width:759px){.mosaic{column-count:2}}
 
-blockquote{background:var(--bg);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;
+/* a aspa é ORNAMENTO, não caractere no texto — assim nunca duplica e
+   ainda vira detalhe editorial */
+blockquote{position:relative;background:var(--bg);border-left:3px solid var(--acc);border-radius:0 12px 12px 0;
 padding:var(--s4) var(--s5);margin:0 0 var(--s3);color:var(--txt);font-style:italic;opacity:.92}
+blockquote::before{content:'C';position:absolute;top:-.18em;left:.18em;
+font-family:"Bebas Neue",Georgia,serif;font-size:calc(var(--t-2xl) * 1.55);color:var(--acc);
+opacity:.22;line-height:1;pointer-events:none}
+blockquote p{position:relative}
+cite{display:block;margin-top:var(--s2);font-style:normal;color:var(--muted);font-size:var(--t-sm)}
 .lead{color:var(--muted);max-width:62ch}.sobre{margin:var(--s4) auto 0}
 .mini{color:var(--muted);font-size:var(--t-sm);opacity:.85}.mini a{color:var(--acc)}
 iframe{width:100%;height:380px;border:0;border-radius:var(--rad)}
@@ -147,9 +163,13 @@ header .wrap{padding:var(--s8) var(--s5)}
 @media(min-width:760px){.bar{display:none}footer{padding-bottom:var(--s7)}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 
-.pg{padding:40px 0 20px}.pg h1{font-size:clamp(2.2rem,6vw,3.4rem);margin-bottom:6px}
-.pg .sub{color:var(--muted);margin-bottom:20px}
-.voltar{display:inline-block;margin:10px 0 0;color:var(--muted);text-decoration:none;font-size:.95rem}
+/* tokens do sistema — este bloco tinha tamanhos e espaços próprios e por
+   isso as subpáginas serviam 10 tamanhos de fonte contra 8 da home */
+.pg{padding:var(--s7) 0 var(--s5)}
+.pg h1{margin-bottom:var(--s2)}
+.pg .sub{color:var(--muted);margin-bottom:var(--s5)}
+.pg .sub:empty{display:none}
+.voltar{display:inline-flex;align-items:center;min-height:var(--toque);margin:var(--s3) 0 0;color:var(--muted);text-decoration:none;font-size:var(--t-sm)}
 .voltar:hover{color:var(--acc)}
 </style></head><body>
 <nav><div class="wrap"><b>Barbearia Estúdio 47</b><div class="links"><a href="../">Início</a><a href="../servicos/" style="color:var(--acc)">Serviços</a><a href="../galeria/">Galeria</a><a href="../avaliacoes/">Avaliações</a><a class="ctan" href="#" target="_blank" rel="noopener">Agendar</a></div></div></nav>
