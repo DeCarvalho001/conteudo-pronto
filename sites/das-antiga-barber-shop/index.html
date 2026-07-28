@@ -1,9 +1,9 @@
 <!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville</title>
-<meta name="description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo link do Booksy.">
+<meta name="description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo link no Booksy.">
 
-<meta property="og:title" content="Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville"><meta property="og:description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo link do Booksy.">
+<meta property="og:title" content="Das Antiga Barber Shop — Barbearia em Aventureiro, Joinville"><meta property="og:description" content="Das Antiga Barber Shop — barbearia em Aventureiro, Joinville. Garanta seu horário agora pelo link no Booksy.">
 <meta property="og:image" content="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg">
 <link rel="preload" as="image" href="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +29,10 @@
 
 *{margin:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* GRÃO: textura de filme por cima de tudo. Tira o "chapado" de tela; é
+   assinatura de estúdio. 3,5% de opacidade — não se vê, se sente. */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:3;opacity:.038;
+mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E")}
 body{background:var(--bg);color:var(--txt);
 font:var(--t-base)/1.65 Inter,system-ui,-apple-system,sans-serif;
 text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased}
@@ -45,7 +49,13 @@ h1{font-size:clamp(2.25rem,7vw,4rem);line-height:1.04;letter-spacing:-.015em}
 /* h2 inteiro na cor de acento é assinatura de template. O acento vira um
    filete curto acima do título — detalhe editorial, sem tocar no HTML. */
 h2{font-size:var(--t-2xl);color:var(--txt);margin:0 0 var(--s5)}
-h2::before{content:'';display:block;width:38px;height:2px;background:var(--acc);margin-bottom:var(--s3);border-radius:2px}
+/* NUMERAÇÃO EDITORIAL por contador de CSS — a página ganha cadência de revista
+   sem tocar em uma linha de HTML. O filete vira o traço depois do número. */
+body{counter-reset:sec}
+section{counter-increment:sec}
+h2::before{content:counter(sec,decimal-leading-zero) ' —';display:block;
+font:700 var(--t-xs)/1 Inter,system-ui,sans-serif;letter-spacing:.24em;
+color:var(--acc);margin-bottom:var(--s3)}
 h3{font-size:var(--t-lg)}
 p{text-wrap:pretty}
 
@@ -111,6 +121,13 @@ margin-top:var(--s3);border-color:var(--acc)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--s3)}
 .grid img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;object-position:center 30%;
 border-radius:12px}
+/* GRADE DE FOTO: seis fotos de origens diferentes viram uma sessão dirigida.
+   Contraste puxado de leve, saturação contida — é o que separa "fotos que o
+   dono mandou" de "ensaio". */
+.grid img,.mosaic img,.hsplit .col-img img{filter:contrast(1.06) saturate(.9) brightness(.98);
+transition:filter .5s ease,transform .5s ease}
+.grid img:hover,.mosaic img:hover,.hsplit .col-img img:hover{filter:contrast(1.02) saturate(1);
+transform:scale(1.012)}
 /* a ÚNICA seção que quebra o container. Sem um quebra-ritmo, seis seções de
    anatomia idêntica leem como gerador — com um, a página respira. */
 .bleed{max-width:none;padding:0}
@@ -191,6 +208,7 @@ padding:var(--s2);letter-spacing:.02em}
 .hsplit .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:var(--s6);
 align-items:center;text-align:left;padding:var(--s8) var(--s5)}
 .hsplit h1{margin-bottom:var(--s1)}.hsplit .sub{margin:var(--s3) 0 var(--s5) 0}
+.hsplit .col-txt{min-width:0}
 .hsplit .col-img{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
 .hsplit .col-img img{width:100%;height:100%;min-height:150px;max-height:260px;
 object-fit:cover;object-position:center 30%;border-radius:var(--rad)}
@@ -207,14 +225,32 @@ header .wrap{padding:var(--s8) var(--s5)}
 .hsplit .col-img{order:-1}}
 
 @media(min-width:760px){.bar{display:none}footer{padding-bottom:var(--s7)}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+/* MOVIMENTO COM INTENÇÃO: cada bloco entra um pouco depois do anterior.
+   É o que as pessoas leem como "caro". O JS só marca .rev-on; sem JS, tudo
+   aparece normalmente (a classe .rev nasce do próprio script). */
+.rev{opacity:0;transform:translateY(20px)}
+.rev-on{opacity:1;transform:none;
+transition:opacity .75s cubic-bezier(.22,.72,.28,1),transform .75s cubic-bezier(.22,.72,.28,1)}
+
+/* estados: sublinhado que cresce, card que levanta */
+footer a,.mini a{position:relative}
+footer a::after,.mini a::after{content:'';position:absolute;left:0;right:100%;bottom:-2px;
+height:1px;background:currentColor;transition:right .3s ease}
+footer a:hover::after,.mini a:hover::after{right:0}
+.card{transition:transform .35s cubic-bezier(.22,.72,.28,1),border-color .35s ease}
+.card:hover{transform:translateY(-3px);border-color:var(--line2)}
+nav{transition:padding .3s ease}
+nav.slim .wrap{padding-top:var(--s1);padding-bottom:var(--s1)}
+
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}
+.rev{opacity:1;transform:none}}
 </style></head><body>
 
 <nav><div class="wrap"><b>Das Antiga Barber Shop</b><div class="links"><a href="./" style="color:var(--acc)">Início</a><a href="./servicos/">Serviços</a><a href="./galeria/">Galeria</a><a class="ctan" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener">Agendar</a></div></div></nav>
 <header class="hsplit"><div class="wrap">
-<div class="col-txt"><h1>Das Antiga: o corte que respeita a sua identidade.</h1><p class="sub">Garanta seu horário agora pelo link do Booksy.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Aventureiro</span></div>
+<div class="col-txt"><h1>Das Antiga: a tradição que mantém seu estilo.</h1><p class="sub">Garanta seu horário agora pelo link no Booksy.</p><div><span class="chip"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg> Aventureiro</span></div>
 <p style="margin-top:var(--s5)"><a class="btn" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a><a class="btn ghost" href="#servicos" style="margin-left:var(--s3)">Ver preços</a></p>
-<p class="lead sobre">Tradição raiz no coração do Aventureiro, onde a precisão da navalha encontra o atendimento de confiança. Um espaço pensado para quem valoriza o estilo clássico e a cultura da barbearia de verdade.</p></div>
+<p class="lead sobre">Resgatamos a essência da barbearia raiz no coração do Aventureiro. Um espaço dedicado ao corte preciso e ao atendimento de confiança que você já conhece.</p></div>
 <div class="col-img"><img src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/1.jpg" alt="Das Antiga Barber Shop — foto 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/2.jpg" alt="Das Antiga Barber Shop — foto 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/3.jpg" alt="Das Antiga Barber Shop — foto 3"></div>
 </div></header>
 <div class="pole"></div>
@@ -224,7 +260,7 @@ header .wrap{padding:var(--s8) var(--s5)}
 <section id="galeria" class="alt sec-bleed"><div class="pole"></div><div class="wrap bleed"><h2 class="tit">Nosso trabalho</h2><div class="mosaic mosaic--bleed"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/2.jpg" alt="Das Antiga Barber Shop — trabalho 1"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/3.jpg" alt="Das Antiga Barber Shop — trabalho 2"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/4.jpg" alt="Das Antiga Barber Shop — trabalho 3"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/5.jpg" alt="Das Antiga Barber Shop — trabalho 4"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/6.jpg" alt="Das Antiga Barber Shop — trabalho 5"><img loading="lazy" src="https://decarvalho001.github.io/conteudo-pronto/fotos/das-antiga-barber-shop/7.jpg" alt="Das Antiga Barber Shop — trabalho 6"></div></div><div class="pole"></div></section>
 
 
-<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Tradição e Confiança</b><p>Mantemos a essência da barbearia raiz com um atendimento focado na sua satisfação.</p></div><div class="card m"><b>Presença Digital</b><p>Acompanhe nosso trabalho diário e o estilo dos nossos cortes através do Instagram @barbeariadasantiga.</p></div><div class="card m"><b>Agendamento Prático</b><p>Gerencie seu tempo e escolha o profissional de sua preferência diretamente pelo app Booksy.</p></div></div></div></section>
+<section class="alt"><div class="wrap"><h2>Por que aqui</h2><div class="planos motivos"><div class="card m"><b>Raiz e tradição</b><p>Mantemos o conceito da barbearia autêntica com foco total na qualidade do seu corte.</p></div><div class="card m"><b>Presença digital</b><p>Acompanhe nossos trabalhos e o dia a dia da barbearia pelo nosso Instagram @barbeariadasantiga.</p></div><div class="card m"><b>Agendamento prático</b><p>Organize seu corte com facilidade utilizando nossa plataforma oficial de agendamento no Booksy.</p></div></div></div></section>
 <section id="onde"><div class="wrap"><h2>Onde estamos</h2>
 <div class="ondecx">
 <div class="onde-txt"><b>Das Antiga Barber Shop</b><span>Rua Tuiuti, 2295 - Aventureiro, Joinville - SC</span>
@@ -236,6 +272,34 @@ header .wrap{padding:var(--s8) var(--s5)}
 <b style="color:var(--txt)">Das Antiga Barber Shop</b><br>Rua Tuiuti, 2295 - Aventureiro, Joinville - SC · (47) 98418-8534<br>
 <a href="https://instagram.com/barbeariadasantiga" target="_blank" rel="noopener"><svg class="ic" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="5.4"/><circle cx="12" cy="12" r="3.7"/><circle cx="17.3" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg> @barbeariadasantiga</a>
 <p class="mini" style="margin-top:var(--s4)">Site por <a href="https://decarvalho001.github.io/conteudo-pronto/vitrine/" target="_blank" rel="noopener">Vitrine Digital</a></p>
-</div> · <a href="/privacidade/">Privacidade</a></footer>
+<p class="mini"><a href="/privacidade/">Privacidade</a></p>
+</div></footer>
 <div class="bar"><a class="btn" href="https://wa.me/5547984188534?text=Ol%C3%A1%21%20Vi%20o%20site%20de%20voc%C3%AAs%20e%20quero%20agendar%20%F0%9F%98%80" target="_blank" rel="noopener"><svg class="ic" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9 9 0 0 1-3.9-.9L3 20.5l1.6-4.6A8.3 8.3 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/></svg> Agendar agora</a></div>
+<script>
+(function(){
+  var lento = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var nav = document.querySelector('nav');
+  if (nav) {
+    addEventListener('scroll', function(){
+      nav.classList.toggle('slim', scrollY > 60);
+    }, {passive:true});
+  }
+  if (lento.matches || !('IntersectionObserver' in window)) return;
+
+  var alvos = [].slice.call(document.querySelectorAll(
+    'section > .wrap > *, .card, blockquote, .grid img, .mosaic img'));
+  alvos.forEach(function(e){ e.classList.add('rev'); });
+
+  var obs = new IntersectionObserver(function(itens){
+    var i = 0;
+    itens.forEach(function(it){
+      if (!it.isIntersecting) return;
+      var atraso = Math.min(i++, 5) * 60;
+      setTimeout(function(){ it.target.classList.add('rev-on'); }, atraso);
+      obs.unobserve(it.target);
+    });
+  }, {rootMargin:'0px 0px -8% 0px', threshold:.06});
+  alvos.forEach(function(e){ obs.observe(e); });
+})();
+</script>
 </body></html>
